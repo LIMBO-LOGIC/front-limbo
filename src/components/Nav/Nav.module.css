@@ -5,6 +5,8 @@
   align-items: center;
   padding: 10px 20px;
   background-color: #f8f9fa;
+  position: relative; /* Garante que o nav seja o container de referência */
+  z-index: 2; /* Garante que o nav esteja acima do menu */
 }
 
 .left {
@@ -108,9 +110,9 @@
     width: 100%;
     height: 0;
     overflow: hidden;
-    flex-direction: row;
-    align-items: flex-start;
+    flex-direction: row; /* Alinha os itens verticalmente em dispositivos móveis */
     transform: translateY(-100%);
+    z-index: 1; /* Garante que o menu se sobreponha ao conteúdo */
   }
 
   .open {
