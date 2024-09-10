@@ -3,12 +3,11 @@
   position: relative;
   width: 100%;
   height: auto;
+  margin-left: 250px;
+  margin-top: 50px;
 }
 
-.leftSection {
-  position: relative;
-}
-
+.leftSection,
 .rightSection {
   position: relative;
 }
@@ -25,7 +24,7 @@
   color: white;
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Espaço entre os elementos */
+  gap: 20px; 
 }
 
 .flag {
@@ -88,6 +87,7 @@ divisor {
     width: 60px;
     height: 32px;
   }
+
   divisor {
     height: 1.5px; /* Diminuindo a altura */
   }
@@ -123,6 +123,11 @@ divisor {
 }
 
 @media (max-width: 480px) {
+  .textOverlay {
+    top: 5%;
+    gap: 5px; /* Menor espaço entre os textos */
+  }
+
   .location {
     font-size: 20px;
   }
@@ -141,6 +146,6 @@ divisor {
   }
 
   divisor {
-    display: none;
+    display: none; /* Oculta o divisor em telas muito pequenas */
   }
 }
