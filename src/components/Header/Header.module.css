@@ -1,0 +1,146 @@
+.headerStyled {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.leftSection {
+  position: relative;
+}
+
+.rightSection {
+  position: relative;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
+
+.textOverlay {
+  position: absolute;
+  top: 20%;
+  left: 20px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Espaço entre os elementos */
+}
+
+.flag {
+  width: 70px;
+  height: 37px;
+}
+
+.location {
+  position: absolute;
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+  bottom: 10px;
+  left: 20px;
+  color: white;
+}
+
+.raceText {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.round {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+}
+
+divisor {
+  width: 100%;
+  max-width: 1155px;
+  height: 2px;
+  position: absolute;
+  top: 150.11px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 1;
+  background: linear-gradient(90deg, #00ffff 0%, #0000ff 50%, #00ffff 100%);
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+  .location {
+    font-size: 28px; /* Diminui o tamanho da fonte em telas menores */
+  }
+
+  .round {
+    font-size: 20px;
+  }
+
+  .raceText {
+    font-size: 20px;
+  }
+
+  .flag {
+    width: 60px;
+    height: 32px;
+  }
+  divisor {
+    height: 1.5px; /* Diminuindo a altura */
+  }
+}
+
+@media (max-width: 768px) {
+  .textOverlay {
+    top: 10%;
+    gap: 10px; /* Menor espaço entre os textos */
+  }
+
+  .location {
+    font-size: 24px;
+  }
+
+  .round {
+    font-size: 18px;
+  }
+
+  .raceText {
+    font-size: 18px;
+  }
+
+  .flag {
+    width: 50px;
+    height: 28px;
+  }
+
+  divisor {
+    height: 1px; /* Diminuindo ainda mais a altura */
+    opacity: 0.5; /* Reduzindo a opacidade para dar mais leveza */
+  }
+}
+
+@media (max-width: 480px) {
+  .location {
+    font-size: 20px;
+  }
+
+  .round {
+    font-size: 16px;
+  }
+
+  .raceText {
+    font-size: 16px;
+  }
+
+  .flag {
+    width: 40px;
+    height: 22px;
+  }
+
+  divisor {
+    display: none;
+  }
+}
