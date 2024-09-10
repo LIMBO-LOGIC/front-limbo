@@ -4,7 +4,7 @@ import formulaEImage from '../../../public/assets/logo-formulaE.png';
 import userProfilePic from '../../../public/assets/user-profile.png';
 import usaFlag from '../../../public/assets/usa-flag.png';
 import styles from './Nav.module.css';
-import { GiHamburgerMenu } from 'react-icons/gi'; // Ícone de hambúrguer
+import { GiHamburgerMenu } from 'react-icons/gi'; 
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +15,6 @@ export default function Nav() {
 
   return (
     <nav className={styles.navbar}>
-      {/* Logo e menu hamburguer para dispositivos móveis */}
       <div className={styles.left}>
         <img src={formulaEImage} alt='logo formula e' className={styles.logo} />
         <button className={styles.hamburger} onClick={toggleMenu}>
