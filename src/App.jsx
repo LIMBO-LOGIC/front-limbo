@@ -1,15 +1,8 @@
-import Header from "./components/Header";
-import Menu from "./components/Menu";
-import Nav from "./components/Nav";
+import {RouterProvider} from "react-router-dom";
+import router from "./routes/router";
 
 function App() {
-  return (
-    <>
-      <Nav />
-      <Menu />
-      <Header />
-    </>
-  );
+  return <RouterProvider router={ router}/> 
 }
 
 export default App;
