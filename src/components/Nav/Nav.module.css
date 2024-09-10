@@ -1,0 +1,127 @@
+/* Estilos gerais do nav */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 20px;
+}
+
+.hamburger {
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  display: none; /* Só exibido em dispositivos móveis */
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.searchWrapper {
+  position: relative;
+  margin-right: 20px;
+}
+
+.searchInput {
+  padding: 8px 32px 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #666;
+}
+
+.languageSelector {
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+}
+
+.flagIcon {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+}
+
+.userImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.userName {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.userPoints {
+  font-size: 12px;
+  color: #666;
+}
+
+/* CSS responsivo */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .right {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #f8f9fa;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    flex-direction: row;
+    align-items: flex-start;
+    transform: translateY(-100%);
+  }
+
+  .open {
+    height: auto;
+    transform: translateY(0);
+    padding: 10px 20px;
+  }
+
+  .userProfile,
+  .languageSelector,
+  .searchWrapper {
+    margin-bottom: 10px;
+  }
+}
