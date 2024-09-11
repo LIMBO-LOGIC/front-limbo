@@ -1,0 +1,89 @@
+.home {
+    padding: 40px 36px;
+}
+
+.nextRace {
+    display: flex;
+    width: 100%;
+    height: 212px;
+}
+
+.dataRace {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 18px;
+    width: 100%;
+    background: url(../../assets/circuitSP.png);
+    background-position: center;
+    color: var(--white-default);
+    font-family: var(--font-montserrat);
+}
+
+.title {
+    font-size: clamp(1.25rem, 0.9667rem + 0.4444vw, 1.5rem);
+    font-weight: 600;
+}
+
+.line {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, #0ff 0%, #00f 50%, #0ff 100%);
+}
+
+.racingCircuit {
+    width: auto;
+    height: 100%;
+}
+
+.locationRace {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.raceText {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-weight: 700;
+}
+
+.countryFlag {
+    height: auto;
+    width: clamp(3.125rem, 1.7083rem + 2.2222vw, 4.375rem);
+}
+
+.location {
+    font-size: clamp(1.5rem, 0.65rem + 1.3333vw, 2.25rem);
+}
+
+.round {
+    font-size: clamp(1rem, 0.4333rem + 0.8889vw, 1.5rem);
+}
+
+@media (max-width: 1020px) {
+    .nextRace {
+        height: 140px;
+    }
+}
+
+@media (max-width: 860px) {
+    .nextRace {
+        display: grid;
+        grid-auto-flow: dense;
+    }
+
+    .racingCircuit {
+        order: 2;
+        width: 100%;
+        height: auto;
+    }
+
+    .dataRace {
+        order: 1;
+        gap: 80px;
+    }
+}
+

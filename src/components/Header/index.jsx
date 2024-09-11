@@ -1,25 +1,35 @@
-import styles from "./Header.module.css";
-import leftImg from "../../assets/header_left.png";
-import rightImg from "../../assets/header_right.png";
-import brasil from "../../assets/bandeira_brasil.png";
+import { CiSearch } from "react-icons/ci";
+import styles from "./header.module.css";
+import userProfilePic from "../../assets/user_profile.png";
+import usaFlag from '../../../public/assets/usa-flag.png';
 
 export default function Header() {
   return (
-    <div className={styles.headerStyled}>
-      <div className={styles.leftSection}>
-        <img src={leftImg} alt="Imagem à esquerda" className={styles.image} />
+    <header>
+      <div className={styles.searchWrapper}>
+        <input
+          type="search"
+          name="search"
+          id="search"
+          placeholder="Search..."
+          className={styles.searchInput}
+        />
+        <CiSearch className={styles.searchIcon} />
       </div>
-      <div className={styles.rightSection}>
-        <img src={rightImg} alt="Imagem à direita" className={styles.image} />
-        <div className={styles.textOverlay}>
-          <p className={styles.raceText}>Próxima Corrida:</p>
-          <img src={brasil} alt="Bandeira do Brasil" className={styles.flag} />
+      <div className={styles.userProfile}>
+        <div className={styles.languageSelector}>
+          <img src={usaFlag} alt="EUA flag" className={styles.flagIcon} />
         </div>
-        <divisor></divisor>
-        <p className={styles.location}>São Paulo</p>
-        <p className={styles.round}>ROUND 1</p>
+        <img
+          src={userProfilePic}
+          alt="User profile"
+          className={styles.userImage}
+        />
+        <div className={styles.userInfo}>
+          <span className={styles.userName}>Cezar</span>
+          <span className={styles.userPoints}>120 pontos</span>
+        </div>
       </div>
-    </div>
+    </header>
   );
 }
-

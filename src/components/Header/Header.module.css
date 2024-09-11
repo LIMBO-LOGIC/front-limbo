@@ -1,151 +1,73 @@
-.headerStyled {
-  display: flex;
-  position: relative;
-  width: 100%;
-  height: auto;
-  margin-left: 250px;
-  margin-top: 50px;
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    padding: 0px 36px;
+    background-color: var(--white-default);
 }
 
-.leftSection,
-.rightSection {
-  position: relative;
+.searchWrapper {
+    position: relative;
+    margin-right: 20px;
 }
 
-.image {
-  width: 100%;
-  height: auto;
-}
-
-.textOverlay {
-  position: absolute;
-  top: 20%;
-  left: 20px;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  gap: 20px; 
-}
-
-.flag {
-  width: 70px;
-  height: 37px;
-}
-
-.location {
-  position: absolute;
-  font-size: 36px;
-  font-weight: 700;
-  margin: 0;
-  bottom: 10px;
-  left: 20px;
-  color: white;
-}
-
-.raceText {
-  font-size: 24px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.round {
-  position: absolute;
-  bottom: 10px;
-  right: 20px;
-  font-size: 24px;
-  font-weight: 700;
-  color: white;
-}
-
-divisor {
-  width: 100%;
-  max-width: 1155px;
-  height: 2px;
-  position: absolute;
-  top: 150.11px;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 1;
-  background: linear-gradient(90deg, #00ffff 0%, #0000ff 50%, #00ffff 100%);
-}
-
-/* Responsividade */
-@media (max-width: 1200px) {
-  .location {
-    font-size: 28px; /* Diminui o tamanho da fonte em telas menores */
-  }
-
-  .round {
-    font-size: 20px;
-  }
-
-  .raceText {
-    font-size: 20px;
-  }
-
-  .flag {
-    width: 60px;
-    height: 32px;
-  }
-
-  divisor {
-    height: 1.5px; /* Diminuindo a altura */
-  }
-}
-
-@media (max-width: 768px) {
-  .textOverlay {
-    top: 10%;
-    gap: 10px; /* Menor espaço entre os textos */
-  }
-
-  .location {
-    font-size: 24px;
-  }
-
-  .round {
-    font-size: 18px;
-  }
-
-  .raceText {
-    font-size: 18px;
-  }
-
-  .flag {
-    width: 50px;
-    height: 28px;
-  }
-
-  divisor {
-    height: 1px; /* Diminuindo ainda mais a altura */
-    opacity: 0.5; /* Reduzindo a opacidade para dar mais leveza */
-  }
-}
-
-@media (max-width: 480px) {
-  .textOverlay {
-    top: 5%;
-    gap: 5px; /* Menor espaço entre os textos */
-  }
-
-  .location {
-    font-size: 20px;
-  }
-
-  .round {
+.searchInput {
+    /* width: 10%; */
+    padding: 8px 32px 8px 12px;
     font-size: 16px;
-  }
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
-  .raceText {
-    font-size: 16px;
-  }
+.searchIcon {
+    position: relative;
+    right: 28px;
+    top: 16px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #666;
+}
 
-  .flag {
+.languageSelector {
     width: 40px;
-    height: 22px;
-  }
+    height: 40px;
+}
 
-  divisor {
-    display: none; /* Oculta o divisor em telas muito pequenas */
-  }
+.flagIcon {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.userProfile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.userImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: var(--font-inter);
+}
+
+.userName {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.userPoints {
+    font-size: 12px;
+    color: #666;
 }

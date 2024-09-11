@@ -1,8 +1,13 @@
-import {RouterProvider} from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import router from "./routes/router";
+import RaceProvider from "./contexts/RaceProvider";
 
 function App() {
-  return <RouterProvider router={ router}/> 
+  return (
+    <RaceProvider>
+      <RouterProvider router={router} />
+    </RaceProvider>
+  );
 }
 
 export default App;

@@ -1,129 +1,78 @@
-/* Estilos gerais do nav */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #f8f9fa;
-  position: relative; /* Garante que o nav seja o container de referência */
-  z-index: 2; /* Garante que o nav esteja acima do menu */
-}
-
-.left {
-  display: flex;
-  align-items: center;
-}
-
-.logo {
-  height: 40px;
-  margin-right: 20px;
-}
-
-.hamburger {
-  background: none;
-  border: none;
-  font-size: 30px;
-  cursor: pointer;
-  display: none; /* Só exibido em dispositivos móveis */
-}
-
-.right {
-  display: flex;
-  align-items: center;
-  transition: transform 0.3s ease;
-}
-
-.searchWrapper {
-  position: relative;
-  margin-right: 20px;
-}
-
-.searchInput {
-  padding: 8px 32px 8px 12px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.searchIcon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 20px;
-  color: #666;
-}
-
-.languageSelector {
-  width: 40px;
-  height: 40px;
-  margin-right: 20px;
-}
-
-.flagIcon {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.userProfile {
-  display: flex;
-  align-items: center;
-}
-
-.userImage {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 10px;
-}
-
-.userInfo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.userName {
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.userPoints {
-  font-size: 12px;
-  color: #666;
-}
-
-/* CSS responsivo */
-@media (max-width: 768px) {
-  .hamburger {
-    display: block;
-  }
-
-  .right {
-    position: absolute;
-    top: 60px;
-    right: 0;
-    background-color: #f8f9fa;
+.boxImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    height: 0;
-    overflow: hidden;
-    flex-direction: row; /* Alinha os itens verticalmente em dispositivos móveis */
-    transform: translateY(-100%);
-    z-index: 1; /* Garante que o menu se sobreponha ao conteúdo */
-  }
+    height: 100px;
+    margin-top: 1px;
+    border-bottom: 1px solid var(--dark-gray);
 
-  .open {
-    height: auto;
-    transform: translateY(0);
-    padding: 10px 20px;
-  }
+    img {
+        width: 100%;
+    }
+}
 
-  .userProfile,
-  .languageSelector,
-  .searchWrapper {
-    margin-bottom: 10px;
-  }
+.navRace {
+    padding: 24px 24px;
+}
+
+.subMenu {
+    font-family: var(--font-inter);
+    margin-top: 12px;
+    color: var(--text-icon-gray);
+
+    .linkItem{
+        display: flex;
+        margin-top: 8px !important;
+        padding: 4px 8px;
+        transition: all 0.5s;
+        border-radius: 4px;
+        flex-grow: 1;
+
+        span{
+            font-size: 1rem;
+            color: var(--text-icon-gray);
+        }
+    }
+
+    .linkItem:hover {
+        background-color: var(--menu-blue) !important;
+        span{
+            color: var(--white-default) !important;
+        }
+    }
+
+    svg {
+        font-size: 24px;
+    }
+}
+
+.boxLink{
+    padding: 100px;
+}
+
+.itemMenu {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 12px;
+    padding: 8px 0px 8px 24px;
+    transition: all 0.5s;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--text-icon-gray);
+    font-family: var(--font-inter);
+
+    p {
+        font-size: 1rem;
+    }
+
+    svg {
+        font-size: 24px;
+    }
+}
+
+.itemMenu:hover {
+    color: var(--white-default);
+    background-color: var(--menu-blue) !important;
 }

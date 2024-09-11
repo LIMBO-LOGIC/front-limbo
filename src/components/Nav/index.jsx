@@ -1,55 +1,112 @@
-import { CiSearch } from 'react-icons/ci';
-import { useState } from 'react';
-import formulaEImage from '../../../public/assets/logo-formulaE.png';
-import userProfilePic from '../../../public/assets/user-profile.png';
-import usaFlag from '../../../public/assets/usa-flag.png';
-import styles from './Nav.module.css';
-import { GiHamburgerMenu } from 'react-icons/gi'; 
+import { Menu, Sidebar, SubMenu } from "react-pro-sidebar";
+import styles from "./nav.module.css";
+import formulaEImage from "/public/assets/logo-formulaE.png";
+import { BiSolidCategory } from "react-icons/bi";
+import { PropTypes } from "prop-types";
+import { FaFlagCheckered, FaGamepad, FaShoppingBag, FaUsers } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { LiaMedalSolid } from "react-icons/lia";
+
+const ItemMenu = ({ children }) => {
+  return (
+    <li className="ps-menuitem-root css-1t8x7v1">
+      <div
+        className="ps-menu-button"
+        data-testid="ps-menu-button-test-id"
+        tabIndex="0"
+      >
+        <span className="ps-menu-label css-12w9als">{children}</span>
+      </div>
+    </li>
+  );
+};
+ItemMenu.propTypes = {
+  children: PropTypes.node,
+};
+
+const ItemSubMenu = ({ children }) => {
+  return (
+    <li className="ps-menuitem-root css-1t8x7v1 pt-sub">
+      <div
+        className="ps-menu-button"
+        data-testid="ps-menu-button-test-id"
+        tabIndex="0"
+      >
+        <span className="ps-menu-label css-12w9als">{children}</span>
+      </div>
+    </li>
+  );
+};
+ItemSubMenu.propTypes = {
+  children: PropTypes.node,
+};
 
 export default function Nav() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
-    <nav className={styles.navbar}>
-      <div className={styles.left}>
-        <img src={formulaEImage} alt='logo formula e' className={styles.logo} />
-        <button className={styles.hamburger} onClick={toggleMenu}>
-          <GiHamburgerMenu />
-        </button>
+    <Sidebar className={styles.sidebar}>
+      <div className={styles.boxImg}>
+        <img src={formulaEImage} alt="logo formula e" />
       </div>
-
-      <div className={`${styles.right} ${isOpen ? styles.open : ''}`}>
-        <div className={styles.searchWrapper}>
-          <input
-            type='search'
-            name='search'
-            id='search'
-            placeholder='Search...'
-            className={styles.searchInput}
-          />
-          <CiSearch className={styles.searchIcon} />
-        </div>
-
-        <div className={styles.languageSelector}>
-          <img src={usaFlag} alt='EUA flag' className={styles.flagIcon} />
-        </div>
-
-        <div className={styles.userProfile}>
-          <img
-            src={userProfilePic}
-            alt='User profile'
-            className={styles.userImage}
-          />
-          <div className={styles.userInfo}>
-            <span className={styles.userName}>Cezar</span>
-            <span className={styles.userPoints}>120 pontos</span>
-          </div>
-        </div>
-      </div>
-    </nav>
+      <Menu className={styles.navRace}>
+        <ItemMenu>
+          <Link to="/" className={styles.itemMenu}>
+            <BiSolidCategory />
+            <p>Home</p>
+          </Link>
+        </ItemMenu>
+        <ItemMenu>
+          <Link to="/" className={styles.itemMenu}>
+            <FaUsers />
+            <p>Equipes</p>
+          </Link>
+        </ItemMenu>
+        <SubMenu
+          defaultOpen
+          label="Corridas"
+          icon={<FaFlagCheckered />}
+          className={styles.subMenu}
+        >
+          <ItemSubMenu>
+            <Link className={styles.linkItem} to="/race">
+              <span>Corridas</span>
+            </Link>
+          </ItemSubMenu>
+          <ItemSubMenu>
+            <Link className={styles.linkItem}>
+              <span>Corrida ao vivo</span>
+            </Link>
+          </ItemSubMenu>
+          <ItemSubMenu>
+            <Link className={styles.linkItem}>
+              <span>Chute da sorte</span>
+            </Link>
+          </ItemSubMenu>
+        </SubMenu>
+        <ItemMenu>
+          <Link to="/" className={styles.itemMenu}>
+            <FaShoppingBag />
+            <p>Marketplace</p>
+          </Link>
+        </ItemMenu>
+        <ItemMenu>
+          <Link to="/" className={styles.itemMenu}>
+            <FaGamepad />
+            <p>Quiz</p>
+          </Link>
+        </ItemMenu>
+        <ItemMenu>
+          <Link to="/" className={styles.itemMenu}>
+            <LiaMedalSolid />
+            <p>Ranking</p>
+          </Link>
+        </ItemMenu>
+        {/* <ItemMenu>
+          <Link to="/" className={styles.itemMenu}>
+            <FaShoppingBag />
+            <p>Fórum</p>
+          </Link>
+        </ItemMenu> */}
+      </Menu>
+    </Sidebar>
   );
 }
