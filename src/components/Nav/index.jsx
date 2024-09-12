@@ -83,7 +83,7 @@ export default function Nav() {
           </ItemSubMenu>
         </SubMenu>
         <ItemMenu>
-          <Link to="/" className={styles.itemMenu}>
+          <Link to="/race/marketplace" className={styles.itemMenu}>
             <FaShoppingBag />
             <p>Marketplace</p>
           </Link>

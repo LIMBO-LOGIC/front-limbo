@@ -1,9 +1,19 @@
-import ContainerTeamRace from "../../components/ContainerTeam";
 import styles from "./races.module.css";
-import RaceCard from './../../components/RaceCard/index';
+import ContainerTeamRace from "../../components/ContainerTeam";
+import RaceCard from "./../../components/RaceCard/index";
 
-export default function Races(){
-    const list = ["carro1", "carro2", "carro3", "carro1", "carro2", "carro3","carro1", "carro2", "carro3"];
+export default function Races() {
+  const list = [
+    "carro1",
+    "carro2",
+    "carro3",
+    "carro1",
+    "carro2",
+    "carro3",
+    "carro1",
+    "carro2",
+    "carro3",
+  ];
 
   return (
     <section className={styles.races}>

@@ -135,7 +135,7 @@ export default function NavMobile() {
               </ItemSubMenu>
             </SubMenu>
             <ItemMenu>
-              <Link to="/" className={styles.itemMenu} onClick={() => setToggled(!toggled)}>
+              <Link to="/race/marketplace" className={styles.itemMenu} onClick={() => setToggled(!toggled)}>
                 <FaShoppingBag />
                 <p>Marketplace</p>
               </Link>
