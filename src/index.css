@@ -37,7 +37,8 @@ a {
 main {
   width: 100%;
   min-height: 100vh;
-  overflow-y: auto;
+  max-height: 100%; /* Limite a altura do filho ao do pai */
+  overflow-y: auto; /* O filho terá scroll */
 }
 
 #root,
@@ -47,7 +48,7 @@ html {
 }
 
 #root{
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 section {
@@ -59,7 +60,7 @@ section {
 .containerRace {
   display: flex;
   min-height: 100%;
-  height: auto;
+  max-height: 100%;
   width: 100vw;
   background-color: #e9ecef;
 }
