@@ -1,7 +1,7 @@
 import { CiSearch } from "react-icons/ci";
 import styles from "./header.module.css";
 import userProfilePic from "../../assets/user_profile.png";
-import usaFlag from '../../../public/assets/usa-flag.png';
+import usaFlag from '/assets/usa-flag.png';
 
 export default function Header() {
   return (

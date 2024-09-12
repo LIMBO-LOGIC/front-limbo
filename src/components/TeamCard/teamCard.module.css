@@ -1,0 +1,103 @@
+.teamCard {
+    min-width: 450px;
+    width: auto;
+    font-family: var(--font-montserrat);
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    background-color: var(--white-default);
+}
+
+.boxImgCar {
+    display: flex;
+    justify-content: center;
+    padding: 19px 15px 10px 15px;
+}
+
+.dataTeam {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    width: 100%;
+}
+
+.dataBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: max-content;
+}
+
+.boxTitle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    svg {
+        font-size: 24px;
+    }
+}
+
+.boxName {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+.boxValue{
+    font-size: 30px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.cardTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-color);
+    padding-left: 14px;
+    padding-top: 14px;
+}
+
+.boxPilots{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+    width: 100%;
+    border-top: 1px solid var(--border-color);
+}
+
+.pilotText{
+    font-weight: 400;
+    font-size: 1rem;
+    padding: 30px 0px;
+    padding-left: 20px;
+    color: var(--text-color);
+
+    strong{
+        font-weight: 700;
+    }
+}
+
+.pilotText:nth-child(1){
+    border-right: 1px solid var(--border-color);
+}
+
+.flags {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 36px;
+    height: auto;
+    position: relative;
+    margin-right: 2px;
+}
+
+.flagOne {
+    font-size: 20px;
+    left: 0;
+    transform: translateX(18px) skew(-40deg);
+}
+
+.flagTwo {
+    font-size: 20px;
+    right: 0;
+    transform: translateX(-18px) rotateY(180deg) skew(-40deg);
+}

@@ -1,6 +1,8 @@
 import styles from "./home.module.css";
 import racingCircuit from "../../assets/racingCircuit.png";
 import flagBrazil from '../../assets/bandeira_brasil.png'
+import SectionTitle from "../../components/SectionTitle";
+import ContainerTeam from "../../components/ContainerTeam";
 
 export default function Home() {
   return (
@@ -26,6 +28,13 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        <div className={styles.teamSection}>
+          <SectionTitle />
+          <ContainerTeam />
+        </div>
+        <div className={styles.raceSection}></div>
       </div>
     </section>
   );

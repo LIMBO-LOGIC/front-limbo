@@ -63,6 +63,12 @@
     font-size: clamp(1rem, 0.4333rem + 0.8889vw, 1.5rem);
 }
 
+.teamSection{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
 @media (max-width: 1020px) {
     .nextRace {
         height: 140px;
@@ -85,5 +91,14 @@
         order: 1;
         gap: 80px;
     }
+
+    .teamSection{
+        margin-top: 350px;
+    }
 }
 
+@media (max-width: 767px) {
+    .teamSection{
+        margin-top: clamp(18.75rem, -3.2544rem + 65.1982vw, 28rem);
+    }
+}

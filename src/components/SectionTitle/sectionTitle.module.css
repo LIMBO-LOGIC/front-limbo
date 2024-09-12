@@ -1,0 +1,32 @@
+.sectionTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 40px;
+    font-family: var(--font-montserrat);
+}
+
+.boxTitle {
+    display: flex;
+    height: 100%;
+    gap: 4px;
+
+    p {
+        font-weight: 700;
+        font-size: 40px;
+        color: var(--text-color);
+    }
+}
+
+.seeAll {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--link-blue);
+}
+
+.boxColor {
+    display: flex;
+    width: 8px;
+    background-color: var(--link-blue);
+}
