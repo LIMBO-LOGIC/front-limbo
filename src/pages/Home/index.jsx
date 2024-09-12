@@ -1,5 +1,5 @@
 import styles from "./home.module.css";
-import racingCircuit from "../../assets/racingCircuit.png";
+import racingCircuit from "../../assets/racing_circuit.png";
 import flagBrazil from "../../assets/bandeira_brasil.png";
 import SectionTitle from "../../components/SectionTitle";
 import TeamCard from "../../components/TeamCard";
@@ -33,11 +33,11 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.teamSection}>
-        <SectionTitle title={"Equipes"} route={"/race"} />
+        <SectionTitle title={"Equipes"} route={"/race/teams"} />
         <ContainerTeamRace listItens={list} element={<TeamCard />}/>
       </div>
       <div className={styles.raceSection}>
-        <SectionTitle title={"Corridas"} route={"/race"} />
+        <SectionTitle title={"Corridas"} route={"/race/races"} />
         <ContainerTeamRace listItens={list} element={<RaceCard />}/>
       </div>
     </section>

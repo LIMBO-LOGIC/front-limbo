@@ -50,11 +50,12 @@
 }
 
 .cardTitle {
-    font-size: 24px;
+    font-size: clamp(1rem, 0.8514rem + 0.5405vw, 1.5rem);
     font-weight: 700;
     color: var(--text-color);
     padding-left: 14px;
     padding-top: 14px;
+    padding-bottom: 6px;
 }
 
 .boxPilots{

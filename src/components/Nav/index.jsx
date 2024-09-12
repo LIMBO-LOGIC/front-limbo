@@ -49,13 +49,13 @@ export default function Nav() {
       </div>
       <Menu className={styles.navRace}>
         <ItemMenu>
-          <Link to="/" className={styles.itemMenu}>
+          <Link to="/race" className={styles.itemMenu}>
             <BiSolidCategory />
             <p>Home</p>
           </Link>
         </ItemMenu>
         <ItemMenu>
-          <Link to="/" className={styles.itemMenu}>
+          <Link to="/race/teams" className={styles.itemMenu}>
             <FaUsers />
             <p>Equipes</p>
           </Link>
@@ -67,7 +67,7 @@ export default function Nav() {
           className={styles.subMenu}
         >
           <ItemSubMenu>
-            <Link className={styles.linkItem} to="/race">
+            <Link className={styles.linkItem} to="/race/races">
               <span>Corridas</span>
             </Link>
           </ItemSubMenu>

@@ -1,5 +1,5 @@
 import styles from './raceCard.module.css'
-import circuit from '../../assets/racingCircuitRetrait.png'
+import circuit from '../../assets/racing_circuit_retrait.png'
 import flagBr from '../../assets/bandeira_brasil.png'
 
 export default function RaceCard(){

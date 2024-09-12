@@ -1,5 +1,6 @@
 .home {
     padding: 40px 36px;
+    padding-bottom: 120px;
 }
 
 .nextRace {
@@ -14,7 +15,7 @@
     justify-content: space-between;
     padding: 10px 18px;
     width: 100%;
-    background: url(../../assets/circuitSP.png);
+    background: url(../../assets/circuit_sp.png);
     background-position: center;
     color: var(--white-default);
     font-family: var(--font-montserrat);
