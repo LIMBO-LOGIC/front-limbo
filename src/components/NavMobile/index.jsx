@@ -11,8 +11,12 @@ import { Link } from "react-router-dom";
 import styles from "./navMobile.module.css";
 import { LiaMedalSolid } from "react-icons/lia";
 import { BiSolidCategory } from "react-icons/bi";
-import  formulaEImage  from '/public/assets/logo-formulaE.png';
+import formulaEImage from "/assets/logo-formulaE.png";
 import { IoMenu } from "react-icons/io5";
+import userProfilePic from "../../assets/user_profile.png";
+import { IoIosLogOut } from "react-icons/io";
+import usaFlag from '/assets/usa-flag.png';
+
 
 const ItemMenu = ({ children }) => {
   return (
@@ -50,6 +54,9 @@ ItemSubMenu.propTypes = {
 
 export default function NavMobile() {
   const [toggled, setToggled] = useState(false);
+  const handleMenuItemClick = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <>
@@ -60,8 +67,38 @@ export default function NavMobile() {
         breakPoint="all"
       >
         <Menu>
-          <ItemMenu></ItemMenu>
-          <div className="navegation" onClick={() => setToggled(!toggled)}>
+          <SubMenu
+            defaultOpen={false}
+            label={
+              <div className={styles.userInfo}>
+                <span className={styles.userName}>Cezar</span>
+                <span className={styles.userPoints}>120 pontos</span>
+              </div>
+            }
+            icon={
+              <img
+                className={styles.userImage}
+                src={userProfilePic}
+                alt="Imagem de usuário"
+              />
+            }
+            className={styles.userProfile}
+            onClick={handleMenuItemClick}
+          >
+            <ItemSubMenu>
+              <Link className={styles.linkItemProfile}>
+              <img src={usaFlag} alt="EUA flag" className={styles.flagIcon} />
+                <p>USA</p>
+              </Link>
+            </ItemSubMenu>
+            <ItemSubMenu>
+              <Link className={styles.linkItemProfile}>
+                <IoIosLogOut />
+                <p>Logout</p>
+              </Link>
+            </ItemSubMenu>
+          </SubMenu>
+          <div className="navegation">
             <ItemMenu>
               <Link to="/" className={styles.itemMenu}>
                 <BiSolidCategory />
@@ -75,10 +112,11 @@ export default function NavMobile() {
               </Link>
             </ItemMenu>
             <SubMenu
-              defaultOpen
+              defaultOpen={false}
               label="Corridas"
               icon={<FaFlagCheckered />}
               className={styles.subMenu}
+              onClick={handleMenuItemClick}
             >
               <ItemSubMenu>
                 <Link className={styles.linkItem} to="/race">
@@ -119,7 +157,10 @@ export default function NavMobile() {
       </Sidebar>
       <nav className={styles.navMobile}>
         <img src={formulaEImage} alt="logo formula e" />
-        <IoMenu />
+        <IoMenu
+          className={styles.iconMenu}
+          onClick={() => setToggled(!toggled)}
+        />
       </nav>
     </>
   );

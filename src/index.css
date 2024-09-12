@@ -9,10 +9,11 @@
   --dark-gray: #d5d5d5;
   --text-icon-gray: #8a92a6;
   --menu-blue: #000cd8;
+  --link-blue: #0001fd;
+  --text-color: #0f233b;
+  --border-color: #adb5bd;
   --white-default: #fff;
-  --link-blue: #0001FD;
-  --text-color: #0F233B;
-  --border-color: #ADB5BD;
+  --black-default: #000;
 
   --font-montserrat: "Montserrat", sans-serif;
   --font-inter: "Inter", sans-serif;
@@ -33,7 +34,7 @@ a {
   text-decoration: inherit;
 }
 
-main{
+main {
   width: 100%;
   min-height: 100vh;
   overflow-y: auto;
@@ -45,7 +46,11 @@ html {
   height: 100%;
 }
 
-section{
+#root{
+  overflow-x: hidden;
+}
+
+section {
   width: 100%;
   height: auto;
   min-height: calc(100vh - 100px);
@@ -53,7 +58,8 @@ section{
 
 .containerRace {
   display: flex;
-  height: 100%;
+  min-height: 100%;
+  height: auto;
   width: 100vw;
   background-color: #e9ecef;
 }
@@ -75,15 +81,13 @@ section{
   }
 }
 
-
-
-
 /* Resetando CSS padrão da sidebar*/
 .css-1wvake5 {
   border: none !important;
   border-color: none !important;
 }
-.css-honxw6, .css-jn69v9 {
+.css-honxw6,
+.css-jn69v9 {
   height: 8px !important;
   width: 8px !important;
 }
@@ -103,9 +107,6 @@ section{
   background-color: var(--white-default) !important;
 }
 
-.pt-sub{
+.pt-sub {
   padding-left: 32px;
 }
-
-
-
