@@ -101,3 +101,21 @@
     right: 0;
     transform: translateX(-18px) rotateY(180deg) skew(-40deg);
 }
+
+@media (max-width: 580px) {
+    .teamCard {
+        min-width: 320px;
+        width: auto;
+    }
+
+    .boxImgCar {
+        display: flex;
+        justify-content: center;
+        padding: 19px 15px 10px 15px;
+
+        img{
+            height: auto;
+            width: 100%;
+        }
+    }
+}

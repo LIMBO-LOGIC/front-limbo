@@ -1,7 +1,0 @@
-.containerTeam {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-    gap: 100px;
-    justify-content: center;
-    width: 100%;
-}

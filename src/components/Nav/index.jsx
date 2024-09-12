@@ -1,6 +1,6 @@
 import { Menu, Sidebar, SubMenu } from "react-pro-sidebar";
 import styles from "./nav.module.css";
-import formulaEImage from "/public/assets/logo-formulaE.png";
+import formulaEImage from "/assets/logo-formulaE.png";
 import { BiSolidCategory } from "react-icons/bi";
 import { PropTypes } from "prop-types";
 import { FaFlagCheckered, FaGamepad, FaShoppingBag, FaUsers } from "react-icons/fa";
@@ -61,7 +61,7 @@ export default function Nav() {
           </Link>
         </ItemMenu>
         <SubMenu
-          defaultOpen
+          defaultOpen={false}
           label="Corridas"
           icon={<FaFlagCheckered />}
           className={styles.subMenu}
