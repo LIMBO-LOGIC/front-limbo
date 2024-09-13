@@ -1,0 +1,42 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-family: var(--font-montserrat);
+    padding-bottom: 100px;
+
+    h1 {
+        padding: 16px 36px;
+        font-size: clamp(2rem, 1.8239rem + 0.5634vw, 2.5rem);
+        font-weight: 600;
+        background: url(../../assets/bg_title.png);
+        color: var(--white-default);
+    }
+
+    input:disabled {
+        background-color: rgba(65, 130, 249, 0.2) !important;
+    }
+}
+
+.boxMain {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 36px;
+}
+
+.rowProfile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.btnProfile {
+    font-size: 16px;
+    font-weight: 400;
+    padding: 8px 32px;
+    border-radius: 8px;
+    color: var(--white-default);
+    background-color: rgba(65, 130, 249, 1);
+}

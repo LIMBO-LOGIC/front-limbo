@@ -4,7 +4,7 @@ import formulaEImage from "/assets/logo-formulaE.png";
 import { BiSolidCategory } from "react-icons/bi";
 import { PropTypes } from "prop-types";
 import { FaFlagCheckered, FaGamepad, FaShoppingBag, FaUsers } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LiaMedalSolid } from "react-icons/lia";
 
 const ItemMenu = ({ children }) => {
@@ -42,10 +42,12 @@ ItemSubMenu.propTypes = {
 };
 
 export default function Nav() {
+  const navigate = useNavigate()
+
   return (
     <Sidebar className={styles.sidebar}>
       <div className={styles.boxImg}>
-        <img src={formulaEImage} alt="logo formula e" />
+        <img src={formulaEImage} onClick={() => navigate('/race')} alt="logo formula e" />
       </div>
       <Menu className={styles.navRace}>
         <ItemMenu>

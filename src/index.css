@@ -19,6 +19,10 @@
   --font-inter: "Inter", sans-serif;
 }
 
+p{
+  margin: 0 !important;
+}
+
 ul {
   list-style: none;
 }
@@ -31,7 +35,7 @@ button {
 
 a {
   color: initial;
-  text-decoration: inherit;
+  text-decoration: inherit !important;
 }
 
 main {

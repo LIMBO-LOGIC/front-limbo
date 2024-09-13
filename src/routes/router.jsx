@@ -6,6 +6,7 @@ import Home from "../pages/Home";
 import Teams from './../pages/Teams/index';
 import Races from "../pages/Races";
 import Marketplace from "../pages/Marketplace";
+import Profile from "../pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -37,7 +38,11 @@ const router = createBrowserRouter([
       {
         path: "marketplace",
         element: <Marketplace />,
-      }
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
     ],
   },
 ]);
