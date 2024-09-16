@@ -7,6 +7,7 @@ import Teams from './../pages/Teams/index';
 import Races from "../pages/Races";
 import Marketplace from "../pages/Marketplace";
 import Profile from "../pages/Profile";
+import Login from "../pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
         element: <LandingPage />,
       },
     ],
+  },
+  {
+    path: "/login",
+    element: <Login />
   },
   {
     path: "/race",
