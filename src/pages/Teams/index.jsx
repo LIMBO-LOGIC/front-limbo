@@ -1,4 +1,4 @@
-import ContainerTeamRace from "../../components/ContainerTeam";
+import ContainerTeamRace from "../../components/ContainerTeamRace";
 import TeamCard from "../../components/TeamCard";
 import styles from "./teams.module.css";
 

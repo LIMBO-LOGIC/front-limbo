@@ -1,5 +1,5 @@
 import styles from "./races.module.css";
-import ContainerTeamRace from "../../components/ContainerTeam";
+import ContainerTeamRace from "../../components/ContainerTeamRace";
 import RaceCard from "./../../components/RaceCard/index";
 
 export default function Races() {

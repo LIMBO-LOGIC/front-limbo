@@ -3,7 +3,7 @@ import racingCircuit from "../../assets/racing_circuit.png";
 import flagBrazil from "../../assets/bandeira_brasil.png";
 import SectionTitle from "../../components/SectionTitle";
 import TeamCard from "../../components/TeamCard";
-import ContainerTeamRace from "../../components/ContainerTeam";
+import ContainerTeamRace from "../../components/ContainerTeamRace";
 import RaceCard from "../../components/RaceCard";
 
 export default function Home() {
