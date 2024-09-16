@@ -1,12 +1,23 @@
-import TeamCard from '../TeamCard'
-import styles from './containerTeam.module.css'
+import { cloneElement } from "react";
+import styles from "./containerTeamRace.module.css";
+import { PropTypes } from "prop-types";
 
-export default function ContainerTeam(){
-    return(
-        <div className={styles.containerTeam}>
-            <TeamCard />
-            <TeamCard />
-            <TeamCard />
-        </div>
-    )
+ContainerTeamRace.propTypes = {
+  listItens: PropTypes.array,
+  element: PropTypes.node,
+};
+
+export default function ContainerTeamRace({ listItens, element }) {
+  return (
+    <div className={styles.containerTeamRace}>
+      {/* <TeamCard />
+      <TeamCard />
+      <TeamCard /> */}
+
+      {listItens.map((item, index) => {
+        return cloneElement(element, { key: index, item });
+
+      })}
+    </div>
+  );
 }

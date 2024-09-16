@@ -1,10 +1,13 @@
 import styles from "./home.module.css";
-import racingCircuit from "../../assets/racingCircuit.png";
+import racingCircuit from "../../assets/racing_circuit.png";
 import flagBrazil from "../../assets/bandeira_brasil.png";
 import SectionTitle from "../../components/SectionTitle";
-import ContainerTeam from "../../components/ContainerTeam";
+import TeamCard from "../../components/TeamCard";
+import ContainerTeamRace from "../../components/ContainerTeam";
+import RaceCard from "../../components/RaceCard";
 
 export default function Home() {
+  const list = ['carro1', 'carro2', 'carro3']
   return (
     <section className={styles.home}>
       <div className={styles.nextRace}>
@@ -29,15 +32,13 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div>
-        <div className={styles.teamSection}>
-          <SectionTitle title={"Equipes"} route={"/race"} />
-          <ContainerTeam />
-        </div>
-        <div className={styles.raceSection}>
-          <SectionTitle title={"Corridas"} route={"/race"} />
-          <ContainerTeam />
-        </div>
+      <div className={styles.teamSection}>
+        <SectionTitle title={"Equipes"} route={"/race/teams"} />
+        <ContainerTeamRace listItens={list} element={<TeamCard />}/>
+      </div>
+      <div className={styles.raceSection}>
+        <SectionTitle title={"Corridas"} route={"/race/races"} />
+        <ContainerTeamRace listItens={list} element={<RaceCard />}/>
       </div>
     </section>
   );

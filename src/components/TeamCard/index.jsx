@@ -1,5 +1,5 @@
 import styles from "./teamCard.module.css";
-import car from "../../assets/carCupra.svg";
+import car from "../../assets/car_cupra.svg";
 import { IoPodiumOutline, IoTrophyOutline } from "react-icons/io5";
 import { FaFlagCheckered } from "react-icons/fa";
 import { PropTypes } from "prop-types";

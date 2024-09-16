@@ -1,0 +1,22 @@
+.containerTeamRace {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: 48px 100px;
+    justify-content: center;
+    width: 100%;
+}
+
+@media (max-width: 767px) {
+    .containerTeamRace {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 580px) {
+    .containerTeamRace {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+}

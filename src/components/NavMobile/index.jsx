@@ -86,13 +86,13 @@ export default function NavMobile() {
             onClick={handleMenuItemClick}
           >
             <ItemSubMenu>
-              <Link className={styles.linkItemProfile}>
+              <Link className={styles.linkItemProfile} onClick={() => setToggled(!toggled)}>
               <img src={usaFlag} alt="EUA flag" className={styles.flagIcon} />
                 <p>USA</p>
               </Link>
             </ItemSubMenu>
             <ItemSubMenu>
-              <Link className={styles.linkItemProfile}>
+              <Link className={styles.linkItemProfile} onClick={() => setToggled(!toggled)}>
                 <IoIosLogOut />
                 <p>Logout</p>
               </Link>
@@ -100,13 +100,13 @@ export default function NavMobile() {
           </SubMenu>
           <div className="navegation">
             <ItemMenu>
-              <Link to="/" className={styles.itemMenu}>
+              <Link to="/race" className={styles.itemMenu} onClick={() => setToggled(!toggled)}>
                 <BiSolidCategory />
                 <p>Home</p>
               </Link>
             </ItemMenu>
             <ItemMenu>
-              <Link to="/" className={styles.itemMenu}>
+              <Link to="/race/teams" className={styles.itemMenu} onClick={() => setToggled(!toggled)}>
                 <FaUsers />
                 <p>Equipes</p>
               </Link>
@@ -119,35 +119,35 @@ export default function NavMobile() {
               onClick={handleMenuItemClick}
             >
               <ItemSubMenu>
-                <Link className={styles.linkItem} to="/race">
+                <Link className={styles.linkItem} to="/race/races" onClick={() => setToggled(!toggled)}>
                   <span>Corridas</span>
                 </Link>
               </ItemSubMenu>
               <ItemSubMenu>
-                <Link className={styles.linkItem}>
+                <Link className={styles.linkItem} onClick={() => setToggled(!toggled)}>
                   <span>Corrida ao vivo</span>
                 </Link>
               </ItemSubMenu>
               <ItemSubMenu>
-                <Link className={styles.linkItem}>
+                <Link className={styles.linkItem} onClick={() => setToggled(!toggled)}>
                   <span>Chute da sorte</span>
                 </Link>
               </ItemSubMenu>
             </SubMenu>
             <ItemMenu>
-              <Link to="/" className={styles.itemMenu}>
+              <Link to="/race/marketplace" className={styles.itemMenu} onClick={() => setToggled(!toggled)}>
                 <FaShoppingBag />
                 <p>Marketplace</p>
               </Link>
             </ItemMenu>
             <ItemMenu>
-              <Link to="/" className={styles.itemMenu}>
+              <Link to="/" className={styles.itemMenu} onClick={() => setToggled(!toggled)}>
                 <FaGamepad />
                 <p>Quiz</p>
               </Link>
             </ItemMenu>
             <ItemMenu>
-              <Link to="/" className={styles.itemMenu}>
+              <Link to="/" className={styles.itemMenu} onClick={() => setToggled(!toggled)}>
                 <LiaMedalSolid />
                 <p>Ranking</p>
               </Link>
