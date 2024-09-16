@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Khand:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+/* Estilo para o footer */
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-top: 1px solid #eaeaea;
+}
+
+/* Contêiner do logo */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  flex: 1; 
+}
+
+/* Estilo do logo */
+.logo {
+  height: auto;
+  max-width: 150px; 
+}
+
+/* Estilo do texto de copyright */
+.copyright {
+  color: #1c2c86;
+  flex: 1; 
+  text-align: center; 
+  margin: 10px 0; 
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+/* Contêiner de mídias sociais */
+.socialMedia {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 1; 
+  justify-content: flex-end; 
+}
+
+/* Estilo dos ícones sociais */
+.icon {
+  border-radius: 50%;
+  padding: 5px;
+  transition: transform 0.3s ease;
+
+}
+
+.icon:hover {
+  transform: scale(1.1);
+}
+
+/* Media query para telas pequenas */
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column; /* Alinha os itens em coluna em telas pequenas */
+    text-align: center; /* Centraliza o texto em telas pequenas */
+  }
+
+  .logoContainer,
+  .copyright,
+  .socialMedia {
+    flex: none; /* Remove a flexibilidade para itens individuais */
+    margin-bottom: 10px; /* Adiciona margem entre os itens */
+  }
+
+  .logo {
+    max-width: 120px; /* Reduz o tamanho máximo do logo em telas pequenas */
+  }
+}
+
+/* Media query para telas muito pequenas */
+@media (max-width: 480px) {
+  .copyright {
+    font-size: 18px; /* Reduz o tamanho da fonte do copyright em telas muito pequenas */
+  }
+
+  .icon {
+    padding: 3px; /* Reduz o padding dos ícones em telas muito pequenas */
+  }
+}

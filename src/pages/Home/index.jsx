@@ -7,7 +7,7 @@ import ContainerTeamRace from "../../components/ContainerTeamRace";
 import RaceCard from "../../components/RaceCard";
 
 export default function Home() {
-  const list = ['carro1', 'carro2', 'carro3']
+  const list = ["carro1", "carro2", "carro3"];
   return (
     <section className={styles.home}>
       <div className={styles.nextRace}>
@@ -34,11 +34,11 @@ export default function Home() {
       </div>
       <div className={styles.teamSection}>
         <SectionTitle title={"Equipes"} route={"/race/teams"} />
-        <ContainerTeamRace listItens={list} element={<TeamCard />}/>
+        <ContainerTeamRace listItens={list} element={<TeamCard />} />
       </div>
       <div className={styles.raceSection}>
         <SectionTitle title={"Corridas"} route={"/race/races"} />
-        <ContainerTeamRace listItens={list} element={<RaceCard />}/>
+        <ContainerTeamRace listItens={list} element={<RaceCard />} />
       </div>
     </section>
   );

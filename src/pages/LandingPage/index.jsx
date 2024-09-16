@@ -3,8 +3,8 @@ import styles from "./LandingPage.module.css";
 import carro1 from "../../assets/carro1.png";
 import carro2 from "../../assets/carro2.png";
 import carro3 from "../../assets/carro3.png";
-import logo from "../../assets/logo_formula_e.png";
-import { FaBars, FaTimes } from 'react-icons/fa'; // Importe os ícones de hambúrguer e fechar
+import NavMobile from "./NavMenuLandingPage";
+import Footer from "../../components/Footer";
 
 const images = [carro1, carro2, carro3];
 
@@ -26,28 +26,7 @@ export default function LandingPage() {
 
   return (
     <>
-      <nav className={styles.navbar}>
-        <div className={styles.logo}>
-          <img src={logo} alt="Logo" />
-        </div>
-        <button className={styles.navToggle} onClick={toggleNav}>
-          {isNavOpen ? <FaTimes /> : <FaBars />}
-        </button>
-        <ul className={`${styles.navLinks} ${isNavOpen ? styles.navOpen : ""}`}>
-          <li>
-            <a href="#home">Home</a>
-          </li>
-          <li>
-            <a href="#about">About Formula E</a>
-          </li>
-          <li>
-            <a href="#ecosystem">Our Ecosystem</a>
-          </li>
-          <li>
-            <a href="#signin">Sign In</a>
-          </li>
-        </ul>
-      </nav>
+      <NavMobile className={styles.navbar}></NavMobile>
 
       <div className={styles.slideshow}>
         <img
@@ -64,12 +43,12 @@ export default function LandingPage() {
         </h1>
       </div>
       {/* Seção "Welcome to the Future of Racing" */}
-      <section className={styles.futureSection}>
+      <section id="section1"className={styles.futureSection}>
         <div className={styles.textContainer}>
           <div className={styles.textContent}>
             <h2>Welcome to the Future of Racing: Formula E</h2>
             <p>
-              <strong className={styles.subtitle}>
+              <strong>
                 Experience the Thrill of Electric Racing
               </strong>
             </p>
@@ -81,7 +60,7 @@ export default function LandingPage() {
               is not just a race; it's a movement towards a more sustainable and
               electrifying future.
             </p>
-            <p className={styles.subtitle}>
+            <p>
               <strong>Why Formula E?</strong>
             </p>
             <p>
@@ -116,6 +95,7 @@ export default function LandingPage() {
           these vital systems for a healthier planet.
         </p>
       </section>
+      <Footer></Footer>
     </>
   );
 }

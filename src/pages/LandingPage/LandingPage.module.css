@@ -1,53 +1,11 @@
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background-color: #ffffff;
-  height: 115px;
-  flex-wrap: wrap;
-}
+@import url("https://fonts.googleapis.com/css2?family=Khand:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+html{
+  scroll-behavior: smooth;
+}
 .logo {
   font-size: 2rem; /* Use rem for scalable sizing */
   color: #fff;
-}
-
-.navLinks {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  align-items: center;
-}
-
-.navLinks li {
-  margin: 0 1rem; /* Use rem for consistent spacing */
-}
-
-.navLinks a {
-  color: #000000;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out,
-    border-bottom 0.3s ease-in-out;
-  padding: 0.5rem 1rem;
-  display: inline-block;
-  border-radius: 0.25rem;
-}
-
-.navLinks a:hover {
-  border-bottom: solid 2px #000bd8;
-  transform: translateY(-0.1rem);
-}
-
-/* Estilos para o ícone do menu hambúrguer */
-.navToggle {
-  display: none;
-  font-size: 2rem;
-  background: none;
-  border: none;
-  cursor: pointer;
 }
 
 /* Estilo do slideshow */
@@ -74,14 +32,16 @@
   flex-direction: column;
   align-items: center;
   color: #fff;
-  font-size: 3rem;
   text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: 96px;
 }
 .arrowDown {
   display: flex;
   background-color: #000bd8;
-  width: 142px;
-  height: 154px;
+  width: 120px;
+  height: 130px;
   justify-content: center;
   align-items: center;
   border-radius: 18px;
@@ -112,7 +72,7 @@
   background-size: cover;
   background-position: center;
   padding: 4rem 2rem;
-  max-height: 100vh;
+  height: 100vh;
 }
 
 .textContainer {
@@ -135,6 +95,11 @@
   position: relative;
   z-index: 1;
   animation: fadeIn 1s ease-out;
+}
+.textContent h2 {
+  font-family: "Khand", sans-serif;
+  font-weight: 400;
+  font-style: 64px;
 }
 
 .imageContainer {
@@ -182,6 +147,10 @@
   color: #e0e0e0;
   text-align: justify;
   transition: color 0.3s ease;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: 40px;
 }
 
 .textContent p:hover {
@@ -210,6 +179,9 @@
   margin: 1.875rem 0;
   align-items: center;
   justify-content: center;
+  font-family: "Khand", sans-serif;
+  font-weight: 400;
+  font-style: 48px;
 }
 
 /* Seção "Discover the Power of Ecosystems" */
@@ -238,6 +210,7 @@
   font-size: 50px;
   padding-bottom: 20px;
 }
+
 /* Media Queries para Responsividade */
 
 /* Para telas pequenas (smartphones) */
@@ -313,7 +286,7 @@
   }
 
   .navLinks.navOpen {
-    max-height: 300px; 
+    max-height: 300px;
   }
 
   .navToggle {
@@ -370,7 +343,6 @@
   .subtitle {
     font-size: 1rem; /* Ajusta o tamanho da fonte do subtítulo */
   }
-
 }
 
 /* Para telas médias (tablets) */
@@ -390,7 +362,7 @@
   }
 
   .navLinks.navOpen {
-    max-height: 300px; 
+    max-height: 300px;
   }
 
   .navToggle {
@@ -422,7 +394,6 @@
 
 /* Para telas grandes (desktops) */
 @media (min-width: 1025px) {
-  
   .title {
     font-size: 3rem;
   }
