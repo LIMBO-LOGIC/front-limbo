@@ -1,0 +1,8 @@
+.cardMarketplace{
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    max-width: 210px;
+    border-radius: 26px;
+    background-color: var(--white-default);
+}

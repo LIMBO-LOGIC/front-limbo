@@ -1,3 +1,4 @@
+import CardMarketplace from "../../components/CardMarketplace";
 import styles from "./marketplace.module.css";
 
 export default function Marketplace() {
@@ -5,7 +6,7 @@ export default function Marketplace() {
     <section className={styles.marketplace}>
       <h1>Marketplace</h1>
       <div className={styles.boxMain}>
-
+        <CardMarketplace />
         
       </div>
     </section>
