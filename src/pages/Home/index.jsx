@@ -32,13 +32,15 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className={styles.teamSection}>
-        <SectionTitle title={"Equipes"} route={"/race/teams"} />
-        <ContainerTeamRace listItens={list} element={<TeamCard />}/>
-      </div>
-      <div className={styles.raceSection}>
-        <SectionTitle title={"Corridas"} route={"/race/races"} />
-        <ContainerTeamRace listItens={list} element={<RaceCard />}/>
+      <div>
+        <div className={styles.teamSection}>
+          <SectionTitle title={"Equipes"} route={"/race"} />
+          <ContainerTeam />
+        </div>
+        <div className={styles.raceSection}>
+          <SectionTitle title={"Corridas"} route={"/race"} />
+          <ContainerTeam />
+        </div>
       </div>
     </section>
   );
