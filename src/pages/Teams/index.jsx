@@ -1,4 +1,5 @@
 import ContainerTeamRace from "../../components/ContainerTeamRace";
+import PageTitle from "../../components/PageTitle";
 import TeamCard from "../../components/TeamCard";
 import styles from "./teams.module.css";
 
@@ -7,7 +8,7 @@ export default function Teams() {
 
   return (
     <section className={styles.teams}>
-      <h1>Equipes</h1>
+      <PageTitle text={'Equipes'}/>
       <div className={styles.boxMain}>
         <ContainerTeamRace listItens={list} element={<TeamCard />} />
       </div>

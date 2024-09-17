@@ -6,14 +6,6 @@
     min-height: calc(100vh - 100px) !important;
     font-family: var(--font-montserrat);
     padding-bottom: 100px;
-    
-    h1 {
-        padding: 16px 36px;
-        font-size: clamp(2rem, 1.8239rem + 0.5634vw, 2.5rem);
-        font-weight: 600;
-        background: url(../../assets/bg_title.png);
-        color: var(--white-default);
-    }
 }
 
 .boxMain {

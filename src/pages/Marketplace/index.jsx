@@ -1,4 +1,5 @@
 import ContainerProduct from "../../components/ContainerProduct";
+import PageTitle from "../../components/PageTitle";
 import styles from "./marketplace.module.css";
 
 export default function Marketplace() {
@@ -6,7 +7,7 @@ export default function Marketplace() {
 
   return (
     <section className={styles.marketplace}>
-      <h1>Marketplace</h1>
+      <PageTitle text={'Marketplace'}/>
       <div className={styles.boxMain}>
         <ContainerProduct listItens={list}/>
         

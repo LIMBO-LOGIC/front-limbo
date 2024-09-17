@@ -5,14 +5,6 @@
   height: 100%;
   font-family: var(--font-montserrat);
   padding-bottom: 100px;
-
-  h1 {
-    padding: 16px 36px;
-    font-size: clamp(2rem, 1.8239rem + 0.5634vw, 2.5rem);
-    font-weight: 600;
-    background: url(../../assets/bg_title.png);
-    color: var(--white-default);
-  }
 }
 
 .boxLiveRace {
@@ -72,12 +64,12 @@
 .listMessages {
   display: flex;
   gap: 20px;
-  flex-direction: column-reverse; /* Inverte a ordem dos itens */
+  flex-direction: column-reverse;
   overflow-x: hidden;
   overflow-y: scroll;
   height: 440px;
   padding: 4px 16px 0px 16px;
-  scroll-behavior: smooth; /* O scroll será suave */
+  scroll-behavior: smooth; 
 }
 
 .listMessages::-webkit-scrollbar {
@@ -109,12 +101,11 @@
     border: none;
   }
 
-  svg{
+  svg {
     font-size: 28px;
     color: rgba(138, 146, 166, 1);
   }
 }
-
 
 .btnLucky {
   text-align: center;
@@ -124,6 +115,97 @@
   padding: 10px 0px;
   border-radius: 10px;
   font-family: var(--font-inter);
+  color: var(--white-default);
+  background-color: var(--bg-blue);
+}
+
+.boxCircuit {
+  width: 100%;
+  padding: 16px 36px;
+
+  h2 {
+    font-size: 36px;
+    font-weight: 700;
+    font-family: var(--font-montserrat);
+    color: var(--bg-blue);
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.boxMessage{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.myBox{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.userChat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.myUserChat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  width: 100%;
+}
+
+
+.dataUser {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  p {
+    font-family: var(--font-inter);
+    font-size: 12px;
+    font-weight: 600;
+    color: #232d42;
+  }
+
+  img{
+    height: 36px;
+    width: 36px;
+    border-radius: 24px;
+  }
+}
+
+.myData {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 6px;
+
+  p {
+    font-family: var(--font-inter);
+    font-size: 12px;
+    font-weight: 600;
+    color: #232d42;
+  }
+
+  img{
+    height: 36px;
+    width: 36px;
+    border-radius: 24px;
+  }
+}
+
+.myMessage{
+  max-width: 50%;
+  border-radius: 10px;
+  padding: 2px 6px;
   color: var(--white-default);
   background-color: var(--bg-blue);
 }

@@ -2,31 +2,58 @@ import { BsChatDots } from "react-icons/bs";
 import styles from "./liveRace.module.css";
 import { PropTypes } from "prop-types";
 import { IoSend } from "react-icons/io5";
+import circuit from "../../assets/racing_live_race.png";
+import userPhoto from "../../assets/user_profile.png";
+import PageTitle from "../../components/PageTitle";
 
-UserChat.propTypes = {
-  name: PropTypes.string,
-  photo: PropTypes.string,
-  message: PropTypes.string,
-  isMy: PropTypes.bool,
-};
-
-const UserChat = ({ name, photo, message, isMy }) => {
+const ChatSent = ({ name, photo, message }) => {
   return (
-    <div className={styles.userChat}>
-      <div hidden>{`${name} ${photo} ${message} ${isMy}`}</div>
-      <div className={styles.dataUser}>
-        <img src="" alt="" />
-        <p>Luiz Gustavo</p>
+    <div className={styles.myBox}>
+      <div className={styles.myUserChat}>
+        <div hidden>{`${name} ${photo} ${message}}`}</div>
+        <div className={styles.myData}>
+          <img src={userPhoto} alt="Foto de usuário" />
+          <p>Luiz Gustavo</p>
+        </div>
+        <p className={styles.myMessage}>{message}</p>
       </div>
-      <p className={styles.messageUser}></p>
     </div>
   );
 };
 
+const ChatReceived = ({ name, photo, message }) => {
+  return (
+    <div className={styles.boxMessage}>
+      <div className={styles.userChat}>
+        <div hidden>{`${name} ${photo} ${message}}`}</div>
+        <div className={styles.dataUser}>
+          <img src={userPhoto} alt="Foto de usuário" />
+          <p>Luiz Gustavo</p>
+        </div>
+        <p className={styles.messageUser}>{message}</p>
+      </div>
+    </div>
+  );
+};
+
+ChatSent.propTypes = {
+  name: PropTypes.string,
+  photo: PropTypes.string,
+  message: PropTypes.string,
+};
+
+ChatReceived.propTypes = {
+  name: PropTypes.string,
+  photo: PropTypes.string,
+  message: PropTypes.string,
+};
+
 export default function LiveRace() {
+  const sendMessage = () => {};
+
   return (
     <section className={styles.liveRace}>
-      <h1>Corrida ao vivo</h1>
+      <PageTitle text={'Corrida ao vivo'}/>
       <div className={styles.boxLiveRace}>
         <iframe
           width="100%"
@@ -45,67 +72,13 @@ export default function LiveRace() {
               <p>Chat ao vivo</p>
             </div>
             <div className={styles.chat}>
-              <div className={styles.listMessages}>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
-                <button className={styles.btnLucky}>
-                  Realizar chute da sorte
-                </button>
+              <div className={styles.listMessages} id="listMessage">
+                <ChatSent
+                  message={"Bom dia, hoje eu vou acertar ! - eu"}
+                />
+                <ChatReceived
+                  message={"Bom dia, hoje eu vou acertar !"}
+                />
               </div>
               <div className={styles.boxSendMessage}>
                 <input type="text" placeholder="Digite aqui" />
@@ -113,8 +86,14 @@ export default function LiveRace() {
               </div>
             </div>
           </div>
-          <button className={styles.btnLucky}>Realizar chute da sorte</button>
+          <button onClick={sendMessage} className={styles.btnLucky}>
+            Realizar chute da sorte
+          </button>
         </div>
+      </div>
+      <div className={styles.boxCircuit}>
+        <h2>Pista</h2>
+        <img src={circuit} alt="Imagem da pista de Londres" />
       </div>
     </section>
   );

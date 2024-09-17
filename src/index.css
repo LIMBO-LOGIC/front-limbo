@@ -5,6 +5,15 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'MyCustomFont';
+  src: local('MyCustomFont')
+      url('../assets/fonts/FESans.var.woff2') format('woff2'),
+      url('../assets/fonts/FESans.var.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+}
+
 :root {
   --dark-gray: #d5d5d5;
   --text-icon-gray: #8a92a6;

@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./profile.module.css";
 import imgProfile from "../../assets/user_profile.png";
 import ContainerProduct from "../../components/ContainerProduct";
+import PageTitle from "../../components/PageTitle";
 
 export default function Profile() {
   const [isEdit, setIsEdit] = useState(false);
@@ -16,7 +17,7 @@ export default function Profile() {
 
   return (
     <section className={styles.profile}>
-      <h1>Perfil</h1>
+      <PageTitle text={'Perfil'}/>
       <form className={styles.boxMain}>
         <div className={`${styles.rowProfile} mb-5`}>
           <div className={`${styles.dataProfile}`}>
