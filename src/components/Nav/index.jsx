@@ -74,7 +74,7 @@ export default function Nav() {
             </Link>
           </ItemSubMenu>
           <ItemSubMenu>
-            <Link className={styles.linkItem}>
+            <Link to={'/race/live-race'} className={styles.linkItem}>
               <span>Corrida ao vivo</span>
             </Link>
           </ItemSubMenu>

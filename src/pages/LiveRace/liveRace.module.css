@@ -1,16 +1,129 @@
-.liveRace{
-    display: flex;
-    flex-direction: column;
+.liveRace {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-montserrat);
+  padding-bottom: 100px;
+
+  h1 {
+    padding: 16px 36px;
+    font-size: clamp(2rem, 1.8239rem + 0.5634vw, 2.5rem);
+    font-weight: 600;
+    background: url(../../assets/bg_title.png);
+    color: var(--white-default);
+  }
+}
+
+.boxLiveRace {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  gap: 20px;
+  padding: 0px 36px;
+  padding-top: 16px;
+}
+
+.containerChat {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 600px;
+}
+
+.boxChat {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  max-height: 540px;
+  border: 1px solid var(--bg-blue);
+  background-color: var(--white-default);
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: var(--bg-blue);
+  gap: 8px;
+  padding: 4px 16px;
+  border-radius: 8px 8px 0px 0px;
+
+  p {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--white-default);
+  }
+
+  svg {
+    font-size: 28px;
+    color: var(--white-default);
+  }
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.listMessages {
+  display: flex;
+  gap: 20px;
+  flex-direction: column-reverse; /* Inverte a ordem dos itens */
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 440px;
+  padding: 4px 16px 0px 16px;
+  scroll-behavior: smooth; /* O scroll será suave */
+}
+
+.listMessages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.listMessages::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background-color: var(--bg-blue);
+}
+
+.boxSendMessage {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 4px 16px;
+
+  input {
     width: 100%;
-    height: 100%;
-    font-family: var(--font-montserrat);
-    padding-bottom: 100px;
-    
-    h1 {
-        padding: 16px 36px;
-        font-size: clamp(2rem, 1.8239rem + 0.5634vw, 2.5rem);
-        font-weight: 600;
-        background: url(../../assets/bg_title.png);
-        color: var(--white-default);
-    }
+    border: none;
+    border-radius: 100px;
+    background: #f2f2f2;
+    padding: 6px 16px;
+  }
+
+  input:focus {
+    outline: none;
+    border: none;
+  }
+
+  svg{
+    font-size: 28px;
+    color: rgba(138, 146, 166, 1);
+  }
+}
+
+
+.btnLucky {
+  text-align: center;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 0px;
+  border-radius: 10px;
+  font-family: var(--font-inter);
+  color: var(--white-default);
+  background-color: var(--bg-blue);
 }

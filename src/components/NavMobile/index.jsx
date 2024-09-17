@@ -124,7 +124,7 @@ export default function NavMobile() {
                 </Link>
               </ItemSubMenu>
               <ItemSubMenu>
-                <Link className={styles.linkItem} onClick={() => setToggled(!toggled)}>
+                <Link to={'/race/live-race'} className={styles.linkItem} onClick={() => setToggled(!toggled)}>
                   <span>Corrida ao vivo</span>
                 </Link>
               </ItemSubMenu>
