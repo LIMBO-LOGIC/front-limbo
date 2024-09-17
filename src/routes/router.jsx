@@ -3,11 +3,13 @@ import LandingPage from "../pages/LandingPage";
 import RootLayout from "../layouts/RootLayout";
 import RaceLayout from "../layouts/RaceLayout";
 import Home from "../pages/Home";
-import Teams from './../pages/Teams/index';
+import Teams from "./../pages/Teams/index";
 import Races from "../pages/Races";
 import Marketplace from "../pages/Marketplace";
 import Profile from "../pages/Profile";
 import Login from "../pages/Login";
+import Quiz from "../pages/Quiz";
+import Register from "../pages/Register";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +24,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login />
+    element: <Login />,
+  },
+  {
+    path: "/quiz",
+    element: <Quiz />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
   {
     path: "/race",
