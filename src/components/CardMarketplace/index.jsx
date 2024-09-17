@@ -1,10 +1,13 @@
 import { FaHeart } from "react-icons/fa";
 import styles from "./cardMarketplace.module.css";
+import airpods from "../../assets/airpods.svg";
 
 export default function CardMarketplace() {
   return (
     <div className={styles.cardMarketplace}>
-      <img src="" alt="" />
+      <div className={styles.boxImg}>
+        <img className={styles.imgProduct} src={airpods} alt="Imagem teste de produto" />
+      </div>
       <div className={styles.dataCard}>
         <div className={styles.boxTitle}>
           <div className={styles.titles}>
@@ -13,10 +16,14 @@ export default function CardMarketplace() {
           </div>
           <FaHeart />
         </div>
-        <p>Airpods  Pro have been designed to deliver active noise cancellation for immersive sounds. Transparency mode so you can hear your surroundings.</p>
+        <p className={styles.description}>
+          Airpods Pro have been designed to deliver active noise cancellation
+          for immersive sounds. Transparency mode so you can hear your
+          surroundings.
+        </p>
         <div className={styles.points}>
-            <p>150 pontos</p>
-            <span className={styles.btnRedeem}>Resgatar</span>
+          <p>150 pontos</p>
+          <span className={styles.btnRedeem}>Resgatar</span>
         </div>
       </div>
     </div>

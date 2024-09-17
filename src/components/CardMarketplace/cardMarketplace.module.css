@@ -1,8 +1,125 @@
-.cardMarketplace{
+.cardMarketplace {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  min-width: 210px;
+  border-radius: 26px;
+  background-color: var(--white-default);
+  box-shadow: 0px 0px 22.091px 3.535px rgba(0, 0, 0, 0.25);
+}
+
+.boxImg {
+  display: flex;
+  justify-content: center;
+  padding: 4px 10px;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.imgProduct {
+  height: auto;
+  width: 100%;
+  max-height: 200px;
+}
+
+.dataCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-radius: 26px;
+  background-color: var(--bg-blue);
+  color: var(--white-default);
+  padding: 18px 12px;
+
+  p {
+    font-size: 10px;
+  }
+}
+
+.boxTitle {
+  display: flex;
+  justify-content: space-between;
+
+  svg{
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.4s;
+    color: rgba(0, 255, 255, 0.53);
+  }
+
+  svg:hover{
+    color: rgba(0, 255, 255, 0.8);
+  }
+}
+
+.titles {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 84%;
+
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+
+    display: -webkit-box;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+  }
+
+  h3 {
+    font-size: 8px;
+    font-weight: 500;
+
+    display: -webkit-box;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+  }
+}
+
+.description{
+    height: 75px;
+    text-align: justify;
+
+    display: -webkit-box;
+    line-clamp: 5;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+.points{
     display: flex;
-    flex-direction: column;
-    width: auto;
-    max-width: 210px;
-    border-radius: 26px;
-    background-color: var(--white-default);
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+
+    p{
+        font-size: 12px;
+        font-weight: 700;
+    }
+}
+
+.btnRedeem{
+    cursor: pointer;
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 22px;
+    transition: all .5s;
+    background-color: rgba(0, 108, 207, 1);
+}
+
+.btnRedeem:hover{
+    background-color: rgba(0, 108, 207, 0.8);
 }

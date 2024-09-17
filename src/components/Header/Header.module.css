@@ -24,15 +24,23 @@ header {
 .searchIcon {
     position: relative;
     right: 28px;
-    top: 16px;
+    top: 8px;
     transform: translateY(-50%);
     font-size: 20px;
     color: #666;
 }
 
-.languageSelector {
+.logout {
+    display: flex;
+    align-items: center;
     width: 40px;
-    height: 40px;
+    height: 100%;
+
+    svg{
+        font-size: 28px;
+        color: #666;
+        cursor: pointer;
+    }
 }
 
 .flagIcon {

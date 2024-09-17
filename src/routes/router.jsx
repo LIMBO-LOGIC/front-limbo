@@ -10,6 +10,7 @@ import Profile from "../pages/Profile";
 import Login from "../pages/Login";
 import Quiz from "../pages/Quiz";
 import Register from "../pages/Register";
+import LiveRace from "../pages/LiveRace";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "live-race",
+        element: <LiveRace />,
       },
     ],
   },

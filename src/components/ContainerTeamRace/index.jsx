@@ -16,7 +16,6 @@ export default function ContainerTeamRace({ listItens, element }) {
 
       {listItens.map((item, index) => {
         return cloneElement(element, { key: index, item });
-
       })}
     </div>
   );
