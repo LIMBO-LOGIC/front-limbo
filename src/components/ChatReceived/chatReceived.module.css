@@ -1,0 +1,38 @@
+.boxMessage {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.messageUser {
+  max-width: 50%;
+  border-radius: 10px;
+  padding: 2px 6px;
+  color: var(--white-default);
+  background-color: #adb5bd;
+}
+
+.dataUser {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  p {
+    font-family: var(--font-inter);
+    font-size: 12px;
+    font-weight: 600;
+    color: #232d42;
+  }
+
+  img {
+    height: 36px;
+    width: 36px;
+    border-radius: 24px;
+  }
+}
+
+.userChat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}

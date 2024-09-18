@@ -69,7 +69,7 @@
   overflow-y: scroll;
   height: 440px;
   padding: 4px 16px 0px 16px;
-  scroll-behavior: smooth; 
+  scroll-behavior: smooth;
 }
 
 .listMessages::-webkit-scrollbar {
@@ -136,76 +136,35 @@
   }
 }
 
-.boxMessage{
-  display: flex;
-  justify-content: flex-start;
+.locationCircuit {
+  label {
+    font-size: 24px;
+    font-weight: 500;
+    font-family: var(--font-montserrat);
+    color: var(--bg-blue);
+  }
 }
 
-.myBox{
+.containerInfoCircuit {
   display: flex;
-  justify-content: flex-end;
-  width: 100%;
-}
-
-.userChat {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: 100%;
-}
-
-.myUserChat {
-  display: flex;
-  flex-direction: column;
   align-items: flex-end;
-  gap: 4px;
+  gap: 28px;
+  margin-top: 16px;
   width: 100%;
 }
 
-
-.dataUser {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  p {
-    font-family: var(--font-inter);
-    font-size: 12px;
-    font-weight: 600;
-    color: #232d42;
-  }
-
-  img{
-    height: 36px;
-    width: 36px;
-    border-radius: 24px;
-  }
+.inputLocation {
+  border-radius: 8px;
 }
 
-.myData {
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  gap: 6px;
-
-  p {
-    font-family: var(--font-inter);
-    font-size: 12px;
-    font-weight: 600;
-    color: #232d42;
-  }
-
-  img{
-    height: 36px;
-    width: 36px;
-    border-radius: 24px;
-  }
+.labelData {
+  font-size: 16px;
+  font-weight: 500;
+  font-family: var(--font-montserrat);
+  color: var(--bg-blue);
 }
 
-.myMessage{
-  max-width: 50%;
-  border-radius: 10px;
-  padding: 2px 6px;
-  color: var(--white-default);
-  background-color: var(--bg-blue);
+.inputData{
+  color: rgba(0, 46, 247, 1) !important;
+  background-color:rgba(141, 162, 255, 0.38)  !important;
 }
