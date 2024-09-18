@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Menu, Sidebar, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import styles from "./NavMenuLandingPage.module.css";
-import { BiSolidCategory } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { BiWorld } from "react-icons/bi";
 import formulaEImage from "/assets/logo-formulaE.png";
@@ -82,16 +81,22 @@ export default function NavMobile() {
             onClick={handleMenuItemClick}
           >
             <ItemSubMenu>
-              <a className={styles.linkItemProfile}>
+              <a
+                style={{ cursor: "pointer" }}
+                className={styles.linkItemProfile}
+              >
                 <img src={usaFlag} alt="EUA flag" className={styles.flagIcon} />
                 <p>USA</p>
               </a>
             </ItemSubMenu>
             <ItemSubMenu>
-              <a className={styles.linkItemProfile}>
+              <Link to="/login"
+                style={{ cursor: "pointer" }}
+                className={styles.linkItemProfile}
+              >
                 <IoIosLogOut />
                 <p>Sign in</p>
-              </a>
+              </Link>
             </ItemSubMenu>
           </SubMenu>
           <div className="navegation">
@@ -102,16 +107,16 @@ export default function NavMobile() {
               </a>
             </ItemMenu>
             <ItemMenu>
-              <a to="/" className={styles.itemMenu}>
+              <a href="#ecosystemSection" className={styles.itemMenu}>
                 <BiWorld />
                 <p>Our Ecosystem</p>
               </a>
             </ItemMenu>
             <ItemMenu>
-              <a to="/" className={styles.itemMenu}>
+              <Link to="/login"className={styles.itemMenu}>
                 <CgProfile />
                 <p>Sign In</p>
-              </a>
+              </Link>
             </ItemMenu>
           </div>
         </Menu>

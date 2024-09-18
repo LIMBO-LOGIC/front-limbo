@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import styles from "./Register.module.css";
 import imagem_direita from "../../assets/tela_registro.svg";
+import UploadPhotoUser from "./UploadPhotoUser";
 
 const Register = () => {
   const [imagemPreview, setImagemPreview] = useState(null);
+  const [picture, setPicture] = useState("");
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagemPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
+  const handleImageChange = (file) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagemPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
   };
 
   const validar = () => {
@@ -27,11 +26,9 @@ const Register = () => {
 
         {/* Input de imagem com pré-visualização */}
         <div className={styles.imagem_input}>
-          <input
-            type="file"
-            accept="image/*"
-            id="imagem_perfil"
-            onChange={handleImageChange}
+          <UploadPhotoUser
+            value={picture}
+            onChange={(file) => setPicture(file)}
           />
           {imagemPreview && (
             <img
@@ -84,9 +81,6 @@ const Register = () => {
               id="senha"
             />
           </div>
-          <p className={styles.conta}>
-            Ainda não tem conta? <span>Cadastra-se aqui</span>
-          </p>
           <button className={styles.btn_login} onClick={validar}>
             Registrar
           </button>

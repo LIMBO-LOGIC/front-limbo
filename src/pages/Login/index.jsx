@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Login.module.css";
 import imagem_login from "../../assets/tela_login_imagem.png";
 import logo from "../../../public/assets/logo_formulaE_branca.png";
+import { Link } from "react-router-dom";
 const Login = () => {
   const validar = () => {
     // Função de validação aqui
@@ -34,9 +35,11 @@ const Login = () => {
               id="senha"
             />
           </div>
-          <p className={styles.conta}>
-            Ainda não tem conta? <span>Cadastra-se aqui</span>
-          </p>
+          <Link to="/register" className={styles.itemMenu}>
+            <p className={styles.conta}>
+              Ainda não tem conta? <span>Cadastra-se aqui</span>
+            </p>
+          </Link>
           <button className={styles.btn_login} onClick={validar}>
             Registrar
           </button>

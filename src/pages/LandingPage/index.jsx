@@ -43,14 +43,12 @@ export default function LandingPage() {
         </h1>
       </div>
       {/* Seção "Welcome to the Future of Racing" */}
-      <section id="section1"className={styles.futureSection}>
+      <section id="section1" className={styles.futureSection}>
         <div className={styles.textContainer}>
           <div className={styles.textContent}>
             <h2>Welcome to the Future of Racing: Formula E</h2>
             <p>
-              <strong>
-                Experience the Thrill of Electric Racing
-              </strong>
+              <strong>Experience the Thrill of Electric Racing</strong>
             </p>
             <p>
               Welcome to Formula E, the groundbreaking motorsport that's
@@ -82,7 +80,7 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-      <section className={styles.ecosystemSection}>
+      <section id="ecosystemSection" className={styles.ecosystemSection}>
         <h2>Discover the Power of Ecosystems</h2>
         <p>
           An ecosystem is a dynamic and interconnected network where living
@@ -95,7 +93,7 @@ export default function LandingPage() {
           these vital systems for a healthier planet.
         </p>
       </section>
-      <Footer></Footer>
+      <Footer/>
     </>
   );
 }

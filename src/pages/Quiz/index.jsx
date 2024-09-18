@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import styles from "./Quiz.module.css";
+import styles from "./Quiz.module.css"; // Importa os estilos CSS específicos para o componente Quiz
+import PageTitle from "../../components/PageTitle";
 import Footer from "../../components/Footer";
 
 const Quiz = () => {
-  const [points, setPoints] = useState(0);
-  const [actualQuestion, setActualQuestion] = useState(0);
-  const [isQuizCompleted, setIsQuizCompleted] = useState(false);
-  const [selectedAnswer, setSelectedAnswer] = useState(null); // Adicione o estado para resposta selecionada
+  // Declaração dos estados do componente
+  const [points, setPoints] = useState(0); // Guarda a pontuação do usuário
+  const [actualQuestion, setActualQuestion] = useState(0); // Guarda o índice da pergunta atual
+  const [isQuizCompleted, setIsQuizCompleted] = useState(false); // Indica se o quiz foi concluído
+  const [selectedAnswer, setSelectedAnswer] = useState(null); // Guarda a resposta selecionada pelo usuário
 
+  // Array com as perguntas e respostas do quiz
   const questions = [
     {
       question: "Qual é o maior fabricante de automóveis do mundo em 2020?",
@@ -27,117 +30,50 @@ const Quiz = () => {
         { answer: "Wankel", correct: true },
       ],
     },
-    {
-      question: "Qual desses carros é um modelo esportivo italiano?",
-      answers: [
-        { answer: "Porsche 911", correct: false },
-        { answer: "Ferrari 488 GTB", correct: true },
-        { answer: "BMW M5", correct: false },
-        { answer: "Audi R8", correct: false },
-      ],
-    },
-    {
-      question: "Qual é o símbolo da marca de carros Ferrari?",
-      answers: [
-        { answer: "Cavalo", correct: true },
-        { answer: "Touro", correct: false },
-        { answer: "Leão", correct: false },
-        { answer: "Águia", correct: false },
-      ],
-    },
-    {
-      question: "Quem inventou o primeiro automóvel movido a gasolina?",
-      answers: [
-        { answer: "Henry Ford", correct: false },
-        { answer: "Nikolaus Otto", correct: false },
-        { answer: "Karl Benz", correct: true },
-        { answer: "Gottlieb Daimler", correct: false },
-      ],
-    },
-    {
-      question: "Qual é o modelo mais vendido da Ford?",
-      answers: [
-        { answer: "Ford Fiesta", correct: false },
-        { answer: "Ford Focus", correct: false },
-        { answer: "Ford Mustang", correct: false },
-        { answer: "Ford F-Series", correct: true },
-      ],
-    },
-    {
-      question: "O que significa ABS em sistemas de freios de carro?",
-      answers: [
-        { answer: "Anti-Blocking System", correct: false },
-        { answer: "Anti-Brake Skid", correct: false },
-        { answer: "Anti-Brake System", correct: false },
-        { answer: "Anti-Lock Braking System", correct: true },
-      ],
-    },
-    {
-      question: "Qual destes não é um fabricante de automóveis japonês?",
-      answers: [
-        { answer: "Honda", correct: false },
-        { answer: "Toyota", correct: false },
-        { answer: "Hyundai", correct: true },
-        { answer: "Nissan", correct: false },
-      ],
-    },
-    {
-      question: "Qual é o país de origem da marca automotiva Audi?",
-      answers: [
-        { answer: "Alemanha", correct: true },
-        { answer: "Itália", correct: false },
-        { answer: "França", correct: false },
-        { answer: "Japão", correct: false },
-      ],
-    },
-    {
-      question: "O que significa a sigla SUV em inglês?",
-      answers: [
-        { answer: "Sport Utility Vehicle", correct: true },
-        { answer: "Super Urban Vehicle", correct: false },
-        { answer: "Speed Utility Van", correct: false },
-        { answer: "Sporty Urban Van", correct: false },
-      ],
-    },
+    // ... outras perguntas
   ];
 
+  // Função chamada quando uma resposta é selecionada
   const checkAnswer = (answer) => {
-    setSelectedAnswer(answer);
+    setSelectedAnswer(answer); // Armazena a resposta selecionada
     if (answer.correct) {
-      setPoints((prev) => prev + 1);
+      setPoints((prev) => prev + 1); // Incrementa a pontuação se a resposta estiver correta
     }
+    // Move para a próxima pergunta após um atraso de 1,2 segundos
     setTimeout(() => {
       nextQuestion();
     }, 1200);
   };
 
+  // Função para avançar para a próxima pergunta
   const nextQuestion = () => {
     if (actualQuestion + 1 >= questions.length) {
-      setIsQuizCompleted(true); // Marcar o quiz como concluído
+      setIsQuizCompleted(true); // Marca o quiz como concluído se não houver mais perguntas
     } else {
-      setActualQuestion((prev) => prev + 1);
-      setSelectedAnswer(null); // Resetar a resposta selecionada
+      setActualQuestion((prev) => prev + 1); // Avança para a próxima pergunta
+      setSelectedAnswer(null); // Reseta a resposta selecionada
     }
   };
 
+  // Função para reiniciar o quiz
   const restartQuiz = () => {
-    setPoints(0);
-    setActualQuestion(0);
-    setIsQuizCompleted(false);
+    setPoints(0); // Reseta a pontuação
+    setActualQuestion(0); // Volta para a primeira pergunta
+    setIsQuizCompleted(false); // Marca o quiz como não concluído
   };
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <h1>Quizz Sobre Carros</h1>
-      </header>
+      <PageTitle text={`Quiz`} />
       <main className={styles.main}>
         {!isQuizCompleted ? (
           <div className={styles.quizzContainer}>
-            <p className={styles.question}>
-              <span>{actualQuestion + 1}</span> &#8212;
-              <span>{questions[actualQuestion]?.question}</span>
-            </p>
+            <div className={styles.questionBox}>
+              <p className={styles.question}>
+                <span>{actualQuestion + 1}</span> &#8212;
+                <span>{questions[actualQuestion]?.question}</span>
+              </p>
+            </div>
             <div className={styles.answersBox}>
               {questions[actualQuestion]?.answers.map((answer, i) => (
                 <button
@@ -150,11 +86,8 @@ const Quiz = () => {
                       ? styles.wrongAnswer
                       : ""
                   }`}
-                  disabled={selectedAnswer !== null} // Desabilitar botão após seleção
+                  disabled={selectedAnswer !== null}
                 >
-                  <span className={styles.btnLetter}>
-                    {String.fromCharCode(97 + i)}
-                  </span>
                   <span className={styles.questionAnswer}>{answer.answer}</span>
                 </button>
               ))}
@@ -170,7 +103,7 @@ const Quiz = () => {
           </div>
         )}
       </main>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

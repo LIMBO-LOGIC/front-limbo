@@ -11,6 +11,7 @@ import Login from "../pages/Login";
 import Quiz from "../pages/Quiz";
 import Register from "../pages/Register";
 import LiveRace from "../pages/LiveRace";
+import Ranking from "../pages/Ranking";
 
 const router = createBrowserRouter([
   {
@@ -26,10 +27,6 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
-  },
-  {
-    path: "/quiz",
-    element: <Quiz />,
   },
   {
     path: "/register",
@@ -62,6 +59,14 @@ const router = createBrowserRouter([
       {
         path: "live-race",
         element: <LiveRace />,
+      },
+      {
+        path: "quiz",
+        element: <Quiz />,
+      },
+      {
+        path: "ranking",
+        element: <Ranking />,
       },
     ],
   },

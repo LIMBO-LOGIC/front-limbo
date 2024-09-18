@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=Khand:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+.container {
+  display: flex;
+  flex-wrap: wrap; /* Para que as caixas quebrem para a linha seguinte se necessário */
+  justify-content: center; /* Centraliza as caixas */
+}
+
+.box1 {
+  height: 450px;
+  width: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 18px;
+  background-color: #ffff;
+  margin: 20px; /* Espaçamento entre as caixas */
+  box-shadow: 0 4px 15px rgba(0, 0, 232, 0.2); /* Sombra azul sutil */
+}
+
+.CardPhoto {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0007e8;
+  height: 200px; /* Ajuste conforme necessário */
+  width: 100%; /* 100% da largura do box1 */
+  border-radius: 18px;
+  position: relative; /* Para permitir o posicionamento absoluto da medalha */
+}
+
+.medal {
+  position: absolute; /* Posiciona a medalha em relação ao CardPhoto */
+  top: 10px; /* Distância do topo */
+  right: 10px; /* Distância da direita */
+  font-size: 24px; /* Tamanho da medalha */
+  z-index: 1; /* Garante que a medalha fique acima da imagem */
+}
+
+.name,
+.username,
+.totalpoints,
+.totalpointsNumber,
+.pointsexchange,
+.pointsexchangeNumber {
+  font-family: "Montserrat", sans-serif;
+  padding-top: 10px; /* Ajuste do padding, se necessário */
+}
+.name {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-size: 24px;
+  padding-top: 20px;
+}
+.username {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-size: 18px;
+  padding-top: 20px;
+}
+.totalpoints {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-size: 20px;
+  color: #0007e8;
+  padding-top: 20px;
+}
+.totalpointsNumber {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-size: 16px;
+  font-weight: bold;
+  color: #0007e8;
+  padding-top: 5px;
+}
+.pointsexchange {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-size: 20px;
+  color: #0007e8;
+  padding-top: 20px;
+}
+.pointsexchangeNumber {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-size: 16px;
+  font-weight: bold;
+  color: #0007e8;
+  padding-top: 5px;
+  /* padding-bottom: 50px; */
+}
+img {
+  display: block;
+  max-width: 100%;
+}

@@ -91,13 +91,13 @@ export default function Nav() {
           </Link>
         </ItemMenu>
         <ItemMenu>
-          <Link to="/" className={styles.itemMenu}>
+          <Link to="/race/quiz" className={styles.itemMenu}>
             <FaGamepad />
             <p>Quiz</p>
           </Link>
         </ItemMenu>
         <ItemMenu>
-          <Link to="/" className={styles.itemMenu}>
+          <Link to="/race/ranking" className={styles.itemMenu}>
             <LiaMedalSolid />
             <p>Ranking</p>
           </Link>

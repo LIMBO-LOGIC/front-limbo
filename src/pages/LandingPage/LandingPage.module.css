@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Khand:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-html{
+html {
   scroll-behavior: smooth;
 }
 .logo {
@@ -187,24 +187,11 @@ html{
 /* Seção "Discover the Power of Ecosystems" */
 .ecosystemSection {
   background-color: #023e73;
-  padding: 3rem;
   color: white;
   text-align: center;
+  
 }
 
-.ecosystemSection h2 {
-  font-size: 1.75rem;
-  margin-bottom: 1.25rem;
-  font-weight: bold;
-}
-
-.ecosystemSection p {
-  font-size: 1.125rem;
-  line-height: 1.8;
-  max-width: 50rem;
-  margin: 0 auto;
-  text-shadow: 0.0625rem 0.0625rem 0.1875rem rgba(0, 0, 0, 0.3);
-}
 .livehub {
   color: #000bd8;
   font-size: 50px;
