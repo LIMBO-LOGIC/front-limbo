@@ -1,11 +1,13 @@
 import { FaHeart } from "react-icons/fa";
 import styles from "./cardMarketplace.module.css";
 import airpods from "../../assets/airpods.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function CardMarketplace() {
+  const navigate = useNavigate()
   return (
     <div className={styles.cardMarketplace}>
-      <div className={styles.boxImg}>
+      <div className={styles.boxImg} onClick={() => navigate('/race/product')}>
         <img className={styles.imgProduct} src={airpods} alt="Imagem teste de produto" />
       </div>
       <div className={styles.dataCard}>

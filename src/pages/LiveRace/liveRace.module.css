@@ -119,6 +119,11 @@
   background-color: var(--bg-blue);
 }
 
+.boxPilots{
+  width: 100%;
+  padding: 16px 36px;
+}
+
 .boxCircuit {
   width: 100%;
   padding: 16px 36px;

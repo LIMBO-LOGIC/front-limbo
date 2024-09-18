@@ -14,7 +14,11 @@ export default function LiveRace() {
   const [luminosity, setLuminosity] = useState("0nux");
   const [messages, setMessages] = useState([
     { type: "sent", message: "Bom dia, hoje eu vou acertar! - eu" },
-    { type: "received", message: "Bom dia, hoje eu vou acertar!" },
+    {
+      type: "received",
+      message:
+        "Bom dia, hoje eu vou acertar! Bom dia, hoje eu vou acertar! - eu",
+    },
   ]);
 
   const sendMessage = () => {
@@ -22,6 +26,12 @@ export default function LiveRace() {
     setInputMessage("");
     setMessages((prevMessages) => [newMessage, ...prevMessages]);
   };
+
+  const handleChangeData = () => {
+    setTemperature('24°C')
+    setHumidity('94')
+    setLuminosity('500nux')
+  }
 
   return (
     <section className={styles.liveRace}>
@@ -77,6 +87,7 @@ export default function LiveRace() {
               name="location"
               id="location"
               className={`form-control ${styles.inputLocation}`}
+              onChange={handleChangeData}
             >
               <option value="0" disabled selected>
                 Selecione o ponto da pista
@@ -100,9 +111,7 @@ export default function LiveRace() {
             />
           </div>
           <div className="col-md-2">
-            <label className={`form-label ${styles.labelData}`}>
-              Umidade
-            </label>
+            <label className={`form-label ${styles.labelData}`}>Umidade</label>
             <input
               type="text"
               disabled
@@ -110,6 +119,7 @@ export default function LiveRace() {
               id="humidity"
               className={`form-control ${styles.inputData}`}
               value={humidity}
+
             />
           </div>
           <div className="col-md-2">
@@ -125,6 +135,49 @@ export default function LiveRace() {
               value={luminosity}
             />
           </div>
+        </div>
+      </div>
+
+      <div className={styles.boxPilots}>
+        <div className="table-responsive">
+          <table
+            className="table table-hover caption-top"
+            style={{ whiteSpace: "nowrap" }}
+          >
+            <caption>Pilotos</caption>
+            <thead className="table-dark">
+              <tr>
+                <th className="col text-center" style={{ cursor: "pointer" }}>
+                  Selecionar
+                </th>
+                <th className="col text-center" style={{ cursor: "pointer" }}>
+                  Classificação
+                </th>
+                <th className="col text-center" style={{ cursor: "pointer" }}>
+                  Pontos
+                </th>
+                <th className="col text-center" style={{ cursor: "pointer" }}>
+                  Carro
+                </th>
+                <th className="col text-center" style={{ cursor: "pointer" }}>
+                  Equipe
+                </th>
+                <th className="col text-center" style={{ cursor: "pointer" }}>
+                  Piloto
+                </th>
+              </tr>
+            </thead>
+            <tbody className="table-group-divider">
+              <tr>
+                <td className="text-center">Seta</td>
+                <td className="text-center">Primeiro</td>
+                <td className="text-center">198</td>
+                <td className="text-center">Carro</td>
+                <td className="text-center">Equipe</td>
+                <td className="text-center">11 Lucas Di Grassi</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>

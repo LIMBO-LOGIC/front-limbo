@@ -4,7 +4,8 @@
 }
 
 .messageUser {
-  max-width: 50%;
+  max-width:90%;
+  width: max-content;
   border-radius: 10px;
   padding: 2px 6px;
   color: var(--white-default);

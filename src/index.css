@@ -24,9 +24,12 @@
   --white-default: #fff;
   --black-default: #000;
   --bg-blue: #00005A;
-
   --font-montserrat: "Montserrat", sans-serif;
   --font-inter: "Inter", sans-serif;
+}
+
+.table-dark{
+  --bs-table-bg: var(--bg-blue) !important;
 }
 
 p{

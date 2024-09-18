@@ -12,6 +12,7 @@ import Quiz from "../pages/Quiz";
 import Register from "../pages/Register";
 import LiveRace from "../pages/LiveRace";
 import Ranking from "../pages/Ranking";
+import Product from "../pages/Product";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: "ranking",
         element: <Ranking />,
+      },
+      {
+        path: "product",
+        element: <Product />,
       },
     ],
   },
