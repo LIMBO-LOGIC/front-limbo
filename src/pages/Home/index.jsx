@@ -34,7 +34,7 @@ export default function Home() {
             <div className={styles.line}></div>
             <div className={styles.raceText}>
               <p className={styles.location}>São Paulo</p>
-              <p className={styles.round}>ROUND 1</p>
+              <p className={styles.round}>7 de Dezembro</p>
             </div>
           </div>
         </div>

@@ -35,7 +35,7 @@ export default function TeamCard({ item }) {
     <div className={styles.teamCard}>
       <p className={styles.cardTitle}>{item.name}</p>
       <div style={styleImg} className={styles.boxImgCar}>
-        <img src={item.imageCar} alt="Image car" />
+        <img src={`/assets/${item.imageCar}`} alt="Image car" />
       </div>
       <div className={styles.dataTeam}>
         <DataTeam color={item.colorMain} icon={<IoTrophyOutline />} name={"Wins"} value={item.wins} />

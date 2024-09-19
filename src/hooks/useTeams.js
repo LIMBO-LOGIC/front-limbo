@@ -1,215 +1,235 @@
 const formulaETeams = [
     {
-      name: 'ABT CUPRA Formula E Team',
-      colorMain: '#194997',
-      imageCar: '',
-      wins: 14,
-      podiums: 47,
-      races: 115,
-      pilots: [
-        {
-          number: 11,
-          name: 'Nico',
-          lastName: 'Mueller'
-        },
-        {
-          number: 51,
-          name: 'Robin',
-          lastName: 'Frijns'
-        }
-      ]
+        name: 'ABT CUPRA Formula E Team',
+        colorMain: '#194997',
+        imageCar: 'cupra.png',
+        wins: 14,
+        podiums: 47,
+        races: 115,
+        pilots: [
+            {
+                number: 11,
+                name: 'Lucas Di Grassi',
+                lastName: 'Frijns'
+            },
+            {
+                number: 51,
+                name: 'Nico',
+                lastName: 'Mueller'
+            },
+        ]
     },
     {
-      name: 'Avalanche Andretti Formula E',
-      colorMain: '#ff0000',
-      imageCar: '',
-      wins: 8,
-      podiums: 25,
-      races: 108,
-      pilots: [
-        {
-          number: 27,
-          name: 'Jake',
-          lastName: 'Dennis'
-        },
-        {
-          number: 36,
-          name: 'Norman',
-          lastName: 'Nato'
-        }
-      ]
+        name: 'Avalanche Andretti Formula E',
+        colorMain: '#ED3124',
+        imageCar: 'andretti.png',
+        wins: 11,
+        podiums: 37,
+        races: 132,
+        pilots: [
+            {
+                number: 1,
+                name: 'Jake',
+                lastName: 'Dennis'
+            },
+            {
+                number: 17,
+                name: 'Norman',
+                lastName: 'Nato'
+            }
+        ]
     },
     {
-      name: 'DS Penske',
-      colorMain: '#ffd700',
-      imageCar: '',
-      wins: 16,
-      podiums: 45,
-      races: 122,
-      pilots: [
-        {
-          number: 25,
-          name: 'Jean-Eric',
-          lastName: 'Vergne'
-        },
-        {
-          number: 5,
-          name: 'Stoffel',
-          lastName: 'Vandoorne'
-        }
-      ]
+        name: 'DS Penske',
+        colorMain: '#CBA65F',
+        imageCar: 'ds_penske.png',
+        wins: 3,
+        podiums: 17,
+        races: 132,
+        pilots: [
+            {
+                number: 25,
+                name: 'Jean-Eric',
+                lastName: 'Vergne'
+            },
+            {
+                number: 2,
+                name: 'Stoffel',
+                lastName: 'Vandoorne'
+            }
+        ]
     },
     {
-      name: 'Envision Racing',
-      colorMain: '#00ff00',
-      imageCar: '',
-      wins: 12,
-      podiums: 33,
-      races: 118,
-      pilots: [
-        {
-          number: 37,
-          name: 'Nick',
-          lastName: 'Cassidy'
-        },
-        {
-          number: 4,
-          name: 'Sebastien',
-          lastName: 'Buemi'
-        }
-      ]
+        name: 'Envision Racing',
+        colorMain: '#00BE26',
+        imageCar: 'envision.png',
+        wins: 16,
+        podiums: 53,
+        races: 132,
+        pilots: [
+            {
+                number: 4,
+                name: 'Robin',
+                lastName: 'Frijns'
+            },
+            {
+                number: 16,
+                name: 'Sebastien',
+                lastName: 'Buemi'
+            }
+        ]
     },
     {
-      name: 'Jaguar TCS Racing',
-      colorMain: '#000000',
-      imageCar: '',
-      wins: 10,
-      podiums: 30,
-      races: 116,
-      pilots: [
-        {
-          number: 9,
-          name: 'Mitch',
-          lastName: 'Evans'
-        },
-        {
-          number: 10,
-          name: 'Sam',
-          lastName: 'Bird'
-        }
-      ]
+        name: 'ERT Formula E Team',
+        colorMain: '#3C3C3C',
+        imageCar: 'ert.png',
+        wins: 2,
+        podiums: 6,
+        races: 132,
+        pilots: [
+            {
+                number: 33,
+                name: 'Dan',
+                lastName: 'Ticktum'
+            },
+            {
+                number: 3,
+                name: 'Sérgio',
+                lastName: 'Sette Cámara'
+            }
+        ]
     },
     {
-      name: 'Mahindra Racing',
-      colorMain: '#ff4500',
-      imageCar: '',
-      wins: 5,
-      podiums: 20,
-      races: 100,
-      pilots: [
-        {
-          number: 8,
-          name: 'Lucas',
-          lastName: 'Di Grassi'
-        },
-        {
-          number: 7,
-          name: 'Roberto',
-          lastName: 'Merhi'
-        }
-      ]
+        name: 'Jaguar TCS Racing',
+        colorMain: '#000000',
+        imageCar: 'jaguar.png',
+        wins: 16,
+        podiums: 46,
+        races: 111,
+        pilots: [
+            {
+                number: 9,
+                name: 'Mitch',
+                lastName: 'Evans'
+            },
+            {
+                number: 37,
+                name: 'Nick',
+                lastName: 'Cassidy'
+            }
+        ]
     },
     {
-      name: 'Maserati MSG Racing',
-      colorMain: '#0000ff',
-      imageCar: '',
-      wins: 7,
-      podiums: 21,
-      races: 101,
-      pilots: [
-        {
-          number: 48,
-          name: 'Edoardo',
-          lastName: 'Mortara'
-        },
-        {
-          number: 5,
-          name: 'Maximilian',
-          lastName: 'Guenther'
-        }
-      ]
+        name: 'Mahindra Racing',
+        colorMain: '#DD052B',
+        imageCar: 'mahindra.png',
+        wins: 5,
+        podiums: 24,
+        races: 131,
+        pilots: [
+            {
+                number: 48,
+                name: 'Edoardo',
+                lastName: 'Mortara'
+            },
+            {
+                number: 21,
+                name: 'Nyck',
+                lastName: 'De Vries'
+            }
+        ]
     },
     {
-      name: 'NIO 333 Racing',
-      colorMain: '#add8e6',
-      imageCar: '',
-      wins: 2,
-      podiums: 10,
-      races: 90,
-      pilots: [
-        {
-          number: 3,
-          name: 'Dan',
-          lastName: 'Ticktum'
-        },
-        {
-          number: 33,
-          name: 'Sergio',
-          lastName: 'Sette Camara'
-        }
-      ]
+        name: 'Maserati MSG Racing',
+        colorMain: '#001489',
+        imageCar: 'maserati.png',
+        wins: 10,
+        podiums: 27,
+        races: 132,
+        pilots: [
+            {
+                number: 18,
+                name: 'Jehan',
+                lastName: 'Daruvala'
+            },
+            {
+                number: 7,
+                name: 'Maximilian',
+                lastName: 'Guenther'
+            }
+        ]
     },
     {
-      name: 'Nissan Formula E Team',
-      colorMain: '#ff1c00',
-      imageCar: '',
-      wins: 9,
-      podiums: 28,
-      races: 110,
-      pilots: [
-        {
-          number: 23,
-          name: 'Sacha',
-          lastName: 'Fenestraz'
-        },
-        {
-          number: 17,
-          name: 'Norman',
-          lastName: 'Nato'
-        }
-      ]
+        name: 'Neom McLaren Formula E Team',
+        colorMain: ' #FF8000',
+        imageCar: 'mclaren.png',
+        wins: 8,
+        podiums: 26,
+        races: 87,
+        pilots: [
+            {
+                number: 5,
+                name: 'Jake',
+                lastName: 'Hughes'
+            },
+            {
+                number: 8,
+                name: 'Sam',
+                lastName: 'Bird'
+            },
+        ]
     },
     {
-      name: 'TAG Heuer Porsche Formula E Team',
-      colorMain: '#ffffff',
-      imageCar: '',
-      wins: 6,
-      podiums: 18,
-      races: 95,
-      pilots: [
-        {
-          number: 94,
-          name: 'Pascal',
-          lastName: 'Wehrlein'
-        },
-        {
-          number: 13,
-          name: 'Antonio',
-          lastName: 'Felix da Costa'
-        }
-      ]
+        name: 'Nissan Formula E Team',
+        colorMain: '#C3002F',
+        imageCar: 'nissan.png',
+        wins: 19,
+        podiums: 47,
+        races: 132,
+        pilots: [
+            {
+                number: 22,
+                name: 'Oliver',
+                lastName: 'Rowland'
+            },
+            {
+                number: 23,
+                name: 'Sacha',
+                lastName: 'Fenestraz'
+            }
+        ]
+    },
+    {
+        name: 'TAG Heuer Porsche Formula E Team',
+        colorMain: '#D5001C',
+        imageCar: 'porsche.png',
+        wins: 12,
+        podiums: 22,
+        races: 74,
+        pilots: [
+            {
+                number: 94,
+                name: 'Pascal',
+                lastName: 'Wehrlein'
+            },
+            {
+                number: 13,
+                name: 'Antonio Felix',
+                lastName: 'Da Costa'
+            }
+        ]
     }
 ];
 
-export default function useTeams(length){
-    if(length){
+export default function useTeams(length) {
+    if (length) {
         const listTeams = []
         for (let index = 0; index < length; index++) {
             const element = formulaETeams[index];
             listTeams.push(element)
         }
         return listTeams;
-    }else{
+    } else {
         return formulaETeams
     }
 }
