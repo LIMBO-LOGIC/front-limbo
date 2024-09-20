@@ -1,3 +1,3 @@
-const urlChat = 'http://localhost:3001'
+const urlChat = "https://socket-limbo-logic-app.webpubsub.azure.com/"
 
 export {urlChat}

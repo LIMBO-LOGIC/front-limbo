@@ -8,7 +8,10 @@ import ChatReceived from "../../components/ChatReceived";
 import ChatSent from "../../components/ChatSent";
 import { io } from "socket.io-client";
 import { urlChat } from "../../service/api";
-const socket = io(urlChat);
+
+const socket = io(urlChat, {
+  path: "/clients/socketio/hubs/Hub",
+});
 
 export default function LiveRace() {
   const [temperature, setTemperature] = useState("0°C");
