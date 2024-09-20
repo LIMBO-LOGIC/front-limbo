@@ -103,7 +103,6 @@ const Quiz = () => {
           </div>
         )}
       </main>
-      <Footer />
     </div>
   );
 };
