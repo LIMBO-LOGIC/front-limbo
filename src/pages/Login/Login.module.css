@@ -119,15 +119,7 @@
 
 /* Media Queries */
 /* Media Queries */
-@media (max-width: 1450px) {
-  .main_login {
-    grid-template-columns: 1fr; /* Layout de uma coluna para telas <= 1450px */
-  }
-
-  .left_login {
-    display: none; /* Ocultar a imagem à esquerda para telas <= 1450px */
-  }
-
+@media (max-width: 960px) {
   .right_login {
     padding: 20px 30px; /* Ajustar padding para telas <= 1450px */
   }
@@ -148,7 +140,11 @@
   }
 
   .right_login {
-    padding: 15px 20px; /* Ajustar padding para telas <= 768px */
+    padding: 16px 0px;
+  }
+
+  .card_usuario {
+    padding: 0px 48px; /* Ajustar padding para telas <= 768px */
   }
 
   .login_login {
@@ -163,7 +159,8 @@
     padding: 14px 0; /* Ajustar padding do botão */
     font-size: 18px; /* Ajustar tamanho da fonte do botão */
   }
-  .image{
+
+  .image {
     width: 50%;
   }
 }
