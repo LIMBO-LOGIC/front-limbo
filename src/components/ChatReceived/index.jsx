@@ -9,7 +9,7 @@ export default function ChatReceived({ name, photo, message }) {
         <div hidden>{`${name} ${photo} ${message}`}</div>
         <div className={styles.dataUser}>
           <img src={userPhoto} alt="Foto de usuário" />
-          <p>Luiz Gustavo</p>
+          <p>{name}</p>
         </div>
         <p className={styles.messageUser}>{message}</p>
       </div>
