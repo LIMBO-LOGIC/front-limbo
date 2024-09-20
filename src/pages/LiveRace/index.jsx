@@ -3,35 +3,66 @@ import styles from "./liveRace.module.css";
 import { IoSend } from "react-icons/io5";
 import circuit from "../../assets/racing_live_race.png";
 import PageTitle from "../../components/PageTitle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChatReceived from "../../components/ChatReceived";
 import ChatSent from "../../components/ChatSent";
+import { io } from "socket.io-client";
+import { urlChat } from "../../service/api";
+const socket = io(urlChat);
 
 export default function LiveRace() {
-  const [inputMessage, setInputMessage] = useState("");
   const [temperature, setTemperature] = useState("0°C");
   const [humidity, setHumidity] = useState("0");
   const [luminosity, setLuminosity] = useState("0nux");
-  const [messages, setMessages] = useState([
-    { type: "sent", message: "Bom dia, hoje eu vou acertar! - eu" },
-    {
-      type: "received",
-      message:
-        "Bom dia, hoje eu vou acertar! Bom dia, hoje eu vou acertar! - eu",
-    },
-  ]);
-
-  const sendMessage = () => {
-    const newMessage = { type: "received", message: inputMessage };
-    setInputMessage("");
-    setMessages((prevMessages) => [newMessage, ...prevMessages]);
-  };
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
+  const [user, setUser] = useState({ user_id: 1, name_user: 'Luiz', image_user: 'https://example.com/avatar.png' });
 
   const handleChangeData = () => {
-    setTemperature('24°C')
-    setHumidity('94')
-    setLuminosity('500nux')
-  }
+    setTemperature("24°C");
+    setHumidity("94");
+    setLuminosity("500nux");
+  };
+
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("Conectado ao servidor Socket.IO");
+      socket.emit('list_message', '66ecae9379ef6d8440299c6d')
+    });
+
+    socket.on("chat_list", (chats) => {
+      console.log(chats);
+    });
+
+    socket.on("previousMessages", (oldMessages) => {
+      setMessages(oldMessages.data);
+      console.log(oldMessages.data)
+    });
+
+    socket.on("newMessage", (message) => {
+      console.log(message);
+      setMessages((prevMessages) => [message,...prevMessages]);
+    });
+
+    return () => {
+      socket.off('connect');
+      socket.off('previousMessages'); // Remova a escuta ao desconectar
+    socket.off('newMessage'); // Remova a escuta ao desconectar
+    };
+  }, []);
+
+  const sendMessage = () => {
+    if (newMessage.trim()) {
+      const messageData = {
+        ...user,
+        message: newMessage,
+        chat_id: "66ecae9379ef6d8440299c6d",
+      };
+
+      socket.emit("sendMessage", messageData);
+      setNewMessage("");
+    }
+  };
 
   return (
     <section className={styles.liveRace}>
@@ -56,7 +87,7 @@ export default function LiveRace() {
             <div className={styles.chat}>
               <div className={styles.listMessages}>
                 {messages.map((msg, index) =>
-                  msg.type === "sent" ? (
+                  msg.user_id === user.user_id ? (
                     <ChatSent key={index} message={msg.message} />
                   ) : (
                     <ChatReceived key={index} message={msg.message} />
@@ -67,10 +98,13 @@ export default function LiveRace() {
                 <input
                   type="text"
                   placeholder="Digite aqui"
-                  value={inputMessage}
-                  onChange={(e) => setInputMessage(e.target.value)}
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
                 />
-                <IoSend style={{ cursor: "pointer" }} onClick={sendMessage} />
+                <IoSend
+                  style={{ cursor: "pointer" }}
+                  onClick={sendMessage}
+                />
               </div>
             </div>
           </div>
@@ -119,7 +153,6 @@ export default function LiveRace() {
               id="humidity"
               className={`form-control ${styles.inputData}`}
               value={humidity}
-
             />
           </div>
           <div className="col-md-2">
