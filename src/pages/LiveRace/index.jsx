@@ -24,10 +24,15 @@ export default function LiveRace() {
   const handleChangeData = () => {
     setTemperature("24°C");
     setHumidity("94");
-    setLuminosity("500nux");
+    setLuminosity("500lux");
   };
 
   useEffect(() => {
+    const userStorage = localStorage.getItem("userStorage");
+    if (userStorage) {
+      setUser(JSON.parse(userStorage));
+    }
+
     socket.on("connect", () => {
       console.log("Conectado ao servidor Socket.IO");
       socket.emit('list_message', '66ecae9379ef6d8440299c6d')
@@ -93,7 +98,7 @@ export default function LiveRace() {
                   msg.user_id === user.user_id ? (
                     <ChatSent key={index} message={msg.message} />
                   ) : (
-                    <ChatReceived key={index} message={msg.message} />
+                    <ChatReceived key={index} name={msg.name_user} message={msg.message} />
                   )
                 )}
               </div>
@@ -117,7 +122,7 @@ export default function LiveRace() {
       <div className={styles.boxCircuit}>
         <h2>Pista</h2>
         <img src={circuit} alt="Imagem da pista de Londres" />
-        <div className={styles.containerInfoCircuit}>
+        <div className={`${styles.containerInfoCircuit} row`}>
           <div className={`${styles.locationCircuit} col-md-4`}>
             <label className="mb-1">Localização</label>
             <select

@@ -173,3 +173,10 @@
   color: rgba(0, 46, 247, 1) !important;
   background-color:rgba(141, 162, 255, 0.38)  !important;
 }
+
+@media (max-width: 1200px) {
+  .boxLiveRace{
+    display: grid;
+  grid-template-columns: 100%;
+  }
+}
