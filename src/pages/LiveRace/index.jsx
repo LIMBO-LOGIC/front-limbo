@@ -7,25 +7,72 @@ import { useEffect, useState } from "react";
 import ChatReceived from "../../components/ChatReceived";
 import ChatSent from "../../components/ChatSent";
 import { io } from "socket.io-client";
-import { urlChat } from "../../service/api";
+import { IP_ADRESS_IOT, IP_ADRESS_IOT_TESTE, urlChat } from "../../service/api";
+import axios from "axios";
+import { TbArrowRightToArc } from "react-icons/tb";
 
 const socket = io(urlChat, {
   path: "/clients/socketio/hubs/Hub",
 });
 
 export default function LiveRace() {
+  const [listPointsLocations, setListPointsLocations] = useState([]);
+  const [pilotsRace, setPilotsRace] = useState([]);
+
   const [temperature, setTemperature] = useState("0°C");
   const [humidity, setHumidity] = useState("0");
-  const [luminosity, setLuminosity] = useState("0nux");
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
-  const [user, setUser] = useState({ user_id: 1, name_user: 'Luiz', image_user: 'https://example.com/avatar.png' });
+  const [luminosity, setLuminosity] = useState("0");
 
-  const handleChangeData = () => {
-    setTemperature("24°C");
-    setHumidity("94");
-    setLuminosity("500lux");
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+  const [user, setUser] = useState({
+    user_id: 1,
+    name_user: "Luiz",
+    image_user: "https://example.com/avatar.png",
+  });
+
+  const handleChangeData = async (location) => {
+    axios
+      .get(
+        `http://${IP_ADRESS_IOT}:1026/v2/entities/urn:ngsi-ld:SaoPaulo:${location}/attrs`,
+        {
+          headers: {
+            "fiware-service": "smart",
+            "fiware-servicepath": "/",
+            accept: "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        setTemperature(response.data.temperature.value);
+        setHumidity(`${response.data.humidity.value}%`);
+        setLuminosity(response.data.luminosity.value);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
+  useEffect(() => {
+    axios
+      .get(`http://${IP_ADRESS_IOT_TESTE}:8080/locations/saopaulo`)
+      .then((response) => {
+        setListPointsLocations(response.data.data.devices);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
+      .get(`http://${IP_ADRESS_IOT_TESTE}:8080/race`)
+      .then((response) => {
+        setPilotsRace(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
 
   useEffect(() => {
     const userStorage = localStorage.getItem("userStorage");
@@ -35,7 +82,7 @@ export default function LiveRace() {
 
     socket.on("connect", () => {
       console.log("Conectado ao servidor Socket.IO");
-      socket.emit('list_message', '66ecae9379ef6d8440299c6d')
+      socket.emit("list_message", "66ecae9379ef6d8440299c6d");
     });
 
     socket.on("chat_list", (chats) => {
@@ -44,18 +91,18 @@ export default function LiveRace() {
 
     socket.on("previousMessages", (oldMessages) => {
       setMessages(oldMessages.data);
-      console.log(oldMessages.data)
+      console.log(oldMessages.data);
     });
 
     socket.on("newMessage", (message) => {
       console.log(message);
-      setMessages((prevMessages) => [message,...prevMessages]);
+      setMessages((prevMessages) => [message, ...prevMessages]);
     });
 
     return () => {
-      socket.off('connect');
-      socket.off('previousMessages'); // Remova a escuta ao desconectar
-    socket.off('newMessage'); // Remova a escuta ao desconectar
+      socket.off("connect");
+      socket.off("previousMessages");
+      socket.off("newMessage");
     };
   }, []);
 
@@ -98,7 +145,11 @@ export default function LiveRace() {
                   msg.user_id === user.user_id ? (
                     <ChatSent key={index} message={msg.message} />
                   ) : (
-                    <ChatReceived key={index} name={msg.name_user} message={msg.message} />
+                    <ChatReceived
+                      key={index}
+                      name={msg.name_user}
+                      message={msg.message}
+                    />
                   )
                 )}
               </div>
@@ -109,10 +160,7 @@ export default function LiveRace() {
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
                 />
-                <IoSend
-                  style={{ cursor: "pointer" }}
-                  onClick={sendMessage}
-                />
+                <IoSend style={{ cursor: "pointer" }} onClick={sendMessage} />
               </div>
             </div>
           </div>
@@ -129,14 +177,23 @@ export default function LiveRace() {
               name="location"
               id="location"
               className={`form-control ${styles.inputLocation}`}
-              onChange={handleChangeData}
+              onChange={(e) => handleChangeData(e.target.value)}
             >
               <option value="0" disabled selected>
                 Selecione o ponto da pista
               </option>
-              <option value="1">T1</option>
-              <option value="2">T2</option>
-              <option value="3">T3</option>
+              {listPointsLocations.map((device) => {
+                return (
+                  <option
+                    key={device.device_id}
+                    value={device.device_id
+                      .replace("saoPaulo", "")
+                      .toUpperCase()}
+                  >
+                    {device.device_id.replace("saoPaulo", "")}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className="col-md-2">
@@ -188,35 +245,87 @@ export default function LiveRace() {
             <caption>Pilotos</caption>
             <thead className="table-dark">
               <tr>
-                <th className="col text-center" style={{ cursor: "pointer" }}>
+                <th
+                  scope="col"
+                  className="col text-center"
+                  style={{ cursor: "pointer" }}
+                >
                   Selecionar
                 </th>
-                <th className="col text-center" style={{ cursor: "pointer" }}>
+                <th
+                  scope="col"
+                  className="col text-center"
+                  style={{ cursor: "pointer" }}
+                >
                   Classificação
                 </th>
-                <th className="col text-center" style={{ cursor: "pointer" }}>
+                <th
+                  scope="col"
+                  className="col text-center"
+                  style={{ cursor: "pointer" }}
+                >
                   Pontos
                 </th>
-                <th className="col text-center" style={{ cursor: "pointer" }}>
+                <th
+                  scope="col"
+                  className="col text-center"
+                  style={{ cursor: "pointer" }}
+                >
                   Carro
                 </th>
-                <th className="col text-center" style={{ cursor: "pointer" }}>
+                <th
+                  scope="col"
+                  className="col text-center"
+                  style={{ cursor: "pointer" }}
+                >
                   Equipe
                 </th>
-                <th className="col text-center" style={{ cursor: "pointer" }}>
+                <th
+                  scope="col"
+                  className="col text-center"
+                  style={{ cursor: "pointer" }}
+                >
                   Piloto
                 </th>
               </tr>
             </thead>
             <tbody className="table-group-divider">
-              <tr>
-                <td className="text-center">Seta</td>
-                <td className="text-center">Primeiro</td>
-                <td className="text-center">198</td>
-                <td className="text-center">Carro</td>
-                <td className="text-center">Equipe</td>
-                <td className="text-center">11 Lucas Di Grassi</td>
-              </tr>
+              {pilotsRace.map((pilot) => {
+                return (
+                  <tr
+                    key={pilot.pilot_id}
+                    className={`${styles.registerPilot}`}
+                  >
+                    <td className="text-center">
+                      <div className={styles.tdDataArrow}>
+                        <TbArrowRightToArc />
+                      </div>
+                    </td>
+                    <td className="text-center">
+                      <div className={styles.tdData}>{pilot.position}º</div>
+                    </td>
+                    <td className="text-center">
+                      <div className={styles.tdData}>{pilot.points}</div>
+                    </td>
+                    <td className={`${styles.tdImgCar}`}>
+                      <img
+                        className={`${styles.imgCar}`}
+                        src={pilot.image_car}
+                        alt={`Image of the ${pilot.team} team's car`}
+                      />
+                    </td>
+                    <td className="text-center">
+                      <div className={styles.tdData}>{pilot.team}</div>
+                    </td>
+                    <td className="text-center">
+                      <div className={styles.tdData}>
+                        <p><strong>{pilot.number_pilot}</strong> {pilot.name_pilot} <strong>{pilot.last_name_pilot}</strong></p>
+                        
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
