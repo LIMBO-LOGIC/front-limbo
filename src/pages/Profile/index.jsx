@@ -1,11 +1,22 @@
 import { useState } from "react";
 import styles from "./profile.module.css";
-import imgProfile from "../../assets/user_profile.png";
 import ContainerProduct from "../../components/ContainerProduct";
 import PageTitle from "../../components/PageTitle";
+import useContexts from "../../hooks/useContext";
 
 export default function Profile() {
   const [isEdit, setIsEdit] = useState(false);
+  const { dataUser } = useContexts();
+  const [name, setName] = useState(dataUser.name)
+  const [email, setEmail] = useState(dataUser.email)
+  const [nickname, setNickname] = useState(dataUser.nickname)
+  
+  const convertDate = (date) => {
+    const parts = date.split('/');
+    const [day, month, year] = parts;
+    return `${year}-${month}-${day}`;
+  }
+  const [birthdate, setBirthdate] = useState(convertDate(dataUser.birthdate))
 
   const handleEdit = () => {
     setIsEdit(!isEdit);
@@ -17,18 +28,19 @@ export default function Profile() {
 
   return (
     <section className={styles.profile}>
-      <PageTitle text={'Perfil'}/>
+      <PageTitle text={"Perfil"} />
       <form className={styles.boxMain}>
         <div className={`${styles.rowProfile} mb-5`}>
           <div className={`${styles.dataProfile}`}>
             <img
-              src={imgProfile}
+              src={dataUser.image_user}
               className={styles.imgProfile}
               alt="Imagem de perfil"
             />
             <div className={styles.userProfile}>
-              <p>Luiz Gustavo</p>
-              <span>120 pontos</span>
+              <p>{dataUser.name}</p>
+              <span>Pontos Totais: {dataUser.all_points} pontos</span>
+              <span>Pontos Atuais: {dataUser.current_points} pontos</span>
             </div>
           </div>
 
@@ -81,6 +93,8 @@ export default function Profile() {
               name="fullName"
               id="fullName"
               className="form-control"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div className="col-md-6 mb-4">
@@ -94,6 +108,8 @@ export default function Profile() {
               name="username"
               id="username"
               className="form-control"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
             />
           </div>
         </div>
@@ -109,6 +125,8 @@ export default function Profile() {
               name="email"
               id="email"
               className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="col-md-6 mb-4">
@@ -122,13 +140,15 @@ export default function Profile() {
               name=""
               id=""
               className="form-control"
+              value={birthdate}
+              onChange={(e) => setBirthdate(e.target.value)}
             />
           </div>
         </div>
       </form>
       <div className={styles.boxProduct}>
         <h2 className={styles.title}>Produtos resgatados</h2>
-        <ContainerProduct listItens={['teste']} />
+        <ContainerProduct listItens={["teste"]} />
       </div>
     </section>
   );

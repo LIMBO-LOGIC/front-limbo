@@ -10,6 +10,7 @@ import { io } from "socket.io-client";
 import { IP_ADRESS_IOT, IP_ADRESS_IOT_TESTE, urlChat } from "../../service/api";
 import axios from "axios";
 import { TbArrowRightToArc } from "react-icons/tb";
+import useContexts from "../../hooks/useContext";
 
 const socket = io(urlChat, {
   path: "/clients/socketio/hubs/Hub",
@@ -25,11 +26,7 @@ export default function LiveRace() {
 
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const [user, setUser] = useState({
-    user_id: 1,
-    name_user: "Luiz",
-    image_user: "https://example.com/avatar.png",
-  });
+  const {dataUser} = useContexts()
 
   const handleChangeData = async (location) => {
     axios
@@ -72,13 +69,9 @@ export default function LiveRace() {
       .catch((error) => {
         console.log(error);
       });
-  });
+  }, [setListPointsLocations]);
 
   useEffect(() => {
-    const userStorage = localStorage.getItem("userStorage");
-    if (userStorage) {
-      setUser(JSON.parse(userStorage));
-    }
 
     socket.on("connect", () => {
       console.log("Conectado ao servidor Socket.IO");
@@ -109,7 +102,7 @@ export default function LiveRace() {
   const sendMessage = () => {
     if (newMessage.trim()) {
       const messageData = {
-        ...user,
+        ...dataUser,
         message: newMessage,
         chat_id: "66ecae9379ef6d8440299c6d",
       };
@@ -142,7 +135,7 @@ export default function LiveRace() {
             <div className={styles.chat}>
               <div className={styles.listMessages}>
                 {messages.map((msg, index) =>
-                  msg.user_id === user.user_id ? (
+                  msg.user_id === dataUser.user_id ? (
                     <ChatSent key={index} message={msg.message} />
                   ) : (
                     <ChatReceived

@@ -1,14 +1,15 @@
 import { PropTypes } from "prop-types";
 import styles from "./chatSent.module.css";
-import userPhoto from "../../assets/user_profile.png";
+import useContexts from "../../hooks/useContext";
 
-export default function ChatSent({ name, photo, message }){
+export default function ChatSent({ message }){
+  const {dataUser} = useContexts()
+
     return (
       <div className={styles.myBox}>
         <div className={styles.myUserChat}>
-          <div hidden>{`${name} ${photo} ${message}`}</div>
           <div className={styles.myData}>
-            <img src={userPhoto} alt="Foto de usuário" />
+            <img src={dataUser.image_user} alt="Foto de usuário" />
             <p>Eu</p>
           </div>
           <p className={styles.myMessage}>{message}</p>
