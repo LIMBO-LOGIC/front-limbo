@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios"; // Importando axios para fazer requisições HTTP
 import styles from "./Register.module.css";
 import imagem_direita from "../../assets/tela_registro.svg";
 import UploadPhotoUser from "./UploadPhotoUser";
@@ -6,6 +7,13 @@ import UploadPhotoUser from "./UploadPhotoUser";
 const Register = () => {
   const [imagemPreview, setImagemPreview] = useState(null);
   const [picture, setPicture] = useState("");
+  const [nomeCompleto, setNomeCompleto] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [dataNascimento, setDataNascimento] = useState("");
+  const [senha, setSenha] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleImageChange = (file) => {
     const reader = new FileReader();
@@ -15,8 +23,40 @@ const Register = () => {
     reader.readAsDataURL(file);
   };
 
-  const validar = () => {
-    // Função de validação aqui
+  const validar = async () => {
+    setErrorMessage("");
+
+    // Validação simples dos campos
+    if (!nomeCompleto || !username || !email || !dataNascimento || !senha) {
+      setErrorMessage("Por favor, preencha todos os campos.");
+      return;
+    }
+
+    setLoading(true); // Desabilitar o botão enquanto carrega
+
+    try {
+      // Fazendo a requisição POST para o servidor com axios
+      const response = await axios.post("http://localhost:3000/register", {
+        nomeCompleto,
+        username,
+        email,
+        dataNascimento,
+        senha,
+        picture, // Imagem do usuário
+      });
+
+      if (response.data.success) {
+        console.log("Registro bem-sucedido:", response.data);
+        // Aqui você pode redirecionar para a tela de login ou outra página
+      } else {
+        setErrorMessage("Falha no registro. Tente novamente.");
+      }
+    } catch (error) {
+      setErrorMessage("Erro ao registrar. Tente novamente mais tarde.");
+      console.error("Erro de registro:", error);
+    } finally {
+      setLoading(false); // Reabilita o botão após a requisição
+    }
   };
 
   return (
@@ -28,7 +68,10 @@ const Register = () => {
         <div className={styles.imagem_input}>
           <UploadPhotoUser
             value={picture}
-            onChange={(file) => setPicture(file)}
+            onChange={(file) => {
+              setPicture(file);
+              handleImageChange(file); // Atualiza a pré-visualização da imagem
+            }}
           />
           {imagemPreview && (
             <img
@@ -43,33 +86,44 @@ const Register = () => {
           <div className={styles.textfield}>
             <input
               type="text"
-              name="usuario"
+              name="nomeCompleto"
               placeholder="Nome Completo"
-              id="usuario"
+              value={nomeCompleto}
+              onChange={(e) => setNomeCompleto(e.target.value)}
+              disabled={loading} // Desabilita o campo durante o carregamento
             />
           </div>
+
           <div className={styles.textfield}>
             <input
               type="text"
-              name="usuario"
+              name="username"
               placeholder="Username"
-              id="usuario"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              disabled={loading} // Desabilita o campo durante o carregamento
             />
           </div>
+
           <div className={styles.textfield}>
             <input
-              type="text"
-              name="usuario"
+              type="email"
+              name="email"
               placeholder="Email"
-              id="usuario"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={loading} // Desabilita o campo durante o carregamento
             />
           </div>
+
           <div className={styles.textfield}>
             <input
               type="text"
-              name="usuario"
+              name="dataNascimento"
               placeholder="Data de nascimento (dd/mm/yyyy)"
-              id="usuario"
+              value={dataNascimento}
+              onChange={(e) => setDataNascimento(e.target.value)}
+              disabled={loading} // Desabilita o campo durante o carregamento
             />
           </div>
 
@@ -78,11 +132,21 @@ const Register = () => {
               type="password"
               name="senha"
               placeholder="Senha"
-              id="senha"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              disabled={loading} // Desabilita o campo durante o carregamento
             />
           </div>
-          <button className={styles.btn_login} onClick={validar}>
-            Registrar
+
+          {/* Exibe mensagem de erro, se houver */}
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+
+          <button
+            className={styles.btn_login}
+            onClick={validar}
+            disabled={loading} // Desabilita o botão enquanto carrega
+          >
+            {loading ? "Registrando..." : "Registrar"}
           </button>
         </div>
       </div>

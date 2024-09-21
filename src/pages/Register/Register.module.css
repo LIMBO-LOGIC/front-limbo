@@ -97,7 +97,7 @@
   justify-content: center;
 }
 
-.image{
+.image {
   height: 70%;
   width: auto;
 }
@@ -127,7 +127,7 @@
 .conta span {
   font-weight: 700;
 }
-.linkItemProfile p{
+.linkItemProfile p {
   cursor: pointer;
 }
 /* Media Queries */
@@ -160,7 +160,7 @@
     display: none; /* Ocultar a imagem à esquerda para telas <= 768px */
   }
 
-  .left_login{
+  .left_login {
     padding: 16px 0px;
   }
 
