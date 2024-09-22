@@ -4,7 +4,7 @@ import RaceCard from "./../../components/RaceCard/index";
 import PageTitle from "../../components/PageTitle";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { IP_ADRESS_IOT_TESTE } from "../../service/api";
+import { urlAPIChat } from "../../service/api";
 
 export default function Races() {
   const [races, setRaces] = useState([])
@@ -12,7 +12,7 @@ export default function Races() {
 
   useEffect(() => {
     axios
-    .get(`http://${IP_ADRESS_IOT_TESTE}:8080/races`)
+    .get(`${urlAPIChat}races`)
     .then((response) => {
       setRaces(response.data.data);
     })

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios"; // Importando axios para fazer requisições HTTP
 import styles from "./Register.module.css";
 import imagem_direita from "../../assets/tela_registro.svg";

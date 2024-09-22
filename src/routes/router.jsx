@@ -13,6 +13,9 @@ import Register from "../pages/Register";
 import LiveRace from "../pages/LiveRace";
 import Ranking from "../pages/Ranking";
 import Product from "../pages/Product";
+import Pilot from "../pages/Pilot";
+import LuckyKick from "../pages/LuckyKick";
+import ChoiceLucky from "../pages/ChoiceLucky";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +75,18 @@ const router = createBrowserRouter([
       {
         path: "product",
         element: <Product />,
+      },
+      {
+        path: "pilot",
+        element: <Pilot />,
+      },
+      {
+        path: "luck-kick",
+        element: <LuckyKick />,
+      },
+      {
+        path: "luck-kick/choice/:idRace",
+        element: <ChoiceLucky />,
       },
     ],
   },

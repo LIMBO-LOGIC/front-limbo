@@ -1,5 +1,4 @@
 import styles from "./raceCard.module.css";
-import flagBr from "../../assets/bandeira_brasil.png";
 import { PropTypes } from "prop-types";
 
 RaceCard.propTypes = {
@@ -17,9 +16,9 @@ export default function RaceCard({ item }) {
     "07": "Julho",
     "08": "Agosto",
     "09": "Setembro",
-    10: "Outubro",
-    11: "Novembro",
-    12: "Dezembro",
+    "10": "Outubro",
+    "11": "Novembro",
+    "12": "Dezembro",
   };
 
   const getDatePT = (data) => {
@@ -35,7 +34,7 @@ export default function RaceCard({ item }) {
         <div className={styles.dataRace}>
           <div className={styles.textBox}>
             <p>{item.thirstEN}</p>
-            <img src={flagBr} alt="Bandeira do país do circuito" />
+            <img src={`https://res.cloudinary.com/drwk6ohcn/image/upload/v1727012409/Flags/flag_${item.flagCountry}.png`} alt="Bandeira do país do circuito" />
           </div>
           <div className={styles.line}></div>
           <p>Round {item.round}</p>

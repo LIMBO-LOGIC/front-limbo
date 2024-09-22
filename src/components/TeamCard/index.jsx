@@ -2,7 +2,6 @@ import styles from "./teamCard.module.css";
 import { IoPodiumOutline, IoTrophyOutline } from "react-icons/io5";
 import { FaFlagCheckered } from "react-icons/fa";
 import { PropTypes } from "prop-types";
-import { useEffect } from "react";
 
 DataTeam.propTypes = {
   icon: PropTypes.node,
@@ -27,9 +26,6 @@ TeamCard.propTypes = {
 };
 
 export default function TeamCard({ item }) {
-  useEffect(() => {
-    console.log(item)
-  })
   const styleImg = {
     'backgroundColor': item.colorMain,
   };

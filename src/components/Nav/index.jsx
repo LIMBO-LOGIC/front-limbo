@@ -79,7 +79,7 @@ export default function Nav() {
             </Link>
           </ItemSubMenu>
           <ItemSubMenu>
-            <Link className={styles.linkItem}>
+            <Link to={'/race/luck-kick'} className={styles.linkItem}>
               <span>Chute da sorte</span>
             </Link>
           </ItemSubMenu>

@@ -8,7 +8,7 @@ import RaceCard from "../../components/RaceCard";
 import useTeams from "../../hooks/useTeams";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { IP_ADRESS_IOT_TESTE } from "../../service/api";
+import { urlAPIChat } from "../../service/api";
 
 export default function Home() {
   const teams = useTeams(3)
@@ -16,7 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     axios
-    .get(`http://${IP_ADRESS_IOT_TESTE}:8080/races?count=3`)
+    .get(`${urlAPIChat}races?count=3`)
     .then((response) => {
       setRaces(response.data.data);
     })

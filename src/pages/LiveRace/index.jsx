@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import ChatReceived from "../../components/ChatReceived";
 import ChatSent from "../../components/ChatSent";
 import { io } from "socket.io-client";
-import { IP_ADRESS_IOT, IP_ADRESS_IOT_TESTE, urlChat } from "../../service/api";
+import { IP_ADRESS_IOT, urlAPIChat, urlChat } from "../../service/api";
 import axios from "axios";
 import { TbArrowRightToArc } from "react-icons/tb";
 import useContexts from "../../hooks/useContext";
@@ -26,26 +26,19 @@ export default function LiveRace() {
 
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const {dataUser} = useContexts()
+  const { dataUser } = useContexts();
 
   useEffect(() => {
-
     socket.on("connect", () => {
       console.log("Conectado ao servidor Socket.IO");
       socket.emit("list_message", "66ecae9379ef6d8440299c6d");
     });
 
-    socket.on("chat_list", (chats) => {
-      console.log(chats);
-    });
-
     socket.on("previousMessages", (oldMessages) => {
       setMessages(oldMessages.data);
-      console.log(oldMessages.data);
     });
 
     socket.on("newMessage", (message) => {
-      console.log(message);
       setMessages((prevMessages) => [message, ...prevMessages]);
     });
 
@@ -58,16 +51,16 @@ export default function LiveRace() {
 
   useEffect(() => {
     axios
-      .get(`http://${IP_ADRESS_IOT_TESTE}:8080/race/pilots`)
+      .get(`${urlAPIChat}race/pilots`)
       .then((response) => {
-        console.log(response.data.data)
+        console.log(response.data.data);
         setPilotsRace(response.data.data);
       })
       .catch((error) => {
         console.log(error);
       });
     axios
-      .get(`http://${IP_ADRESS_IOT_TESTE}:8080/locations/saopaulo`)
+      .get(`${urlAPIChat}locations/saopaulo`)
       .then((response) => {
         setListPointsLocations(response.data.data.devices);
       })
@@ -120,7 +113,7 @@ export default function LiveRace() {
           width="100%"
           height="600px"
           style={{ borderRadius: "10px" }}
-          src="https://www.youtube.com/embed/uxbhAetF5Vg?si=4xtF4srV0NwHNbTZ"
+          src="https://www.youtube.com/embed/uxbhAetF5Vg?autoplay=1&mute=1&start=1200"
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"
@@ -312,8 +305,11 @@ export default function LiveRace() {
                     </td>
                     <td className="text-center">
                       <div className={styles.tdData}>
-                        <p><strong>{pilot.number_pilot}</strong> {pilot.name_pilot} <strong>{pilot.last_name_pilot}</strong></p>
-                        
+                        <p>
+                          <strong>{pilot.number_pilot}</strong>{" "}
+                          {pilot.name_pilot}{" "}
+                          <strong>{pilot.last_name_pilot}</strong>
+                        </p>
                       </div>
                     </td>
                   </tr>
