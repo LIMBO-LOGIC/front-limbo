@@ -1,22 +1,47 @@
-import styles from './raceCard.module.css'
-import circuit from '../../assets/racing_circuit_retrait.png'
-import flagBr from '../../assets/bandeira_brasil.png'
+import styles from "./raceCard.module.css";
+import flagBr from "../../assets/bandeira_brasil.png";
+import { PropTypes } from "prop-types";
 
-export default function RaceCard(){
-    return(
-        <div className={styles.raceCard}>
-            <div className={styles.raceBox}>
-                <p className={styles.titleBox}> 7 de Dezembro</p>
-                <div className={styles.dataRace}>
-                    <div className={styles.textBox}>
-                        <p>São Paulo</p>
-                        <img src={flagBr} alt="Bandeira do país do circuito" />
-                    </div>
-                    <div className={styles.line}></div>
-                    <p>Round 1</p>
-                </div>
-            </div>
-            <img className={styles.circuit} src={circuit} alt='circuito de corrida' />
+RaceCard.propTypes = {
+  item: PropTypes.object,
+};
+
+export default function RaceCard({ item }) {
+  const dicMes = {
+    "01": "Janeiro",
+    "02": "Fevereiro",
+    "03": "Março",
+    "04": "Abril",
+    "05": "Maio",
+    "06": "Junho",
+    "07": "Julho",
+    "08": "Agosto",
+    "09": "Setembro",
+    10: "Outubro",
+    11: "Novembro",
+    12: "Dezembro",
+  };
+
+  const getDatePT = (data) => {
+    // eslint-disable-next-line no-unused-vars
+    const [ano, mes, dia] = data.split("-");
+    return `${dia} de ${dicMes[mes]}`;
+  };
+
+  return (
+    <div className={styles.raceCard}>
+      <div className={styles.raceBox}>
+        <p className={styles.titleBox}> {getDatePT(item.date)}</p>
+        <div className={styles.dataRace}>
+          <div className={styles.textBox}>
+            <p>{item.thirstEN}</p>
+            <img src={flagBr} alt="Bandeira do país do circuito" />
+          </div>
+          <div className={styles.line}></div>
+          <p>Round {item.round}</p>
         </div>
-    )
+      </div>
+      <img className={styles.circuit} src={`https://res.cloudinary.com/drwk6ohcn/image/upload/v1726973298/Circuits/${item.circuit[2].url}.png`} alt="circuito de corrida" />
+    </div>
+  );
 }

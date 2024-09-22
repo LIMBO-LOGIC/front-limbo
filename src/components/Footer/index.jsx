@@ -1,8 +1,6 @@
-import styles from './Footer.module.css';
+import styles from "./Footer.module.css";
 import LogoLimboLogic from "../../assets/LimboLogicLogo.png";
-import LogoWpp from "../../assets/WppLogo.png";
-import LogoInsta from "../../assets/instaLogo.png";
-import LogoLinkedin from "../../assets/LinkedinLogo.png";
+import { FaInstagram, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -10,18 +8,31 @@ const Footer = () => {
       <div className={styles.logoContainer}>
         <img src={LogoLimboLogic} alt="Logo" className={styles.logo} />
       </div>
-      <div className={styles.copyright}>
-        © 2024 LimboLogic
-      </div>
+      <div className={styles.copyright}>© 2024 LimboLogic</div>
       <div className={styles.socialMedia}>
-        <a href="https://wa.me/your-link" target="_blank" rel="noopener noreferrer">
-          <img src={LogoWpp} alt="WhatsApp" className={styles.icon} />
+        <a
+          className={styles.iconMedia}
+          href="https://wa.me/your-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaWhatsapp />
         </a>
-        <a href="https://instagram.com/your-link" target="_blank" rel="noopener noreferrer">
-          <img src={LogoInsta} alt="Instagram" className={styles.icon} />
+        <a
+          className={styles.iconMedia}
+          href="https://instagram.com/your-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaInstagram />
         </a>
-        <a href="https://linkedin.com/your-link" target="_blank" rel="noopener noreferrer">
-          <img src={LogoLinkedin} alt="LinkedIn" className={styles.icon} />
+        <a
+          className={styles.iconMedia}
+          href="https://linkedin.com/your-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaLinkedinIn />
         </a>
       </div>
     </footer>

@@ -28,49 +28,6 @@ export default function LiveRace() {
   const [newMessage, setNewMessage] = useState("");
   const {dataUser} = useContexts()
 
-  const handleChangeData = async (location) => {
-    axios
-      .get(
-        `http://${IP_ADRESS_IOT}:1026/v2/entities/urn:ngsi-ld:SaoPaulo:${location}/attrs`,
-        {
-          headers: {
-            "fiware-service": "smart",
-            "fiware-servicepath": "/",
-            accept: "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response.data);
-        setTemperature(response.data.temperature.value);
-        setHumidity(`${response.data.humidity.value}%`);
-        setLuminosity(response.data.luminosity.value);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    axios
-      .get(`http://${IP_ADRESS_IOT_TESTE}:8080/locations/saopaulo`)
-      .then((response) => {
-        setListPointsLocations(response.data.data.devices);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    axios
-      .get(`http://${IP_ADRESS_IOT_TESTE}:8080/race`)
-      .then((response) => {
-        setPilotsRace(response.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [setListPointsLocations]);
-
   useEffect(() => {
 
     socket.on("connect", () => {
@@ -98,6 +55,49 @@ export default function LiveRace() {
       socket.off("newMessage");
     };
   }, []);
+
+  useEffect(() => {
+    axios
+      .get(`http://${IP_ADRESS_IOT_TESTE}:8080/race/pilots`)
+      .then((response) => {
+        console.log(response.data.data)
+        setPilotsRace(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    axios
+      .get(`http://${IP_ADRESS_IOT_TESTE}:8080/locations/saopaulo`)
+      .then((response) => {
+        setListPointsLocations(response.data.data.devices);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [setListPointsLocations]);
+
+  const handleChangeData = async (location) => {
+    axios
+      .get(
+        `http://${IP_ADRESS_IOT}:1026/v2/entities/urn:ngsi-ld:SaoPaulo:${location}/attrs`,
+        {
+          headers: {
+            "fiware-service": "smart",
+            "fiware-servicepath": "/",
+            accept: "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        setTemperature(response.data.temperature.value);
+        setHumidity(`${response.data.humidity.value}%`);
+        setLuminosity(response.data.luminosity.value);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const sendMessage = () => {
     if (newMessage.trim()) {

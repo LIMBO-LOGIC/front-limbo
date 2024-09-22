@@ -6,13 +6,23 @@ import TeamCard from "../../components/TeamCard";
 import ContainerTeamRace from "../../components/ContainerTeamRace";
 import RaceCard from "../../components/RaceCard";
 import useTeams from "../../hooks/useTeams";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { IP_ADRESS_IOT_TESTE } from "../../service/api";
 
 export default function Home() {
   const teams = useTeams(3)
+  const [races, setRaces] = useState([])
 
   useEffect(() => {
-    console.log(teams);
+    axios
+    .get(`http://${IP_ADRESS_IOT_TESTE}:8080/races?count=3`)
+    .then((response) => {
+      setRaces(response.data.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   })
 
   return (
@@ -45,7 +55,7 @@ export default function Home() {
       </div>
       <div className={styles.raceSection}>
         <SectionTitle title={"Corridas"} route={"/race/races"} />
-        <ContainerTeamRace listItens={teams} element={<RaceCard />} />
+        <ContainerTeamRace listItens={races} element={<RaceCard />} />
       </div>
     </section>
   );

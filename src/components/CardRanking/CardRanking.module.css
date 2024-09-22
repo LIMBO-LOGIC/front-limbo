@@ -15,8 +15,8 @@
   flex-direction: column;
   border-radius: 18px;
   background-color: #ffff;
-  margin: 20px; /* Espaçamento entre as caixas */
-  box-shadow: 0 4px 15px rgba(0, 0, 232, 0.2); /* Sombra azul sutil */
+  margin: 20px; 
+  box-shadow: 0 6px 15px rgba(0, 0, 232, 0.2); 
 }
 
 .CardPhoto {

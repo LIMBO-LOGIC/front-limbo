@@ -6,12 +6,12 @@
 }
 
 @font-face {
-  font-family: 'MyCustomFont';
-  src: local('MyCustomFont')
-      url('./assets/fonts/FESans.var.woff2') format('woff2'),
-      url('./assets/fonts/FESans.var.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
+  font-family: "MyCustomFont";
+  src: local("MyCustomFont") url("./assets/fonts/FESans.var.woff2")
+      format("woff2"),
+    url("./assets/fonts/FESans.var.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 :root {
@@ -23,16 +23,16 @@
   --border-color: #adb5bd;
   --white-default: #fff;
   --black-default: #000;
-  --bg-blue: #00005A;
+  --bg-blue: #00005a;
   --font-montserrat: "Montserrat", sans-serif;
   --font-inter: "Inter", sans-serif;
 }
 
-.table-dark{
+.table-dark {
   --bs-table-bg: var(--bg-blue) !important;
 }
 
-p{
+p {
   margin: 0 !important;
 }
 
@@ -53,9 +53,9 @@ a {
 
 main {
   width: 100%;
-   min-height: 100vh; 
-  max-height: 100%; 
-  overflow-y: auto; 
+  min-height: 100vh;
+  max-height: 100%;
+  overflow-y: auto;
 }
 
 #root,
@@ -64,7 +64,7 @@ html {
   height: 100%;
 }
 
-#root{
+#root {
   overflow: hidden;
 }
 
@@ -83,6 +83,11 @@ section {
 }
 
 @media (max-width: 768px) {
+  main {
+    height: auto !important;
+    min-height: auto !important;
+  }
+
   html {
     font-size: 90%;
   }

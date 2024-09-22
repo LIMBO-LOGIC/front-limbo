@@ -73,8 +73,9 @@
   }
 
   h3 {
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 500;
+    width: 100%;
 
     display: -webkit-box;
     line-clamp: 1;

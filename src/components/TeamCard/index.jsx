@@ -1,5 +1,4 @@
 import styles from "./teamCard.module.css";
-import car from "../../assets/car_cupra.svg";
 import { IoPodiumOutline, IoTrophyOutline } from "react-icons/io5";
 import { FaFlagCheckered } from "react-icons/fa";
 import { PropTypes } from "prop-types";
@@ -22,6 +21,10 @@ function DataTeam({ icon, name, value, color }) {
     </div>
   );
 }
+
+TeamCard.propTypes = {
+  item: PropTypes.object,
+};
 
 export default function TeamCard({ item }) {
   useEffect(() => {

@@ -49,6 +49,27 @@
   border-radius: 50%;
   padding: 5px;
   transition: transform 0.3s ease;
+}
+
+.iconMedia{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 100%;
+  border: 2px solid var(--bg-blue);
+  font-size: 28px;
+  color: var(--bg-blue);
+  transition: all 0.3s ease;
+}
+
+.iconMedia:hover {
+  transform: scale(1.1);
+  color: var(--white-default);
+  border: 2px solid #0019AA;
+  background-color: #0019AA;
+  box-shadow: 0 4px 15px rgba(0, 0, 232, 0.2); /* Sombra azul sutil */
 
 }
 
@@ -61,6 +82,7 @@
   .footer {
     flex-direction: column; /* Alinha os itens em coluna em telas pequenas */
     text-align: center; /* Centraliza o texto em telas pequenas */
+    gap: 20px;
   }
 
   .logoContainer,
@@ -73,6 +95,13 @@
   .logo {
     max-width: 120px; /* Reduz o tamanho máximo do logo em telas pequenas */
   }
+
+  .iconMedia{
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 20px;
+    border: 2px solid var(--bg-blue);
+  }
 }
 
 /* Media query para telas muito pequenas */
@@ -80,6 +109,7 @@
   .copyright {
     font-size: 18px; /* Reduz o tamanho da fonte do copyright em telas muito pequenas */
   }
+
 
   .icon {
     padding: 3px; /* Reduz o padding dos ícones em telas muito pequenas */
