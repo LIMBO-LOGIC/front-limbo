@@ -34,6 +34,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    img{
+        box-shadow: 0px 0px 22.091px 3.535px rgba(0, 0, 0, 0.25);
+
+    }
 }
 
 .line {

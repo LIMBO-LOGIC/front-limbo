@@ -4,11 +4,12 @@ import { urlAPIChat } from "../../service/api";
 import axios from "axios";
 import PageTitle from "../../components/PageTitle";
 import { useParams } from "react-router-dom";
-import SortableList from "../../components/SortableList";
+import Sortable from "../../components/SortableList";
 
 export default function ChoiceLucky() {
   const { idRace } = useParams();
   const [race, setRace] = useState("");
+  const [pilots, setPilots] = useState([]);
 
   useEffect(() => {
     axios
@@ -22,6 +23,8 @@ export default function ChoiceLucky() {
       .then((response) => {
         console.log(response.data);
         setRace(response.data.data[0]);
+        setPilots(response.data.data[0].pilots);
+        console.log(response.data.data[0].pilots);
       })
       .catch((error) => {
         console.log(error);
@@ -31,7 +34,11 @@ export default function ChoiceLucky() {
   return (
     <section className={styles.choiceLucky}>
       <PageTitle text={race == "" ? 'Carregando ...' : `Round ${race.round} - ${race.thirstEN}`}/>
-      <SortableList />
+      <div className={styles.titles}>
+        <h2>Pilotos</h2>
+        <button className={styles.btnSalve}>Salvar</button>
+      </div>
+      <Sortable items={pilots} setItems={setPilots}/>
     </section>
   );
 }
