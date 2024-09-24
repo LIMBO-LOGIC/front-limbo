@@ -32,6 +32,10 @@
   --bs-table-bg: var(--bg-blue) !important;
 }
 
+._loading_overlay_wrapper{
+  height: 100vh !important;
+}
+
 p {
   margin: 0 !important;
 }

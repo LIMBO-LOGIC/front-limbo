@@ -6,15 +6,10 @@ import PageTitle from "../../components/PageTitle";
 import { useEffect, useState } from "react";
 import ChatReceived from "../../components/ChatReceived";
 import ChatSent from "../../components/ChatSent";
-import { io } from "socket.io-client";
-import { IP_ADRESS_IOT, urlAPIChat, urlChat } from "../../service/api";
+import { IP_ADRESS_IOT, socket, urlAPIChat } from "../../service/api";
 import axios from "axios";
 import { TbArrowRightToArc } from "react-icons/tb";
 import useContexts from "../../hooks/useContext";
-
-const socket = io(urlChat, {
-  path: "/clients/socketio/hubs/Hub",
-});
 
 export default function LiveRace() {
   const [listPointsLocations, setListPointsLocations] = useState([]);
@@ -128,12 +123,13 @@ export default function LiveRace() {
             <div className={styles.chat}>
               <div className={styles.listMessages}>
                 {messages.map((msg, index) =>
-                  msg.user_id === dataUser.user_id ? (
+                  msg.user_id === dataUser.id ? (
                     <ChatSent key={index} message={msg.message} />
                   ) : (
                     <ChatReceived
                       key={index}
-                      name={msg.name_user}
+                      name={msg.nickname}
+                      photo={msg.profile_picture}
                       message={msg.message}
                     />
                   )

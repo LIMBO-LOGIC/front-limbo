@@ -14,7 +14,6 @@ import { LiaMedalSolid } from "react-icons/lia";
 import { BiSolidCategory } from "react-icons/bi";
 import formulaEImage from "/assets/logo-formulaE.png";
 import { IoMenu } from "react-icons/io5";
-import userProfilePic from "../../assets/user_profile.png";
 import { IoIosLogOut } from "react-icons/io";
 import useContexts from "../../hooks/useContext";
 
@@ -65,7 +64,7 @@ export default function NavMobile() {
   useEffect(() => {
     const userStorage = JSON.parse(localStorage.getItem("userStorage"));
     if (userStorage) {
-      setNameUser(userStorage.name.split(" ")[0]);
+      setNameUser(userStorage.fullname.split(" ")[0]);
       setUser(userStorage);
       setDataUser(userStorage);
     }
@@ -90,13 +89,13 @@ export default function NavMobile() {
             label={
               <div className={styles.userInfo}>
                 <span className={styles.userName}> {nameUser}</span>
-                <span className={styles.userPoints}>{user.all_points} pontos</span>
+                <span className={styles.userPoints}>{user.current_points} pontos</span>
               </div>
             }
             icon={
               <img
                 className={styles.userImage}
-                src={userProfilePic}
+                src={user.profile_picture}
                 alt="Imagem de usuário"
               />
             }

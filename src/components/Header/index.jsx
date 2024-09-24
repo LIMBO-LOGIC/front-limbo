@@ -13,8 +13,9 @@ export default function Header() {
 
   useEffect(() => {
     const userStorage = JSON.parse(localStorage.getItem("userStorage"));
+    
     if (userStorage) {
-      setNameUser(userStorage.name.split(" ")[0]);
+      setNameUser(userStorage.fullname.split(" ")[0]);
       setUser(userStorage);
       setDataUser(userStorage);
     }
@@ -39,7 +40,7 @@ export default function Header() {
       </div>
       <div className={styles.userProfile}>
         <img
-          src={user.image_user}
+          src={user.profile_picture}
           alt="User profile"
           className={styles.userImage}
           onClick={() => navigate("/race/profile")}
@@ -49,7 +50,7 @@ export default function Header() {
           onClick={() => navigate("/race/profile")}
         >
           <span className={styles.userName}>{nameUser}</span>
-          <span className={styles.userPoints}>{user.all_points} pontos</span>
+          <span className={styles.userPoints}>{user.current_points} pontos</span>
         </div>
         <div className={styles.logout}>
           <IoIosLogOut onClick={handleLogout}/>

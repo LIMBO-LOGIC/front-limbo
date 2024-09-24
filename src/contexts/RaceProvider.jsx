@@ -8,6 +8,7 @@ RaceProvider.propTypes = {
 };
 
 export default function RaceProvider({ children }) {
+  const [isLoading, setIsLoading] = useState(false);
   const [isMobileBig, setIsMobileBig] = useState(window.innerWidth <= 768);
   const [isMobileSmall, setIsMobileSmall] = useState(window.innerWidth <= 640);
   const [dataUser, setDataUser] = useState(JSON.parse(localStorage.getItem('userStorage')))
@@ -25,7 +26,8 @@ export default function RaceProvider({ children }) {
   const dataRace = {
     isMobileBig,
     isMobileSmall,
-    dataUser, setDataUser
+    dataUser, setDataUser,
+    isLoading, setIsLoading
   };
 
   return <RaceContext.Provider value={dataRace}>{children}</RaceContext.Provider>;

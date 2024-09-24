@@ -1,22 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./profile.module.css";
 import ContainerProduct from "../../components/ContainerProduct";
 import PageTitle from "../../components/PageTitle";
 import useContexts from "../../hooks/useContext";
+import axios from "axios";
+import { baseUrl } from "../../service/api";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
+  const navigate = useNavigate()
   const [isEdit, setIsEdit] = useState(false);
-  const { dataUser } = useContexts();
-  const [name, setName] = useState(dataUser.name)
-  const [email, setEmail] = useState(dataUser.email)
-  const [nickname, setNickname] = useState(dataUser.nickname)
-  
-  const convertDate = (date) => {
-    const parts = date.split('/');
-    const [day, month, year] = parts;
-    return `${year}-${month}-${day}`;
-  }
-  const [birthdate, setBirthdate] = useState(convertDate(dataUser.birthdate))
+  const {setDataUser, dataUser, setIsLoading} = useContexts();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [profilePicture, setProfilePicture] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+
+  useEffect(() => {
+    setIsLoading(true);
+    const userStorage = JSON.parse(localStorage.getItem('userStorage'))
+
+    axios
+      .get(`${baseUrl}/user/${userStorage.id}`)
+      .then((response) => {
+        console.log(response);
+        setDataUser(response.data);
+        setName(response.data.fullname);
+        setEmail(response.data.email);
+        setNickname(response.data.nickname);
+        setProfilePicture(response.data.profile_picture);
+        setBirthdate(response.data.birthdate);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error('Usuário não encontrado, realize o login novamente!')
+        navigate('/login')
+      })
+      .finally(() => {
+        setIsLoading(false)
+      });
+  }, [navigate, setIsLoading, setDataUser]);
 
   const handleEdit = () => {
     setIsEdit(!isEdit);
@@ -33,12 +58,12 @@ export default function Profile() {
         <div className={`${styles.rowProfile} mb-5`}>
           <div className={`${styles.dataProfile}`}>
             <img
-              src={dataUser.image_user}
+              src={profilePicture}
               className={styles.imgProfile}
               alt="Imagem de perfil"
             />
             <div className={styles.userProfile}>
-              <p>{dataUser.name}</p>
+              <p>{name}</p>
               <span>Pontos Totais: {dataUser.all_points} pontos</span>
               <span>Pontos Atuais: {dataUser.current_points} pontos</span>
             </div>

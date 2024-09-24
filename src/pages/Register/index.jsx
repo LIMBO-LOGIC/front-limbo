@@ -23,7 +23,7 @@ const Register = () => {
     reader.readAsDataURL(file);
   };
 
-  const validar = async () => {
+  const handleRegister = async () => {
     setErrorMessage("");
 
     // Validação simples dos campos
@@ -64,13 +64,12 @@ const Register = () => {
       <div className={styles.left_login}>
         <h2 className={styles.login_login}>Registre-se</h2>
 
-        {/* Input de imagem com pré-visualização */}
         <div className={styles.imagem_input}>
           <UploadPhotoUser
             value={picture}
             onChange={(file) => {
               setPicture(file);
-              handleImageChange(file); // Atualiza a pré-visualização da imagem
+              handleImageChange(file);
             }}
           />
           {imagemPreview && (
@@ -85,6 +84,7 @@ const Register = () => {
         <div className={styles.card_usuario}>
           <div className={styles.textfield}>
             <input
+              required
               type="text"
               name="nomeCompleto"
               placeholder="Nome Completo"
@@ -96,6 +96,7 @@ const Register = () => {
 
           <div className={styles.textfield}>
             <input
+              required
               type="text"
               name="username"
               placeholder="Username"
@@ -107,6 +108,7 @@ const Register = () => {
 
           <div className={styles.textfield}>
             <input
+              required
               type="email"
               name="email"
               placeholder="Email"
@@ -118,7 +120,8 @@ const Register = () => {
 
           <div className={styles.textfield}>
             <input
-              type="text"
+              required
+              type="date"
               name="dataNascimento"
               placeholder="Data de nascimento (dd/mm/yyyy)"
               value={dataNascimento}
@@ -129,6 +132,7 @@ const Register = () => {
 
           <div className={styles.textfield}>
             <input
+              required
               type="password"
               name="senha"
               placeholder="Senha"
@@ -143,7 +147,7 @@ const Register = () => {
 
           <button
             className={styles.btn_login}
-            onClick={validar}
+            onClick={handleRegister}
             disabled={loading} // Desabilita o botão enquanto carrega
           >
             {loading ? "Registrando..." : "Registrar"}
