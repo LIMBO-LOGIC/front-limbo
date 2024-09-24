@@ -115,7 +115,7 @@
 }
 
 .correctAnswer {
-  background-color: #031946;
+  background-color: #047c00;
   color: #fff;
 }
 
@@ -128,7 +128,7 @@
   background-color: #022364;
   color: #fff;
 }
-#score-container {
+.scoreContainer {
   background-color: #00005a; /* Cor de fundo consistente com a caixa da pergunta */
   color: #fff;
   padding: 20px;
@@ -140,18 +140,18 @@
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra suave */
 }
 
-#score-container h2 {
+.scoreContainer h2 {
   font-size: 24px;
   margin-bottom: 10px; /* Espaçamento abaixo do título */
 }
 
-#score-container p {
+.scoreContainer p {
   font-size: 18px;
   margin-bottom: 20px; /* Espaçamento abaixo do parágrafo */
 }
 
-#score-container button {
-  background-color: #2eb94c; /* Cor de fundo do botão */
+.scoreContainer button {
+  background-color: #08183a; /* Cor de fundo do botão */
   color: #fff;
   border: none;
   border-radius: 8px; /* Bordas arredondadas */
@@ -159,8 +159,9 @@
   font-size: 18px;
   cursor: pointer;
   transition: background-color 0.3s ease; /* Transição suave para a mudança de cor */
+  margin-top: 30px;
 }
 
-#score-container button:hover {
-  background-color: #1e8a40; /* Cor de fundo ao passar o mouse */
+.scoreContainer button:hover {
+  background-color: #00005a; /* Cor de fundo ao passar o mouse */
 }
