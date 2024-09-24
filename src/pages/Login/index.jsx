@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { baseUrl } from "../../service/api";
 import { toast } from "react-toastify";
 import useContexts from "../../hooks/useContext";
-import LoadingOverlay from "@achmadk/react-loading-overlay";
+import LoadingOverlay from "react-loading-overlay-ts";
 
 const Login = () => {
   const navigate = useNavigate();

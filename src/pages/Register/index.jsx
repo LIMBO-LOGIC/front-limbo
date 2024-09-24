@@ -58,10 +58,10 @@ const Register = () => {
 
   return (
     <div className={styles.main_login}>
-      <div className={styles.left_login}>
+      <div onKeyDown={handleKeyPress} className={styles.left_login}>
         <h2 className={styles.login_login}>Registre-se</h2>
 
-        <form onKeyDown={handleKeyPress} className={styles.imagem_input}>
+        <div className={styles.imagem_input}>
           <UploadPhotoUser
             value={picture}
             onChange={(file) => {
@@ -76,7 +76,7 @@ const Register = () => {
               className={styles.previewImage}
             />
           )}
-        </form>
+        </div>
 
         <div className={styles.card_usuario}>
           <div className={styles.textfield}>
