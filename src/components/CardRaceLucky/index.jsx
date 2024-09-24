@@ -8,7 +8,7 @@ CardRaceLucky.propTypes = {
   date: PropTypes.string,
   city: PropTypes.string,
   flagCountry: PropTypes.string,
-  round: PropTypes.string,
+  round: PropTypes.number,
   circuitImg: PropTypes.string,
 };
 

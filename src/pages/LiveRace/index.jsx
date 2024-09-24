@@ -6,10 +6,15 @@ import PageTitle from "../../components/PageTitle";
 import { useEffect, useState } from "react";
 import ChatReceived from "../../components/ChatReceived";
 import ChatSent from "../../components/ChatSent";
-import { IP_ADRESS_IOT, socket, urlAPIChat } from "../../service/api";
+import { IP_ADRESS_IOT, urlAPIChat, urlChat } from "../../service/api";
 import axios from "axios";
 import { TbArrowRightToArc } from "react-icons/tb";
 import useContexts from "../../hooks/useContext";
+import { io } from "socket.io-client";
+
+const socket = io(urlChat, {
+  path: "/clients/socketio/hubs/Hub",
+});
 
 export default function LiveRace() {
   const [listPointsLocations, setListPointsLocations] = useState([]);
@@ -23,13 +28,23 @@ export default function LiveRace() {
   const [newMessage, setNewMessage] = useState("");
   const { dataUser } = useContexts();
 
-  useEffect(() => {
+  useEffect(() => {    
+    if (!socket.connected) {
+      socket.connect();
+    }else{
+      socket.emit("list_message", "66ecae9379ef6d8440299c6d");
+    }
+
     socket.on("connect", () => {
       console.log("Conectado ao servidor Socket.IO");
+      console.log('====================================');
       socket.emit("list_message", "66ecae9379ef6d8440299c6d");
+      console.log('Enviou');
+      console.log('====================================');
     });
 
     socket.on("previousMessages", (oldMessages) => {
+      console.log(oldMessages.data);
       setMessages(oldMessages.data);
     });
 
@@ -38,7 +53,6 @@ export default function LiveRace() {
     });
 
     return () => {
-      socket.off("connect");
       socket.off("previousMessages");
       socket.off("newMessage");
     };
@@ -272,10 +286,10 @@ export default function LiveRace() {
               </tr>
             </thead>
             <tbody className="table-group-divider">
-              {pilotsRace.map((pilot) => {
+              {pilotsRace.map((pilot, index) => {
                 return (
                   <tr
-                    key={pilot.pilot_id}
+                    key={index}
                     className={`${styles.registerPilot}`}
                   >
                     <td className="text-center">

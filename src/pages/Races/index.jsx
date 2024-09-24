@@ -5,12 +5,15 @@ import PageTitle from "../../components/PageTitle";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { urlAPIChat } from "../../service/api";
+import useContexts from "../../hooks/useContext";
 
 export default function Races() {
   const [races, setRaces] = useState([])
-
+  const { setIsLoading } = useContexts();
 
   useEffect(() => {
+    setIsLoading(true)
+
     axios
     .get(`${urlAPIChat}races`)
     .then((response) => {
@@ -18,8 +21,12 @@ export default function Races() {
     })
     .catch((error) => {
       console.log(error);
-    });
-  })
+    }).finally(() => {
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 1000)
+    })
+  }, [setIsLoading, setRaces])
 
   return (
     <section className={styles.races}>

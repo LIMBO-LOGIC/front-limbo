@@ -4,16 +4,17 @@ import PageTitle from "../../components/PageTitle";
 import styles from "./luckyKick.module.css";
 import axios from "axios";
 import { urlAPIChat } from "../../service/api";
+import useContexts from "../../hooks/useContext";
 
 export default function LuckyKick() {
   const [races, setRaces] = useState([]);
+  const { setIsLoading } = useContexts();
 
   useEffect(() => {
+    setIsLoading(true)
     axios
       .get(`${urlAPIChat}races`, {
         headers: {
-          "fiware-service": "smart",
-          "fiware-servicepath": "/",
           accept: "application/json",
         },
       })
@@ -23,8 +24,12 @@ export default function LuckyKick() {
       })
       .catch((error) => {
         console.log(error);
-      });
-  }, [setRaces]);
+      }).finally(() => {
+        setTimeout(() => {
+          setIsLoading(false)
+        }, 1000)
+      })
+  }, [setRaces, setIsLoading]);
 
   return (
     <section>

@@ -9,21 +9,29 @@ import useTeams from "../../hooks/useTeams";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { urlAPIChat } from "../../service/api";
+import useContexts from "../../hooks/useContext";
 
 export default function Home() {
-  const teams = useTeams(3)
-  const [races, setRaces] = useState([])
+  const teams = useTeams(3);
+  const [races, setRaces] = useState([]);
+  const { setIsLoading } = useContexts();
 
   useEffect(() => {
+    setIsLoading(true);
     axios
-    .get(`${urlAPIChat}races?count=3`)
-    .then((response) => {
-      setRaces(response.data.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  })
+      .get(`${urlAPIChat}races?count=3`)
+      .then((response) => {
+        setRaces(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
+      });
+  }, [setIsLoading, setRaces]);
 
   return (
     <section className={styles.home}>
