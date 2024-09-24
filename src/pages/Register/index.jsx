@@ -3,6 +3,7 @@ import axios from "axios"; // Importando axios para fazer requisições HTTP
 import styles from "./Register.module.css";
 import imagem_direita from "../../assets/tela_registro.svg";
 import UploadPhotoUser from "./UploadPhotoUser";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [imagemPreview, setImagemPreview] = useState(null);
@@ -14,6 +15,8 @@ const Register = () => {
   const [senha, setSenha] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const handleImageChange = (file) => {
     const reader = new FileReader();
@@ -23,39 +26,33 @@ const Register = () => {
     reader.readAsDataURL(file);
   };
 
-  const handleRegister = async () => {
-    setErrorMessage("");
+  const handleRegister = async (event) => {
+    event.preventDefault();
 
-    // Validação simples dos campos
+    setIsLoading(true);
     if (!nomeCompleto || !username || !email || !dataNascimento || !senha) {
       setErrorMessage("Por favor, preencha todos os campos.");
+      setIsLoading(false);
       return;
     }
 
-    setLoading(true); // Desabilitar o botão enquanto carrega
+    setLoading(true);
 
-    try {
-      // Fazendo a requisição POST para o servidor com axios
-      const response = await axios.post("http://localhost:3000/register", {
-        nomeCompleto,
-        username,
-        email,
-        dataNascimento,
-        senha,
-        picture, // Imagem do usuário
-      });
+      // const response = await axios.post("http://localhost:3000/register", {
+      //   nomeCompleto,
+      //   username,
+      //   email,
+      //   dataNascimento,
+      //   senha,
+      //   picture, // Imagem do usuário
+      // });
 
-      if (response.data.success) {
-        console.log("Registro bem-sucedido:", response.data);
-        // Aqui você pode redirecionar para a tela de login ou outra página
-      } else {
-        setErrorMessage("Falha no registro. Tente novamente.");
-      }
-    } catch (error) {
-      setErrorMessage("Erro ao registrar. Tente novamente mais tarde.");
-      console.error("Erro de registro:", error);
-    } finally {
-      setLoading(false); // Reabilita o botão após a requisição
+     
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleRegister(event);
     }
   };
 
@@ -64,7 +61,7 @@ const Register = () => {
       <div className={styles.left_login}>
         <h2 className={styles.login_login}>Registre-se</h2>
 
-        <div className={styles.imagem_input}>
+        <form onKeyDown={handleKeyPress} className={styles.imagem_input}>
           <UploadPhotoUser
             value={picture}
             onChange={(file) => {
@@ -79,7 +76,7 @@ const Register = () => {
               className={styles.previewImage}
             />
           )}
-        </div>
+        </form>
 
         <div className={styles.card_usuario}>
           <div className={styles.textfield}>
@@ -141,6 +138,12 @@ const Register = () => {
               disabled={loading} // Desabilita o campo durante o carregamento
             />
           </div>
+
+          <Link to="/login" className={styles.itemMenu}>
+              <p className={styles.conta}>
+                Já tem conta? <span>Logue aqui</span>
+              </p>
+            </Link>
 
           {/* Exibe mensagem de erro, se houver */}
           {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}

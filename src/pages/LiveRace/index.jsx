@@ -122,12 +122,12 @@ export default function LiveRace() {
             </div>
             <div className={styles.chat}>
               <div className={styles.listMessages}>
-                {messages.map((msg, index) =>
+                {messages.map((msg) =>
                   msg.user_id === dataUser.id ? (
-                    <ChatSent key={index} message={msg.message} />
+                    <ChatSent key={msg._id} message={msg.message} />
                   ) : (
                     <ChatReceived
-                      key={index}
+                      key={msg._id}
                       name={msg.nickname}
                       photo={msg.profile_picture}
                       message={msg.message}
