@@ -6,7 +6,7 @@ import NavMobile from "../components/NavMobile";
 import Footer from "../components/Footer";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import LoadingOverlay from "react-loading-overlay";
+import LoadingOverlay from "@achmadk/react-loading-overlay";
 
 export default function RaceLayout() {
   const navigate = useNavigate();

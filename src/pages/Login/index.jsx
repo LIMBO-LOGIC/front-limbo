@@ -4,10 +4,10 @@ import styles from "./Login.module.css";
 import imagem_login from "../../assets/tela_login_imagem.png";
 import logo from "../../../public/assets/logo_formulaE_branca.png";
 import { Link, useNavigate } from "react-router-dom";
-import LoadingOverlay from "react-loading-overlay";
 import { baseUrl } from "../../service/api";
 import { toast } from "react-toastify";
 import useContexts from "../../hooks/useContext";
+import LoadingOverlay from "@achmadk/react-loading-overlay";
 
 const Login = () => {
   const navigate = useNavigate();
