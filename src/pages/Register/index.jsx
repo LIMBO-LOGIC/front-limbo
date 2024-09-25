@@ -3,87 +3,122 @@ import axios from "axios"; // Importando axios para fazer requisições HTTP
 import styles from "./Register.module.css";
 import imagem_direita from "../../assets/tela_registro.svg";
 import UploadPhotoUser from "./UploadPhotoUser";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoadingOverlay from "react-loading-overlay-ts";
-import cloudinary from "../../service/cloudinary";
-
-const cloudName = 'drwk6ohcn'
+import { toast } from "react-toastify";
+import { baseUrl } from "../../service/api";
 
 const Register = () => {
-  const [imagemPreview, setImagemPreview] = useState(null);
-  const [picture, setPicture] = useState("");
+  const navigate = useNavigate()
+  const [picture, setPicture] = useState(null);
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [senha, setSenha] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [loading, setLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  // const clientCloudinary = cloudinary
+
+  const getCurrentDate = () => {
+    const date = new Date();
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Mês começa de 0, então é necessário adicionar 1
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}${month}${day}`;
+  };
 
   const handleImageChange = (file) => {
     const reader = new FileReader();
-    reader.onloadend = () => {
-      setImagemPreview(reader.result);
-    };
     reader.readAsDataURL(file);
   };
 
   const handleRegister = async (event) => {
     event.preventDefault();
 
-    // setIsLoading(true);
-    // if (!nomeCompleto || !username || !email || !dataNascimento || !senha) {
-    //   setErrorMessage("Por favor, preencha todos os campos.");
-    //   setIsLoading(false);
-    //   return;
-    // }
+    setIsLoading(true);
+    if (!picture || !nomeCompleto || !username || !email || !dataNascimento || !senha) {
+      setErrorMessage("Por favor, preencha todos os campos.");
+      setIsLoading(false);
+      return;
+    }
 
-    // const publicID = email.split('@')[0]
-    const publicID = 'testecloud'
-    cloudinary.image(publicID)
+    let publicID = `${email.split('@')[0]}-${getCurrentDate()}`
+    publicID = publicID[0] + publicID[1]
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+    }
 
-    const uploadImage = async (fileImg) => {
+    const uploadToCloudinary = (base64Image) => {
+      console.log(base64Image)
       const formData = new FormData();
-      formData.append("file", fileImg);
-      formData.append("upload_preset", 'up_img');
-    
-      try {
-        const response = await axios.post(
-          `https://api.cloudinary.com/v1_1/${cloudName}/image/upload/`,
-          formData
-        );
-        console.log(response);
-        return response.data.public_id; 
-      } catch (error) {
-        console.error("Erro ao fazer upload:", error);
-      }
+      formData.append('file', base64Image);
+      formData.append('upload_preset', 'u38nm7ok');
+      formData.append('folder', '');
+      formData.append('resource_type', 'image');
+      formData.append('public_id', publicID)
+
+      axios.post('https://api.cloudinary.com/v1_1/drwk6ohcn/image/upload', formData)
+        .then( async (response) => {
+          console.log('Imagem carregada com sucesso:', response.data);
+          console.log(response)
+          console.log(response.data)
+          setPictureUrl(response.data.secure_url)
+
+          const body = {
+            fullname: nomeCompleto,
+            nickname: username,
+            email: email,
+            birthdate: dataNascimento.replaceAll('-', '/'),
+            password: senha,
+            profile_picture: response.data.secure_url,
+          };      
+          await axios
+            .post(`${baseUrl}/user/register`, body, {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+            .then(() => {
+              toast.success("Cadastro realizado com sucesso!");
+              navigate("/login");
+            })
+            .catch((error) => {
+              if (error.status === 401) {
+                toast.error(
+                  "Email ou senha inválido!"
+                );
+              } else {
+                toast.error(
+                  "Erro ao tentar fazer o cadastro. Tente novamente mais tarde."
+                );
+              }
+              console.error("Erro de Cadastro:", error);
+            })
+            .finally(() => {
+              setIsLoading(false);
+            });
+        })
+        .catch((error) => {
+          console.error('Erro ao carregar a imagem:', error);
+        });
     };
 
-    uploadImage(picture)
-
-
-
-    // const body = {
-    //   fullname: nomeCompleto,
-    //   nickname: username,
-    //   email: email,
-    //   birthdate: dataNascimento,
-    //   password: senha,
-    //   profile_picture: "",
-    // };
-
-    setLoading(true);
-
-    // const response = await axios.post("http://localhost:3000/register", {
-    //   nomeCompleto,
-    //   username,
-    //   email,
-    //   dataNascimento,
-    //   senha,
-    //   picture, // Imagem do usuário
-    // });
+    const file = picture;
+    fileToBase64(file)
+      .then(base64 => {
+        console.log(base64);
+        uploadToCloudinary(base64)
+      })
+      .catch(error => {
+        console.error('Erro ao converter o arquivo em Base64:', error);
+      });
   };
 
   const handleKeyPress = (event) => {
@@ -132,7 +167,7 @@ const Register = () => {
                 placeholder="Nome Completo"
                 value={nomeCompleto}
                 onChange={(e) => setNomeCompleto(e.target.value)}
-                disabled={loading} // Desabilita o campo durante o carregamento
+                disabled={isLoading} // Desabilita o campo durante o carregamento
               />
             </div>
 
@@ -144,7 +179,7 @@ const Register = () => {
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                disabled={loading} // Desabilita o campo durante o carregamento
+                disabled={isLoading} // Desabilita o campo durante o carregamento
               />
             </div>
 
@@ -156,7 +191,7 @@ const Register = () => {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                disabled={loading} // Desabilita o campo durante o carregamento
+                disabled={isLoading} // Desabilita o campo durante o carregamento
               />
             </div>
 
@@ -168,7 +203,7 @@ const Register = () => {
                 placeholder="Data de nascimento (dd/mm/yyyy)"
                 value={dataNascimento}
                 onChange={(e) => setDataNascimento(e.target.value)}
-                disabled={loading} // Desabilita o campo durante o carregamento
+                disabled={isLoading} // Desabilita o campo durante o carregamento
               />
             </div>
 
@@ -180,7 +215,7 @@ const Register = () => {
                 placeholder="Senha"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
-                disabled={loading} // Desabilita o campo durante o carregamento
+                disabled={isLoading} // Desabilita o campo durante o carregamento
               />
             </div>
 
@@ -196,9 +231,9 @@ const Register = () => {
             <button
               className={styles.btn_login}
               onClick={handleRegister}
-              disabled={loading} // Desabilita o botão enquanto carrega
+              disabled={isLoading} // Desabilita o botão enquanto carrega
             >
-              {loading ? "Registrando..." : "Registrar"}
+              {isLoading ? "Registrando..." : "Registrar"}
             </button>
           </div>
         </div>
