@@ -114,6 +114,13 @@ export default function LiveRace() {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault()
+      sendMessage(event);
+    }
+  };
+
   return (
     <section className={styles.liveRace}>
       <PageTitle text={"Corrida ao vivo"} />
@@ -149,7 +156,7 @@ export default function LiveRace() {
                   )
                 )}
               </div>
-              <div className={styles.boxSendMessage}>
+              <form className={styles.boxSendMessage} onKeyDown={handleKeyPress}>
                 <input
                   type="text"
                   placeholder="Digite aqui"
@@ -157,7 +164,7 @@ export default function LiveRace() {
                   onChange={(e) => setNewMessage(e.target.value)}
                 />
                 <IoSend style={{ cursor: "pointer" }} onClick={sendMessage} />
-              </div>
+              </form>
             </div>
           </div>
           <button className={styles.btnLucky}>Realizar chute da sorte</button>
