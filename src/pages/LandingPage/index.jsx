@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "./LandingPage.module.css";
+import styles from "./landingPage.module.css";
 import carro1 from "../../assets/carro1.png";
 import carro2 from "../../assets/carro2.png";
 import carro3 from "../../assets/carro3.png";
@@ -10,7 +10,6 @@ const images = [carro1, carro2, carro3];
 
 export default function LandingPage() {
   const [currentImage, setCurrentImage] = useState(0);
-  const [isNavOpen, setIsNavOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -19,10 +18,6 @@ export default function LandingPage() {
 
     return () => clearInterval(interval);
   }, []);
-
-  const toggleNav = () => {
-    setIsNavOpen(!isNavOpen);
-  };
 
   return (
     <>

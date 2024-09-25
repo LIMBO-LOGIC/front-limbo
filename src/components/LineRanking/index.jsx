@@ -1,4 +1,4 @@
-import styles from "./LineRanking.module.css";
+import styles from "./lineRanking.module.css";
 
 const rankings = [
   {

@@ -72,8 +72,8 @@ export default function NavMobile() {
 
   const handleLogout = () => {
     localStorage.removeItem("userStorage");
-    navigate('/login')
-  }
+    navigate("/login");
+  };
 
   return (
     <>
@@ -89,7 +89,9 @@ export default function NavMobile() {
             label={
               <div className={styles.userInfo}>
                 <span className={styles.userName}> {nameUser}</span>
-                <span className={styles.userPoints}>{user.current_points} pontos</span>
+                <span className={styles.userPoints}>
+                  {user.current_points} pontos
+                </span>
               </div>
             }
             icon={
@@ -114,10 +116,7 @@ export default function NavMobile() {
               </Link>
             </ItemSubMenu>
             <ItemSubMenu>
-              <Link
-                className={styles.linkItemProfile}
-                onClick={handleLogout}
-              >
+              <Link className={styles.linkItemProfile} onClick={handleLogout}>
                 <IoIosLogOut />
                 <p>Logout</p>
               </Link>
@@ -171,6 +170,7 @@ export default function NavMobile() {
               </ItemSubMenu>
               <ItemSubMenu>
                 <Link
+                  to={"/race/luck-kick"}
                   className={styles.linkItem}
                   onClick={() => setToggled(!toggled)}
                 >
@@ -190,7 +190,7 @@ export default function NavMobile() {
             </ItemMenu>
             <ItemMenu>
               <Link
-                to="/"
+                to="/race/quiz"
                 className={styles.itemMenu}
                 onClick={() => setToggled(!toggled)}
               >
@@ -200,7 +200,7 @@ export default function NavMobile() {
             </ItemMenu>
             <ItemMenu>
               <Link
-                to="/"
+                to="/race/ranking"
                 className={styles.itemMenu}
                 onClick={() => setToggled(!toggled)}
               >

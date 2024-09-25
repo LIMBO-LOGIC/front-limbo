@@ -1,6 +1,5 @@
-import React from "react";
 import { FaMedal } from "react-icons/fa"; // Importando o ícone da medalha
-import styles from "./CardRanking.module.css";
+import styles from "./cardRanking.module.css";
 import fotoProfile from "../../assets/foto_profile_ranking.png";
 
 const users = [

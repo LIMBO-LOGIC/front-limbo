@@ -1,4 +1,4 @@
-import styles from "./UploadPhotoUser.module.css";
+import styles from "./uploadPhotoUser.module.css";
 import profile from "../../assets/profile.svg";
 
 function UploadPhotoUser({ value, onChange }) {

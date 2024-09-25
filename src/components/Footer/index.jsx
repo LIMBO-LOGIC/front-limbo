@@ -1,4 +1,4 @@
-import styles from "./Footer.module.css";
+import styles from "./footer.module.css";
 import LogoLimboLogic from "../../assets/LimboLogicLogo.png";
 import { FaInstagram, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
 

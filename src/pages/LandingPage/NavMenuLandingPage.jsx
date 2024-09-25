@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { Menu, Sidebar, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
-import styles from "./NavMenuLandingPage.module.css";
+import styles from "./navMenuLandingPage.module.css";
 import { CgProfile } from "react-icons/cg";
 import { BiWorld } from "react-icons/bi";
 import formulaEImage from "/assets/logo-formulaE.png";

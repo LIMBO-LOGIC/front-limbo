@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios"; // Importando axios para fazer requisições HTTP
-import styles from "./Register.module.css";
+import styles from "./register.module.css";
 import imagem_direita from "../../assets/tela_registro.svg";
 import UploadPhotoUser from "./UploadPhotoUser";
 import { Link, useNavigate } from "react-router-dom";
@@ -69,7 +69,6 @@ const Register = () => {
           console.log('Imagem carregada com sucesso:', response.data);
           console.log(response)
           console.log(response.data)
-          setPictureUrl(response.data.secure_url)
 
           const body = {
             fullname: nomeCompleto,

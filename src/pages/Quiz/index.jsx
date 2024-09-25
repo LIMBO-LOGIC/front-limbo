@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import PageTitle from "../../components/PageTitle";
-import styles from "./Quiz.module.css";
+import styles from "./quiz.module.css";
 
 const Quiz = () => {
   const [points, setPoints] = useState(0);
