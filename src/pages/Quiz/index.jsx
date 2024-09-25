@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import styles from "./Quiz.module.css";
 import PageTitle from "../../components/PageTitle";
-import Footer from "../../components/Footer";
+import styles from "./Quiz.module.css";
 
 const Quiz = () => {
   const [points, setPoints] = useState(0);
@@ -290,13 +289,12 @@ const Quiz = () => {
                 <button
                   key={i}
                   onClick={() => checkAnswer(answer)}
-                  className={`${styles.answerButton} ${
-                    selectedAnswer && answer.correct
+                  className={`${styles.answerButton} ${selectedAnswer && answer.correct
                       ? styles.correctAnswer
                       : selectedAnswer && !answer.correct
-                      ? styles.wrongAnswer
-                      : ""
-                  }`}
+                        ? styles.wrongAnswer
+                        : ""
+                    }`}
                   disabled={selectedAnswer !== null}
                 >
                   <span className={styles.questionAnswer}>{answer.answer}</span>
@@ -314,7 +312,6 @@ const Quiz = () => {
           </div>
         )}
       </main>
-      <Footer />
     </div>
   );
 };
