@@ -1,0 +1,113 @@
+.pilot{
+    display: flex;
+    height: auto;
+    width: 100%;
+    background: url(../../assets/bg_pilot.svg);
+}
+
+.pagePilot{
+    display: flex;
+    flex-direction: column;
+}
+
+.boxImg{
+    padding: 10px 20px 10px 36px;
+    height: 280px;
+    width: auto;
+
+    img{
+        width: auto;
+        height: 100%;
+    }
+}
+
+.boxTitle{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: 100%;
+    color: var(--white-default);
+
+    h1{
+        font-size: 64px;
+        font-weight: 300;
+
+        strong{
+            font-weight: 800;
+        }
+    }
+
+    h2{
+        font-size: 20px;
+        font-weight: 300;
+
+        strong{
+            font-weight: 700;
+        }
+    }
+}
+
+.boxCar{
+    display: flex;
+    flex-direction: column;
+    padding: 16px 36px 32px 36px;
+    gap: 32px;
+}
+
+.texts{
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-inter);
+
+    p{
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--text-color);
+    }
+    
+    h3{
+        font-size: 32px;
+        font-weight: 700;
+    }
+}
+
+.imgCar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.valuesCar{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(410px, 1fr));
+    height: 100%;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.cardValue{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 42px;
+    padding: 28px 16px;
+    min-width: 320px;
+    width: auto;
+    font-family: var(--font-inter);
+}
+
+.titleCard{
+    font-size: 24px;
+    font-weight: 600;
+
+    -webkit-text-stroke: 2px rgba(25, 73, 151, 0.45);
+
+    color: var(--text-color);
+}
+
+.valueCard{
+    font-size: 64px;
+    font-weight: 800;
+}
