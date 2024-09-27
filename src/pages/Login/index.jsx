@@ -40,18 +40,18 @@ const Login = () => {
         },
       })
       .then((response) => {
+        if (window.innerWidth >= 768) {
           toast.success("Login realizado com sucesso!");
+        }
 
-          setDataUser(response.data.user)
-          localStorage.setItem("userStorage", JSON.stringify(response.data.user));
-          navigate("/race");
+        setDataUser(response.data.user);
+        localStorage.setItem("userStorage", JSON.stringify(response.data.user));
+        navigate("/race");
       })
       .catch((error) => {
         if (error.status === 401) {
-          toast.error(
-            "Email ou senha inválido!"
-          );
-        }else{
+          toast.error("Email ou senha inválido!");
+        } else {
           toast.error(
             "Erro ao tentar fazer login. Tente novamente mais tarde."
           );

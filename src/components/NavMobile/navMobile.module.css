@@ -5,6 +5,10 @@
     height: 100px;
     padding-right: 36px;
     background-color: var(--white-default);
+
+    img{
+        max-width: 200px;
+    }
 }
 
 .iconMenu{
