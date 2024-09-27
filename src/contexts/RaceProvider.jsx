@@ -1,5 +1,5 @@
-import { createContext, useEffect, useState } from "react";
 import { PropTypes } from "prop-types";
+import { createContext, useEffect, useState } from "react";
 
 export const RaceContext = createContext({});
 
@@ -9,6 +9,7 @@ RaceProvider.propTypes = {
 
 export default function RaceProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingAdmin, setIsLoadingAdmin] = useState(false);
   const [isMobileBig, setIsMobileBig] = useState(window.innerWidth <= 768);
   const [isMobileSmall, setIsMobileSmall] = useState(window.innerWidth <= 640);
   const [dataUser, setDataUser] = useState(JSON.parse(localStorage.getItem('userStorage')))
@@ -27,7 +28,8 @@ export default function RaceProvider({ children }) {
     isMobileBig,
     isMobileSmall,
     dataUser, setDataUser,
-    isLoading, setIsLoading
+    isLoading, setIsLoading,
+    isLoadingAdmin, setIsLoadingAdmin
   };
 
   return <RaceContext.Provider value={dataRace}>{children}</RaceContext.Provider>;

@@ -1,21 +1,22 @@
 import { createBrowserRouter } from "react-router-dom";
-import LandingPage from "../pages/LandingPage";
-import RootLayout from "../layouts/RootLayout";
 import RaceLayout from "../layouts/RaceLayout";
-import Home from "../pages/Home";
-import Teams from "./../pages/Teams/index";
-import Races from "../pages/Races";
-import Marketplace from "../pages/Marketplace";
-import Profile from "../pages/Profile";
-import Login from "../pages/Login";
-import Quiz from "../pages/Quiz";
-import Register from "../pages/Register";
-import LiveRace from "../pages/LiveRace";
-import Ranking from "../pages/Ranking";
-import Product from "../pages/Product";
-import Pilot from "../pages/Pilot";
-import LuckyKick from "../pages/LuckyKick";
+import RootLayout from "../layouts/RootLayout";
 import ChoiceLucky from "../pages/ChoiceLucky";
+import Home from "../pages/Home";
+import LandingPage from "../pages/LandingPage";
+import LiveRace from "../pages/LiveRace";
+import Login from "../pages/Login";
+import LuckyKick from "../pages/LuckyKick";
+import Marketplace from "../pages/Marketplace";
+import NotFound from "../pages/NotFound";
+import Pilot from "../pages/Pilot";
+import Product from "../pages/Product";
+import Profile from "../pages/Profile";
+import Quiz from "../pages/Quiz";
+import Races from "../pages/Races";
+import Ranking from "../pages/Ranking";
+import Register from "../pages/Register";
+import Teams from "./../pages/Teams/index";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,16 @@ const router = createBrowserRouter([
       },
     ],
   },
+  // {
+  //   path: "/admin",
+  //   element: <AdminLayout />,
+  //   children: [
+  //     {
+  //       index: true,
+  //       element: <Login />,
+  //     },
+  //   ],
+  // },
   {
     path: "/login",
     element: <Login />,
@@ -87,6 +98,10 @@ const router = createBrowserRouter([
       {
         path: "luck-kick/choice/:idRace",
         element: <ChoiceLucky />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },
