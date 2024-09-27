@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./landingPage.module.css";
 import carro1 from "../../assets/carro1.png";
 import carro2 from "../../assets/carro2.png";
@@ -32,7 +32,7 @@ export default function LandingPage() {
         <h1 className={styles.title}>
           Formula E <br />
           <span className={styles.livehub}>Live Hub</span>
-          <a href="#styles.textContainer" className={styles.arrowDown}>
+          <a href="#section1" className={styles.arrowDown}>
             ↓
           </a>
         </h1>
