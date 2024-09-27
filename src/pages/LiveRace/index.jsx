@@ -11,12 +11,15 @@ import axios from "axios";
 import { TbArrowRightToArc } from "react-icons/tb";
 import useContexts from "../../hooks/useContext";
 import { io } from "socket.io-client";
+import { useNavigate } from "react-router-dom";
 
 const socket = io(urlChat, {
   path: "/clients/socketio/hubs/Hub",
 });
 
 export default function LiveRace() {
+  const navigate = useNavigate()
+
   const [listPointsLocations, setListPointsLocations] = useState([]);
   const [pilotsRace, setPilotsRace] = useState([]);
 
@@ -76,7 +79,7 @@ export default function LiveRace() {
       .catch((error) => {
         console.log(error);
       });
-  }, [setListPointsLocations]);
+  }, [setListPointsLocations, setPilotsRace]);
 
   const handleChangeData = async (location) => {
     axios
@@ -301,7 +304,7 @@ export default function LiveRace() {
                   >
                     <td className="text-center">
                       <div className={styles.tdDataArrow}>
-                        <TbArrowRightToArc />
+                        <TbArrowRightToArc onClick={() => navigate(`/race/pilot/${pilot.id}`)}/>
                       </div>
                     </td>
                     <td className="text-center">

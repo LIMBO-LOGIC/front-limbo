@@ -77,7 +77,7 @@ const router = createBrowserRouter([
         element: <Product />,
       },
       {
-        path: "pilot",
+        path: "pilot/:id",
         element: <Pilot />,
       },
       {
