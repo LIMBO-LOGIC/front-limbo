@@ -10,6 +10,7 @@ CardRaceLucky.propTypes = {
   flagCountry: PropTypes.string,
   round: PropTypes.number,
   circuitImg: PropTypes.string,
+  status: PropTypes.bool,
 };
 
 export default function CardRaceLucky({
@@ -19,6 +20,7 @@ export default function CardRaceLucky({
   flagCountry,
   round,
   circuitImg,
+  status
 }) {
   const [dayMonth, setDayMonth] = useState([]);
 

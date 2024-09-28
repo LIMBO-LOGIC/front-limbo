@@ -3,33 +3,55 @@ import CardRaceLucky from "../../components/CardRaceLucky";
 import PageTitle from "../../components/PageTitle";
 import styles from "./luckyKick.module.css";
 import axios from "axios";
-import { urlAPIChat } from "../../service/api";
+import { baseUrl } from "../../service/api";
 import useContexts from "../../hooks/useContext";
 
 export default function LuckyKick() {
   const [races, setRaces] = useState([]);
-  const { setIsLoading } = useContexts();
+  const [racesUser, setRacesUser] = useState([]);
+  const { setIsLoading, dataUser } = useContexts();
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     axios
-      .get(`${urlAPIChat}races`, {
+      .get(`${baseUrl}/racing`, {
         headers: {
           accept: "application/json",
         },
       })
       .then((response) => {
         console.log(response.data);
-        setRaces(response.data.data);
+        setRaces(response.data);
       })
       .catch((error) => {
         console.log(error);
-      }).finally(() => {
-        setTimeout(() => {
-          setIsLoading(false)
-        }, 1000)
       })
-  }, [setRaces, setIsLoading]);
+      .finally(() => {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
+      });
+
+    setIsLoading(true);
+    axios
+      .get(`${baseUrl}/racing-bets/user/${dataUser.id}`, {
+        headers: {
+          accept: "application/json",
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setRacesUser(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
+      });
+  }, [setRaces, setIsLoading, dataUser]);
 
   return (
     <section>
@@ -38,12 +60,13 @@ export default function LuckyKick() {
         {races.map((race, index) => (
           <CardRaceLucky
             key={index}
-            idRace={race.id}
-            date={race.date}
-            city={race.thirstEN}
-            flagCountry={`https://res.cloudinary.com/drwk6ohcn/image/upload/v1727012405/Flags/flag_${race.flagCountry}.png`}
+            idRace={race.id_racing}
+            date={race.race_date}
+            city={race.circuit_location}
+            flagCountry={race.country_flag}
             round={race.round}
-            circuitImg={`https://res.cloudinary.com/drwk6ohcn/image/upload/v1727012405/Circuits/${race.circuit[1].url}.png`}
+            circuitImg={race.circuit_image}
+            status={racesUser.some((raceU) => raceU.id_race === race.id_race)}
           />
         ))}
       </div>
