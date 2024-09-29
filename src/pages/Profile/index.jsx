@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import styles from './profile.module.css';
 import ContainerProduct from '../../components/ContainerProduct';
@@ -11,12 +12,15 @@ import { useNavigate } from 'react-router-dom';
 export default function Profile() {
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { setDataUser, dataUser, setIsLoading } = useContexts();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [nickname, setNickname] = useState('');
   const [profilePicture, setProfilePicture] = useState('');
   const [birthdate, setBirthdate] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
   useEffect(() => {
     setIsLoading(true);
@@ -25,16 +29,14 @@ export default function Profile() {
     axios
       .get(`${baseUrl}/user/${userStorage.id}`)
       .then((response) => {
-        console.log(response);
         setDataUser(response.data);
         setName(response.data.fullname);
         setEmail(response.data.email);
         setNickname(response.data.nickname);
         setProfilePicture(response.data.profile_picture);
-        setBirthdate(response.data.birthdate.split('T')[0]); // Formata a data
+        setBirthdate(response.data.birthdate.split('T')[0]);
       })
       .catch((error) => {
-        console.log(error);
         toast.error('Usuário não encontrado, realize o login novamente!');
         navigate('/login');
       })
@@ -54,7 +56,7 @@ export default function Profile() {
     const updatedData = {
       fullname: name,
       nickname: nickname,
-      birthdate: birthdate, // Certifique-se de que a data esteja no formato YYYY-MM-DD
+      birthdate: birthdate,
     };
 
     try {
@@ -62,13 +64,31 @@ export default function Profile() {
         `${baseUrl}/user/${userStorage.id}`,
         updatedData
       );
-      console.log(response.data);
       setDataUser(response.data.updatedUser);
       toast.success('Perfil atualizado com sucesso!');
-      setIsEdit(false); // Sair do modo de edição
+      setIsEdit(false);
     } catch (error) {
-      console.error(error);
       toast.error('Erro ao atualizar o perfil. Tente novamente.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleChangePassword = async () => {
+    setIsLoading(true);
+    const userStorage = JSON.parse(localStorage.getItem('userStorage'));
+
+    try {
+      await axios.put(`${baseUrl}/user/${userStorage.id}/password`, {
+        oldPassword,
+        newPassword,
+      });
+      toast.success('Senha alterada com sucesso!');
+      setIsModalOpen(false);
+    } catch (error) {
+      toast.error(
+        'Erro ao alterar a senha. Verifique a senha atual e tente novamente.'
+      );
     } finally {
       setIsLoading(false);
     }
@@ -79,7 +99,7 @@ export default function Profile() {
       <PageTitle text={'Perfil'} />
       <form className={styles.boxMain}>
         <div className={`${styles.rowProfile} mb-5`}>
-          <div className={`${styles.dataProfile}`}>
+          <div className={styles.dataProfile}>
             <img
               src={profilePicture}
               className={styles.imgProfile}
@@ -92,33 +112,23 @@ export default function Profile() {
             </div>
           </div>
 
-          {isEdit ? (
-            <div className={styles.btns}>
-              <button
-                className={`${styles.btnPassword}`}
-                type='button'
-                onClick={handleEdit}
-              >
-                Alterar senha
-              </button>
+          <div className={styles.btns}>
+            <button
+              className={styles.btnPassword}
+              type='button'
+              onClick={() => setIsModalOpen(true)}
+            >
+              Alterar senha
+            </button>
+            {isEdit ? (
               <button
                 className={styles.btnProfile}
-                style={{ backgroundColor: '#0054FF ' }}
                 type='button'
                 onClick={handleSave}
               >
                 Salvar
               </button>
-            </div>
-          ) : (
-            <div className={styles.btns}>
-              <button
-                className={`${styles.btnPassword}`}
-                type='button'
-                onClick={handleEdit}
-              >
-                Alterar senha
-              </button>
+            ) : (
               <button
                 className={styles.btnProfile}
                 type='button'
@@ -126,9 +136,10 @@ export default function Profile() {
               >
                 Editar
               </button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
+
         <div className='row'>
           <div className='col-md-6 mb-4'>
             <label htmlFor='fullName' className='form-label'>
@@ -161,6 +172,7 @@ export default function Profile() {
             />
           </div>
         </div>
+
         <div className='row'>
           <div className='col-md-6 mb-4'>
             <label htmlFor='email' className='form-label'>
@@ -194,10 +206,38 @@ export default function Profile() {
           </div>
         </div>
       </form>
+
       <div className={styles.boxProduct}>
         <h2 className={styles.title}>Produtos resgatados</h2>
         <ContainerProduct listItens={['teste']} />
       </div>
+
+      {/* Modal para Alterar Senha */}
+      {isModalOpen && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <h3>Alterar Senha</h3>
+            <label htmlFor='oldPassword'>Senha Atual</label>
+            <input
+              type='password'
+              id='oldPassword'
+              value={oldPassword}
+              onChange={(e) => setOldPassword(e.target.value)}
+            />
+            <label htmlFor='newPassword'>Nova Senha</label>
+            <input
+              type='password'
+              id='newPassword'
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <div className={styles.modalButtons}>
+              <button onClick={handleChangePassword}>Alterar</button>
+              <button onClick={() => setIsModalOpen(false)}>Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
