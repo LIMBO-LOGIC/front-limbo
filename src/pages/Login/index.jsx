@@ -50,7 +50,7 @@ const Login = () => {
       })
       .catch((error) => {
         if (error.status === 401) {
-          toast.error("Email ou senha inválido!");
+          toast.error("Usuário ou senha inválido!");
         } else {
           toast.error(
             "Erro ao tentar fazer login. Tente novamente mais tarde."
