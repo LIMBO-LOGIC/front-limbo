@@ -3,10 +3,12 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import PropTypes from "prop-types";
 import styles from "./sortableList.module.css";
 import { MdDragIndicator } from "react-icons/md";
+import { useParams } from "react-router-dom";
 
 const ItemType = "ITEM";
 
 const DraggableItem = ({ item, index, moveItem }) => {
+  const { idRacingBet } = useParams();
   const [, drag] = useDrag({
     type: ItemType,
     item: { index },
@@ -23,7 +25,12 @@ const DraggableItem = ({ item, index, moveItem }) => {
   });
 
   return (
-    <li className={styles.item} ref={(node) => drag(drop(node))}>
+    
+    <li
+      className={styles.item}
+      style={idRacingBet != 0 ? { background: "rgba(255, 255, 255, 0.4)" }: {}}
+      ref={(node) => drag(drop(node))}
+    >
       <p className={styles.position}>{item.position + 1}º</p>
       <div className={styles.line}></div>
       <div className={styles.dataPilot}>
@@ -48,7 +55,7 @@ DraggableItem.propTypes = {
   moveItem: PropTypes.func.isRequired,
 };
 
-const SortableList = ({ items, setItems }) => {
+const SortableList = ({ items, setItems, isMove }) => {
   const moveItem = (fromIndex, toIndex) => {
     const updatedItems = [...items];
     const [movedItem] = updatedItems.splice(fromIndex, 1);
@@ -63,7 +70,7 @@ const SortableList = ({ items, setItems }) => {
           key={item.id}
           index={index}
           item={{ pilot: item, position: index }}
-          moveItem={moveItem}
+          moveItem={isMove ? moveItem : () => {}}
         />
       ))}
     </ul>
@@ -73,12 +80,13 @@ const SortableList = ({ items, setItems }) => {
 SortableList.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   setItems: PropTypes.func.isRequired,
+  isMove: PropTypes.bool,
 };
 
-const Sortable = ({ items, setItems }) => {
+const Sortable = ({ items, setItems, isMove }) => {
   return (
     <DndProvider backend={HTML5Backend}>
-      <SortableList items={items} setItems={setItems} />
+      <SortableList isMove={isMove} items={items} setItems={setItems} />
     </DndProvider>
   );
 };
@@ -86,6 +94,7 @@ const Sortable = ({ items, setItems }) => {
 Sortable.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   setItems: PropTypes.func.isRequired,
+  isMove: PropTypes.bool,
 };
 
 export default Sortable;

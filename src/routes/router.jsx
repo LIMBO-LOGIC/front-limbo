@@ -96,7 +96,7 @@ const router = createBrowserRouter([
         element: <LuckyKick />,
       },
       {
-        path: "luck-kick/choice/:idRace",
+        path: "luck-kick/choice/:idRace/:idRacingBet",
         element: <ChoiceLucky />,
       },
       {

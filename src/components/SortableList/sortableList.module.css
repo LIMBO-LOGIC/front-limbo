@@ -62,3 +62,39 @@
   font-size: 48px;
   color: #8a92a6;
 }
+
+@media (max-width: 640px) {
+  .item{
+    display: flex;
+    flex-direction: column;
+    margin: 50px 0px;
+  }
+
+  .position{
+    padding: 10px 20px;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .line{
+    width: 100%;
+    height: 2px;
+  }
+
+  .dataPilot{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid #e7e8ea;
+    padding: 10px 0px;
+
+    p{
+      text-align: start;
+      width: 100%;
+    }
+
+  }
+
+  .boxIcon{
+    transform: rotate(90deg);
+  }
+}

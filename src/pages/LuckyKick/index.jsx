@@ -66,7 +66,7 @@ export default function LuckyKick() {
             flagCountry={race.country_flag}
             round={race.round}
             circuitImg={race.circuit_image}
-            status={racesUser.some((raceU) => raceU.id_race === race.id_race)}
+            isExist={racesUser.filter((raceU) => raceU.racing.id_racing === race.id_racing)}
           />
         ))}
       </div>

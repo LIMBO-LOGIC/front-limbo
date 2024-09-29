@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./cardRaceLuck.module.css";
 import { PropTypes } from "prop-types";
 import { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ CardRaceLucky.propTypes = {
   flagCountry: PropTypes.string,
   round: PropTypes.number,
   circuitImg: PropTypes.string,
-  status: PropTypes.bool,
+  isExist: PropTypes.array,
 };
 
 export default function CardRaceLucky({
@@ -20,9 +20,11 @@ export default function CardRaceLucky({
   flagCountry,
   round,
   circuitImg,
-  status
+  isExist,
 }) {
+  const navigate = useNavigate();
   const [dayMonth, setDayMonth] = useState([]);
+  const status = isExist.length > 0;
 
   useEffect(() => {
     const monthsAbbrev = [
@@ -39,12 +41,12 @@ export default function CardRaceLucky({
       "Nov",
       "Dez",
     ];
-  
+
     // Renomeie a variável para evitar conflito
     const parsedDate = new Date(date);
     const day = parsedDate.getDate().toString().padStart(2, "0");
     const month = monthsAbbrev[parsedDate.getMonth()];
-  
+
     setDayMonth([day, month]);
   }, [date]);
 
@@ -102,10 +104,18 @@ export default function CardRaceLucky({
             <p className={styles.round}>Round {round}</p>
           </div>
         </div>
-        <img src={flagCountry} alt="Imagem da bandeira do país" className={styles.flagCountry} />
+        <img
+          src={flagCountry}
+          alt="Imagem da bandeira do país"
+          className={styles.flagCountry}
+        />
       </div>
 
-      <img src={circuitImg} alt="Imagem do circuito" className={styles.circuit} />
+      <img
+        src={circuitImg}
+        alt="Imagem do circuito"
+        className={styles.circuit}
+      />
 
       <div className={styles.boxTags}>
         <span
@@ -114,21 +124,26 @@ export default function CardRaceLucky({
         >
           Corrida {handleRaceText()}
         </span>
-        <span style={{ backgroundColor: "#00B69B" }} className={styles.tag}>
-          Aberto para chute
+        <span
+          style={{ backgroundColor: status ? "#000360" : "#00B69B" }}
+          className={styles.tag}
+        >
+          {status ? "Chute Realizado" : "Aberto para chute"}
         </span>
       </div>
 
-      <Link to={`/race/luck-kick/choice/${idRace}`} className={styles.btnKick}>
-        Chutar
-      </Link>
-      <div hidden>
-        <p> {date}</p>
-        <p> {city}</p>
-        <p> {flagCountry}</p>
-        <p> {round}</p>
-        <p> {circuitImg} </p>
-      </div>
+      <button
+        onClick={() => {
+          if (status) {
+            navigate(`./choice/${idRace}/${isExist[0].id_racing_bet}`);
+          } else {
+            navigate(`./choice/${idRace}/0`);
+          }
+        }}
+        className={status ? styles.btnDisabled : styles.btnKick}
+      >
+        {status ? "Chute Realizado" : "Chutar"}
+      </button>
     </div>
   );
 }

@@ -34,6 +34,18 @@
   background-color: #0020A4;
 }
 
+.btnDisabled{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 0px;
+  border-radius: 10px;
+  transition: all 0.5s;
+  color: var(--white-default);
+  background: rgba(0, 0, 90, 0.78);
+}
+
 .boxDate {
   display: flex;
   flex-direction: column;
