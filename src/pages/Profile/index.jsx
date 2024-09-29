@@ -79,13 +79,21 @@ export default function Profile() {
     const userStorage = JSON.parse(localStorage.getItem('userStorage'));
 
     try {
-      await axios.put(`${baseUrl}/user/${userStorage.id}/password`, {
-        oldPassword,
-        newPassword,
-      });
+      const response = await axios.put(
+        `${baseUrl}/user/${userStorage.id}/password`,
+        {
+          oldPassword,
+          newPassword,
+        }
+      );
+
+      console.log(response.data); // Verifique se a resposta é a esperada
       toast.success('Senha alterada com sucesso!');
+      setOldPassword('');
+      setNewPassword('');
       setIsModalOpen(false);
     } catch (error) {
+      console.log(error.response); // Verifique a resposta de erro
       toast.error(
         'Erro ao alterar a senha. Verifique a senha atual e tente novamente.'
       );
