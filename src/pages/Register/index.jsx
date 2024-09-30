@@ -38,6 +38,12 @@ const Register = () => {
     event.preventDefault();
 
     setIsLoading(true);
+    if (!picture) {
+      setErrorMessage("Por favor, insira uma foto de perfil.");
+      setIsLoading(false);
+      return;
+    }
+    
     if (
       !picture ||
       !nomeCompleto ||
