@@ -23,21 +23,11 @@ export default function Header() {
 
   const handleLogout = () => {
     localStorage.removeItem("userStorage");
-    navigate('/login')
-  }
+    navigate('/login');
+  };
 
   return (
-    <header>
-      <div className={styles.searchWrapper}>
-        <input
-          type="search"
-          name="search"
-          id="search"
-          placeholder="Search..."
-          className={styles.searchInput}
-        />
-        <CiSearch className={styles.searchIcon} />
-      </div>
+    <header className={styles.header}>
       <div className={styles.userProfile}>
         <img
           src={user.profile_picture}
@@ -53,7 +43,7 @@ export default function Header() {
           <span className={styles.userPoints}>{user.current_points} pontos</span>
         </div>
         <div className={styles.logout}>
-          <IoIosLogOut onClick={handleLogout}/>
+          <IoIosLogOut onClick={handleLogout} />
         </div>
       </div>
     </header>
