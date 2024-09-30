@@ -1,396 +1,284 @@
-@import url("https://fonts.googleapis.com/css2?family=Khand:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-
-html {
-  scroll-behavior: smooth;
-}
-.logo {
-  font-size: 2rem; /* Use rem for scalable sizing */
-  color: #fff;
-}
-
-/* Estilo do slideshow */
-.slideshow {
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/* INICIO */
+.start {
   position: relative;
-  height: 100vh;
   display: flex;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  height: 100vh;
+  overflow: hidden; /* Evitar overflow em dispositivos pequenos */
 }
 
-.slideImage {
+.image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.overlay {
   position: absolute;
-  z-index: -1;
-  transition: opacity 1s ease-in-out;
-}
-
-.title {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #fff;
-  text-align: center;
-  font-family: "Poppins", sans-serif;
-  font-weight: 700;
-  font-style: 96px;
-}
-.arrowDown {
-  display: flex;
-  background-color: #000bd8;
-  width: 120px;
-  height: 130px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 18px;
-  color: #fff;
-  font-size: 40px;
-  text-decoration: none;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-.arrowDown:hover {
-  background-color: #000099;
-  transform: scale(1.05);
-}
-
-.arrowDown:active {
-  transform: scale(0.95);
-}
-
-/* Seção "Welcome to the Future of Racing" */
-.futureSection {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #001f3f;
-  color: #ffffff;
-  position: relative;
-  background-image: url("../../assets/vector.landing.page.png");
-  background-size: cover;
-  background-position: center;
-  padding: 4rem 2rem;
-  height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .textContainer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1200px;
-}
-
-.textContent {
-  max-width: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  padding: 2.5rem;
-  border-radius: 1.25rem;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(15px);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  margin-right: 1.25rem;
-  color: #ffffff;
-  position: relative;
-  z-index: 1;
-  animation: fadeIn 1s ease-out;
-}
-.textContent h2 {
-  font-family: "Khand", sans-serif;
-  font-weight: 400;
-  font-style: 64px;
-}
-
-.imageContainer {
-  max-width: 35%;
-  text-align: right;
-}
-
-.imageContainer img {
-  width: 100%;
-  height: auto;
-  border-radius: 0.9375rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-}
-
-.textContent::before {
-  content: "";
   position: absolute;
-  top: -1rem;
-  left: -1rem;
-  right: -1rem;
-  bottom: -1rem;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.2),
-    rgba(0, 0, 0, 0.15)
-  );
-  z-index: -1;
-  border-radius: 1.5625rem;
-  filter: blur(200px);
-}
-
-.textContent h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-  font-weight: 700;
-  text-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.7);
-  letter-spacing: 0.1rem;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  max-width: 90%; /* Ajustado para telas menores */
   text-align: center;
 }
 
-.textContent p {
-  margin-bottom: 1rem;
-  line-height: 1.6;
-  font-size: 1.25rem;
-  color: #e0e0e0;
-  text-align: justify;
-  transition: color 0.3s ease;
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
+.textContainer h3 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 96px;
+}
+
+.textContainer span {
+  color: #000bd8;
+  display: block;
+  margin-top: 10px;
+}
+
+.button {
+  margin-top: 20px;
+  padding: 20px 30px;
+  background-color: #000bd8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Poppins", sans-serif;
   font-weight: 400;
-  font-style: 40px;
 }
 
-.textContent p:hover {
-  color: #ffffff;
+.button:hover {
+  background-color: #004ecc;
 }
 
-.textContent p strong {
-  display: flex;
-  font-size: 1.375rem;
-  color: #008cff;
-  margin-bottom: 0.625rem;
-  text-transform: uppercase;
-  justify-content: center;
-  align-items: center;
+/* GRANDE DESAFIO  */
+.container {
+  background: linear-gradient(
+    180deg,
+    rgba(6, 87, 255, 1) 0%,
+    rgba(0, 39, 119, 1) 100%
+  );
+  color: white;
+  padding: 50px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  height: auto; /* Altura automática */
 }
 
-.textContent p:last-child {
-  margin-bottom: 0;
+.title {
+  font-size: 2em;
+  margin-bottom: 40px;
+}
+
+.sections {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 80px;
+}
+
+.section {
+  background-color: #001d58;
+  padding: 40px;
+  margin: 0;
+  border-radius: 10px;
+  height: 320px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.section:hover {
+  transform: translateY(-10px);
+  background-color: #0055ff;
+}
+
+.icon {
+  font-size: 2em;
+  margin-bottom: 20px;
 }
 
 .subtitle {
-  display: flex;
-  font-size: 1.25rem;
-  color: #008cff;
-  text-shadow: 0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.5);
-  margin: 1.875rem 0;
-  align-items: center;
-  justify-content: center;
-  font-family: "Khand", sans-serif;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.text {
+  font-size: 1em;
+  line-height: 1.5;
+  font-family: "Poppins", sans-serif;
   font-weight: 400;
-  font-style: 48px;
+  font-size: 25px;
 }
 
-/* Seção "Discover the Power of Ecosystems" */
-.ecosystemSection {
-  background-color: #023e73;
+/* SOLUÇÃO */
+.solucaoContainer {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 39, 119, 1) 0%,
+    rgba(0, 18, 55, 1) 100%
+  );
   color: white;
+  padding: 50px;
+  font-family: Arial, sans-serif;
   text-align: center;
-  
+  height: auto; /* Altura automática */
 }
 
-.livehub {
-  color: #000bd8;
-  font-size: 50px;
-  padding-bottom: 20px;
+.solucaoTitle {
+  font-size: 2em;
+  margin-bottom: 40px;
 }
 
-/* Media Queries para Responsividade */
-
-/* Para telas pequenas (smartphones) */
-@media (min-width: 768px) and (max-width: 1071px) {
-  .navLinks {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #ffffff;
-    transition: max-height 0.3s ease;
-    max-height: 0;
-    overflow: hidden;
-    z-index: 10;
-  }
-
-  .navLinks.navOpen {
-    max-height: 300px; /* Ajuste conforme necessário */
-  }
-
-  .navToggle {
-    display: block;
-  }
-
-  .navLinks li {
-    margin: 0;
-    text-align: center;
-  }
-
-  .navLinks a {
-    font-size: 1rem;
-    padding: 1rem;
-  }
-  .futureSection {
-    flex-direction: column;
-    text-align: center;
-    max-height: 20%;
-  }
-
-  .textContainer,
-  .imageContainer {
-    max-width: 80%;
-  }
-  .textContainer {
-    display: none;
-    align-items: center;
-    justify-content: center;
-  }
-  .imageContainer {
-    display: none;
-  }
-
-  .ecosystemSection {
-    padding: 2rem;
-  }
+.solucaoSections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(400px, 1fr));
+  gap: 80px;
 }
-/* Ajuste para dispositivos móveis */
-@media (max-width: 600px) {
-  .navLinks {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #ffffff;
-    transition: max-height 0.3s ease;
-    max-height: 0;
-    overflow: hidden;
-    z-index: 10;
+
+.solucaoSection {
+  background-color: #0044cc;
+  padding: 40px;
+  margin: 0;
+  border-radius: 10px;
+  height: auto; /* Altura automática */
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.solucaoSection:hover {
+  transform: translateY(-10px);
+  background-color: #0055ff;
+}
+
+.solucaoIcon {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.solucaoSubtitle {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.solucaoText {
+  font-size: 25px; /* Mantido como está */
+  line-height: 1.5;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+}
+
+.solucaoSection img {
+  margin-top: 20px;
+  max-width: 100%; /* Faz a imagem caber no container */
+  height: auto; /* Mantém a proporção da imagem */
+}
+
+/* MEDIA QUERIES PARA RESPONSIVIDADE */
+@media (max-width: 1024px) {
+  .textContainer h3 {
+    font-size: 72px; /* Ajuste para telas menores */
   }
 
-  .navLinks.navOpen {
-    max-height: 300px;
+  .sections {
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ); /* Mantenha duas colunas em telas médias */
   }
 
-  .navToggle {
-    display: block;
-  }
-
-  .navLinks li {
-    margin: 0;
-    text-align: center;
-  }
-
-  .navLinks a {
-    font-size: 1rem;
-    padding: 1rem;
-  }
-  .logo {
-    font-size: 1.5rem;
-  }
-  .futureSection {
-    padding: 2rem 1rem; /* Ajuste o padding para caber melhor em telas pequenas */
-  }
-
-  .textContent {
-    max-width: 100%; /* Garante que o texto não saia do contêiner */
-    padding: 1.5rem; /* Ajuste o padding para maior espaço interno em telas pequenas */
-    box-shadow: none; /* Remove a sombra para mais espaço se necessário */
-    border-radius: 0.75rem; /* Reduz o border-radius para melhor ajuste em telas pequenas */
-  }
-
-  .imageContainer {
-    max-width: 100%; /* Ajusta a largura da imagem para 100% */
-    text-align: center; /* Centraliza a imagem */
-    margin-top: 1rem; /* Adiciona margem no topo para espaçamento */
-  }
-
-  .imageContainer img {
-    max-width: 100%; /* Garante que a imagem não exceda o contêiner */
-    height: auto; /* Mantém a proporção da imagem */
+  .section {
+    height: auto; /* Altura automática */
   }
 
   .textContainer {
-    flex-direction: column; /* Muda a direção do flex para coluna em telas pequenas */
-    align-items: center; /* Centraliza o conteúdo */
+    max-width: 90%; /* Limite a largura em telas menores */
+    padding: 0 20px; /* Espaçamento lateral */
   }
 
-  .textContent h2 {
-    font-size: 1.75rem; /* Reduz o tamanho da fonte do título */
+  .button {
+    padding: 15px 20px; /* Ajuste de padding */
   }
 
-  .textContent p {
-    font-size: 1rem; /* Ajusta o tamanho da fonte do parágrafo */
+  .solucaoSections {
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ); /* Mantenha duas colunas em telas médias */
+  }
+}
+
+@media (max-width: 768px) {
+  .textContainer h3 {
+    font-size: 48px; /* Ajuste para telas menores */
+  }
+
+  .sections {
+    grid-template-columns: 1fr; /* Uma coluna em telas menores */
+  }
+
+  .section,
+  .solucaoSection {
+    height: auto; /* Altura automática para flexibilidade */
+  }
+
+  .textContainer {
+    max-width: 90%; /* Limite a largura em telas menores */
+    padding: 0 20px; /* Espaçamento lateral */
+  }
+
+  .button {
+    padding: 15px 20px; /* Ajuste de padding */
+  }
+
+  .solucaoSections {
+    grid-template-columns: 1fr; /* Uma coluna */
+  }
+
+  .solucaoSection img {
+    display: none; /* Esconde imagens em telas menores */
+  }
+
+  .solucaoSection {
+    height: auto; /* Altura automática para flexibilidade */
+  }
+}
+
+@media (max-width: 480px) {
+  .textContainer h3 {
+    font-size: 36px; /* Ajuste para telas menores */
+  }
+
+  .button {
+    padding: 10px 15px; /* Ajuste de padding */
+  }
+
+  .icon {
+    font-size: 1.5em; /* Ajuste para ícones em telas menores */
   }
 
   .subtitle {
-    font-size: 1rem; /* Ajusta o tamanho da fonte do subtítulo */
-  }
-}
-
-/* Para telas médias (tablets) */
-@media (min-width: 601px) and (max-width: 1024px) {
-  .navLinks {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #ffffff;
-    transition: max-height 0.3s ease;
-    max-height: 0;
-    overflow: hidden;
-    z-index: 10;
+    font-size: 1.25em; /* Ajuste para subtítulos em telas menores */
   }
 
-  .navLinks.navOpen {
-    max-height: 300px;
+  .text {
+    font-size: 20px; /* Ajuste para texto em telas menores */
   }
 
-  .navToggle {
-    display: block;
+  .solucaoSubtitle {
+    font-size: 1.25em; /* Ajuste para subtítulos em telas menores */
   }
 
-  .navLinks li {
-    margin: 0;
-    text-align: center;
-  }
-
-  .navLinks a {
-    font-size: 1rem;
-    padding: 1rem;
-  }
-  .logo {
-    font-size: 1.5rem;
-  }
-
-  .arrowDown {
-    font-size: 2.1875rem;
-  }
-  .textContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-/* Para telas grandes (desktops) */
-@media (min-width: 1025px) {
-  .title {
-    font-size: 3rem;
-  }
-
-  .arrowDown {
-    font-size: 2.5rem;
-  }
-  .textContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .solucaoText {
+    font-size: 20px; /* Ajuste para texto em telas menores */
   }
 }

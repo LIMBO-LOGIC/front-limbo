@@ -67,7 +67,7 @@ export default function NavMobile() {
             defaultOpen={false}
             label={
               <div className={styles.userInfo}>
-                <span className={styles.userName}>Sign In First</span>
+                <span className={styles.userName}>Faça o login</span>
               </div>
             }
             icon={
@@ -85,44 +85,43 @@ export default function NavMobile() {
                 style={{ cursor: "pointer" }}
                 className={styles.linkItemProfile}
               >
-                <img src={usaFlag} alt="EUA flag" className={styles.flagIcon} />
-                <p>USA</p>
               </a>
             </ItemSubMenu>
             <ItemSubMenu>
-              <Link to="/login"
+              <Link
+                to="/login"
                 style={{ cursor: "pointer" }}
                 className={styles.linkItemProfile}
               >
                 <IoIosLogOut />
-                <p>Sign in</p>
+                <p>Entrar</p>
               </Link>
             </ItemSubMenu>
           </SubMenu>
-          <div className="navegation">
+          <div className="navegacao">
             <ItemMenu>
-              <a href="#section1" className={styles.itemMenu}>
+              <a href="#desafio" className={styles.itemMenu}>
                 <GiCarWheel />
-                <p>About Formula E</p>
+                <p>Nosso Desafio</p>
               </a>
             </ItemMenu>
             <ItemMenu>
-              <a href="#ecosystemSection" className={styles.itemMenu}>
+              <a href="#solucao" className={styles.itemMenu}>
                 <BiWorld />
-                <p>Our Ecosystem</p>
+                <p>Soluçao</p>
               </a>
             </ItemMenu>
             <ItemMenu>
-              <Link to="/login"className={styles.itemMenu}>
+              <Link to="/login" className={styles.itemMenu}>
                 <CgProfile />
-                <p>Sign In</p>
+                <p>Entrar</p>
               </Link>
             </ItemMenu>
           </div>
         </Menu>
       </Sidebar>
       <nav className={styles.navMobile}>
-        <img src={formulaEImage} alt="logo formula e" />
+        <img src={formulaEImage} alt="logo fórmula E" />
         <IoMenu
           className={styles.iconMenu}
           onClick={() => setToggled(!toggled)}
