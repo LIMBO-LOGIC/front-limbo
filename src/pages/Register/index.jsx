@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { baseUrl } from "../../service/api";
 
 const Register = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [picture, setPicture] = useState(null);
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [username, setUsername] = useState("");
@@ -23,8 +23,8 @@ const Register = () => {
     const date = new Date();
 
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Mês começa de 0, então é necessário adicionar 1
-    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Mês começa de 0, então é necessário adicionar 1
+    const day = String(date.getDate()).padStart(2, "0");
 
     return `${year}${month}${day}`;
   };
@@ -38,46 +38,57 @@ const Register = () => {
     event.preventDefault();
 
     setIsLoading(true);
-    if (!picture || !nomeCompleto || !username || !email || !dataNascimento || !senha) {
+    if (
+      !picture ||
+      !nomeCompleto ||
+      !username ||
+      !email ||
+      !dataNascimento ||
+      !senha
+    ) {
       setErrorMessage("Por favor, preencha todos os campos.");
       setIsLoading(false);
       return;
     }
 
-    let publicID = `${email.split('@')[0]}-${getCurrentDate()}`
-    publicID = publicID[0] + publicID[1]
+    let publicID = `${email.split("@")[0]}-${getCurrentDate()}`;
+    publicID = publicID[0] + publicID[1];
     function fileToBase64(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
+        reader.onerror = (error) => reject(error);
       });
     }
 
     const uploadToCloudinary = (base64Image) => {
-      console.log(base64Image)
+      console.log(base64Image);
       const formData = new FormData();
-      formData.append('file', base64Image);
-      formData.append('upload_preset', 'u38nm7ok');
-      formData.append('folder', '');
-      formData.append('resource_type', 'image');
-      formData.append('public_id', publicID)
+      formData.append("file", base64Image);
+      formData.append("upload_preset", "u38nm7ok");
+      formData.append("folder", "");
+      formData.append("resource_type", "image");
+      formData.append("public_id", publicID);
 
-      axios.post('https://api.cloudinary.com/v1_1/drwk6ohcn/image/upload', formData)
-        .then( async (response) => {
-          console.log('Imagem carregada com sucesso:', response.data);
-          console.log(response)
-          console.log(response.data)
+      axios
+        .post(
+          "https://api.cloudinary.com/v1_1/drwk6ohcn/image/upload",
+          formData
+        )
+        .then(async (response) => {
+          console.log("Imagem carregada com sucesso:", response.data);
+          console.log(response);
+          console.log(response.data);
 
           const body = {
             fullname: nomeCompleto,
             nickname: username,
             email: email,
-            birthdate: dataNascimento.replaceAll('-', '/'),
+            birthdate: dataNascimento.replaceAll("-", "/"),
             password: senha,
             profile_picture: response.data.secure_url,
-          };      
+          };
           await axios
             .post(`${baseUrl}/user/register`, body, {
               headers: {
@@ -90,9 +101,7 @@ const Register = () => {
             })
             .catch((error) => {
               if (error.status === 401) {
-                toast.error(
-                  "Email ou senha inválido!"
-                );
+                toast.error("Email ou senha inválido!");
               } else {
                 toast.error(
                   "Erro ao tentar fazer o cadastro. Tente novamente mais tarde."
@@ -105,18 +114,18 @@ const Register = () => {
             });
         })
         .catch((error) => {
-          console.error('Erro ao carregar a imagem:', error);
+          console.error("Erro ao carregar a imagem:", error);
         });
     };
 
     const file = picture;
     fileToBase64(file)
-      .then(base64 => {
+      .then((base64) => {
         console.log(base64);
-        uploadToCloudinary(base64)
+        uploadToCloudinary(base64);
       })
-      .catch(error => {
-        console.error('Erro ao converter o arquivo em Base64:', error);
+      .catch((error) => {
+        console.error("Erro ao converter o arquivo em Base64:", error);
       });
   };
 
@@ -139,6 +148,7 @@ const Register = () => {
       <div className={styles.main_login}>
         <div onKeyDown={handleKeyPress} className={styles.left_login}>
           <h2 className={styles.login_login}>Registre-se</h2>
+          <h5 className={styles.login_login}>Coloque a sua foto</h5>
 
           <div className={styles.imagem_input}>
             <UploadPhotoUser

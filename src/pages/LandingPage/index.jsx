@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import styles from "./landingPage.module.css";
 import NavMobile from "./NavMenuLandingPage";
 import Footer from "../../components/Footer";
@@ -13,6 +14,9 @@ import tela_chute_sorte_part_2 from "../../assets/tela_chute_sorte_part_2.png";
 import tela_marktplace from "../../assets/tela_marktplace.png";
 import tela_quiz from "../../assets/tela_quiz.png";
 import tela_ranking from "../../assets/tela_ranking.png";
+import carro1 from "../../assets/carro1.png";
+import carro2 from "../../assets/carro2.png";
+import carro3 from "../../assets/carro3.png";
 import {
   FaGlobe,
   FaNetworkWired,
@@ -29,23 +33,29 @@ import {
 import { SiLivechat } from "react-icons/si";
 import { MdCasino, MdOutlineQuiz } from "react-icons/md";
 import { FaRankingStar } from "react-icons/fa6";
-
-import { Link } from "react-router-dom";
-
+const images = [carro1, carro2, carro3];
 export default function LandingPage() {
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prevImage) => (prevImage + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
   return (
     <>
       <NavMobile className={styles.navbar}></NavMobile>
       <div className={styles.start}>
         <div className={styles.overlay}></div>
         <img
-          src={img_principal_landing_page}
+          src={images[currentImage]}
           alt="Formula E"
           className={styles.image}
         />
         <div className={styles.textContainer}>
           <h3>
-            FormulaE <br /> <span>Live Hub</span>
+            Formula E <br /> <span>Live Hub</span>
           </h3>
           <a href="/#desafio">
             <button className={styles.button}>Explore</button>
