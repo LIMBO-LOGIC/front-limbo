@@ -120,6 +120,11 @@ const Login = () => {
                 Ainda não tem conta? <span>Cadastra-se aqui</span>
               </p>
             </Link>
+            <Link to="/" className={styles.itemMenu}>
+              <p className={styles.conta}>
+                Voltar para <span> tela principal</span>
+              </p>
+            </Link>
 
             <button
               className={styles.btn_login}

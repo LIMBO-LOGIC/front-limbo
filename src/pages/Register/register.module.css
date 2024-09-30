@@ -14,6 +14,10 @@
   display: grid;
   grid-template-columns: 50vw 50vw;
 }
+.main_login h5{
+  font-size: 30px;
+  margin-top: 40px;
+}
 
 .left_login {
   width: 100%;
