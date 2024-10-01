@@ -11,14 +11,14 @@ import axios from "axios";
 import { TbArrowRightToArc } from "react-icons/tb";
 import useContexts from "../../hooks/useContext";
 import { io } from "socket.io-client";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const socket = io(urlChat, {
   path: "/clients/socketio/hubs/Hub",
 });
 
 export default function LiveRace() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [listPointsLocations, setListPointsLocations] = useState([]);
   const [pilotsRace, setPilotsRace] = useState([]);
@@ -31,19 +31,19 @@ export default function LiveRace() {
   const [newMessage, setNewMessage] = useState("");
   const { dataUser } = useContexts();
 
-  useEffect(() => {    
+  useEffect(() => {
     if (!socket.connected) {
       socket.connect();
-    }else{
+    } else {
       socket.emit("list_message", "66ecae9379ef6d8440299c6d");
     }
 
     socket.on("connect", () => {
       console.log("Conectado ao servidor Socket.IO");
-      console.log('====================================');
+      console.log("====================================");
       socket.emit("list_message", "66ecae9379ef6d8440299c6d");
-      console.log('Enviou');
-      console.log('====================================');
+      console.log("Enviou");
+      console.log("====================================");
     });
 
     socket.on("previousMessages", (oldMessages) => {
@@ -119,7 +119,7 @@ export default function LiveRace() {
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      event.preventDefault()
+      event.preventDefault();
       sendMessage(event);
     }
   };
@@ -159,7 +159,10 @@ export default function LiveRace() {
                   )
                 )}
               </div>
-              <form className={styles.boxSendMessage} onKeyDown={handleKeyPress}>
+              <form
+                className={styles.boxSendMessage}
+                onKeyDown={handleKeyPress}
+              >
                 <input
                   type="text"
                   placeholder="Digite aqui"
@@ -170,7 +173,9 @@ export default function LiveRace() {
               </form>
             </div>
           </div>
-          <button className={styles.btnLucky}>Realizar chute da sorte</button>
+          <Link to={"/race/luck-kick"}>
+            <button className={styles.btnLucky}>Realizar chute da sorte</button>
+          </Link>
         </div>
       </div>
       <div className={styles.boxCircuit}>
@@ -298,13 +303,12 @@ export default function LiveRace() {
             <tbody className="table-group-divider">
               {pilotsRace.map((pilot, index) => {
                 return (
-                  <tr
-                    key={index}
-                    className={`${styles.registerPilot}`}
-                  >
+                  <tr key={index} className={`${styles.registerPilot}`}>
                     <td className="text-center">
                       <div className={styles.tdDataArrow}>
-                        <TbArrowRightToArc onClick={() => navigate(`/race/pilot/${pilot.id}`)}/>
+                        <TbArrowRightToArc
+                          onClick={() => navigate(`/race/pilot/${pilot.id}`)}
+                        />
                       </div>
                     </td>
                     <td className="text-center">
