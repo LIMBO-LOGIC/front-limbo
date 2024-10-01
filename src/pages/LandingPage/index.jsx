@@ -192,7 +192,7 @@ export default function LandingPage() {
             <div className={styles.solucaoIcon}>
               <SiLivechat />
             </div>
-            <h2 className={styles.solucaoSubtitle}>Estratégias de Marketing</h2>
+            <h2 className={styles.solucaoSubtitle}>Corridas ao vivo 2</h2>
             <p className={styles.solucaoText}>
               A Fórmula E precisa delver em estratégias de marketing mais
               eficazes. Na tela de corrida 2, será possível selecionar pontos da
@@ -206,7 +206,7 @@ export default function LandingPage() {
             <div className={styles.solucaoIcon}>
               <MdCasino />
             </div>
-            <h2 className={styles.solucaoSubtitle}>Desafios de Audiência</h2>
+            <h2 className={styles.solucaoSubtitle}>Chute da sorte 1</h2>
             <p className={styles.solucaoText}>
               Apesar das corridas emocionantes, a Fórmula E luta para atrair
               grandes audiências. Na tela de chute da sorte 1, os usuários
@@ -220,7 +220,7 @@ export default function LandingPage() {
             <div className={styles.solucaoIcon}>
               <MdCasino />
             </div>
-            <h2 className={styles.solucaoSubtitle}>Futuro da Fórmula E</h2>
+            <h2 className={styles.solucaoSubtitle}>Chute da sorte 2</h2>
             <p className={styles.solucaoText}>
               A Fórmula E precisa expandir sua presença. Na tela de chute 2, os
               usuários poderão selecionar a posição dos pilotos e salvar suas
@@ -233,7 +233,7 @@ export default function LandingPage() {
             <div className={styles.solucaoIcon}>
               <GiMoneyStack />
             </div>
-            <h2 className={styles.solucaoSubtitle}>Futuro da Fórmula E</h2>
+            <h2 className={styles.solucaoSubtitle}>Martkplace</h2>
             <p className={styles.solucaoText}>
               É fundamental que a Fórmula E amplie sua presença. No marketplace,
               os usuários poderão trocar seus pontos ganhos por produtos reais
@@ -246,7 +246,7 @@ export default function LandingPage() {
             <div className={styles.solucaoIcon}>
               <MdOutlineQuiz />
             </div>
-            <h2 className={styles.solucaoSubtitle}>Futuro da Fórmula E</h2>
+            <h2 className={styles.solucaoSubtitle}>Quiz</h2>
             <p className={styles.solucaoText}>
               Para garantir seu futuro, a Fórmula E deve aumentar sua presença.
               O quiz de 10 perguntas permitirá que os usuários ganhem pontos,
@@ -259,7 +259,7 @@ export default function LandingPage() {
             <div className={styles.solucaoIcon}>
               <FaRankingStar />
             </div>
-            <h2 className={styles.solucaoSubtitle}>Futuro da Fórmula E</h2>
+            <h2 className={styles.solucaoSubtitle}>Ranking</h2>
             <p className={styles.solucaoText}>
               Aumentar a presença da Fórmula E é essencial. A tela de ranking
               mostrará os usuários com mais pontos, com os três primeiros
