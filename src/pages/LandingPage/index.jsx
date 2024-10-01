@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import styles from "./landingPage.module.css";
 import NavMobile from "./NavMenuLandingPage";
 import Footer from "../../components/Footer";
-import img_principal_landing_page from "../../assets/imagem_landingpage.jpg";
 import tela_home from "../../assets/tela_home.png";
 import tela_equipe from "../../assets/tela_equipe.png";
 import tela_piloto from "../../assets/tela_piloto.png";
