@@ -3,124 +3,118 @@
   flex-direction: column;
   width: auto;
   min-width: 210px;
+  max-width: 300px; /* Aumentado para melhorar a responsividade */
   border-radius: 26px;
   background-color: var(--white-default);
-  box-shadow: 0px 0px 22.091px 3.535px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  transition: transform 0.3s;
+}
+
+.cardMarketplace:hover {
+  transform: scale(1.01); /* Leve aumento para destacar o hover */
 }
 
 .boxImg {
   display: flex;
   justify-content: center;
-  padding: 4px 10px;
+  padding: 8px; /* Ajustado para um pouco mais de espaço */
   width: 100%;
-  height: auto;
   cursor: pointer;
 }
 
 .imgProduct {
-  height: auto;
   width: 100%;
   max-height: 200px;
+  object-fit: cover;
+  border-radius: 20px;
 }
 
 .dataCard {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  border-radius: 26px;
+  border-radius: 0 0 26px 26px;
   background-color: var(--bg-blue);
   color: var(--white-default);
   padding: 18px 12px;
+}
 
-  p {
-    font-size: 10px;
-  }
+.dataCard p {
+  font-size: 10px;
+  margin: 0;
 }
 
 .boxTitle {
   display: flex;
   justify-content: space-between;
+  align-items: center; /* Alinhamento para melhor estética */
+}
 
-  svg{
-    font-size: 18px;
-    cursor: pointer;
-    transition: all 0.4s;
-    color: rgba(0, 255, 255, 0.53);
-  }
+.boxTitle svg {
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.4s;
+  color: rgba(0, 255, 255, 0.53);
+}
 
-  svg:hover{
-    color: rgba(0, 255, 255, 0.8);
-  }
+.boxTitle svg:hover {
+  color: rgba(0, 255, 255, 0.8);
 }
 
 .titles {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  max-width: 84%;
-
-  h2 {
-    font-size: 18px;
-    font-weight: 700;
-
-    display: -webkit-box;
-    line-clamp: 1;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
-  }
-
-  h3 {
-    font-size: 10px;
-    font-weight: 500;
-    width: 100%;
-
-    display: -webkit-box;
-    line-clamp: 1;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
-  }
+  max-width: 100%; /* Permitir uso completo da largura */
 }
 
-.description{
-    height: 75px;
-    text-align: justify;
-
-    display: -webkit-box;
-    line-clamp: 5;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
+.titles h2,
+.titles h3 {
+  font-size: 18px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; /* Para evitar quebra de linha */
 }
 
-.points{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 12px;
-
-    p{
-        font-size: 12px;
-        font-weight: 700;
-    }
+.titles h3 {
+  font-size: 12px; /* Aumentado para melhor legibilidade */
+  font-weight: 500;
 }
 
-.btnRedeem{
-    cursor: pointer;
-    font-size: 10px;
-    padding: 4px 10px;
-    border-radius: 22px;
-    transition: all .5s;
-    background-color: rgba(0, 108, 207, 1);
+.description {
+  height: 75px;
+  text-align: justify;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
 }
 
-.btnRedeem:hover{
-    background-color: rgba(0, 108, 207, 0.8);
+.points {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+}
+
+.points p {
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.btnRedeem {
+  cursor: pointer;
+  font-size: 10px;
+  padding: 6px 12px; /* Aumentado para melhor clique */
+  border-radius: 22px;
+  transition: background-color 0.5s;
+  background-color: rgba(0, 108, 207, 1);
+  text-align: center;
+}
+
+.btnRedeem:hover {
+  background-color: rgba(0, 108, 207, 0.8);
 }

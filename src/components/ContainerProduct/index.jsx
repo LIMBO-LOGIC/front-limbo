@@ -1,17 +1,17 @@
-import { PropTypes } from "prop-types";
+import PropTypes from "prop-types"; // Importing PropTypes without destructuring
 import CardMarketplace from "../CardMarketplace";
-import styles from './containerProduct.module.css'
+import styles from './containerProduct.module.css';
 
 ContainerProduct.propTypes = {
-  listItens: PropTypes.array,
+  listItens: PropTypes.array.isRequired, // Ensure the array is required
 };
 
 export default function ContainerProduct({ listItens }) {
   return (
     <div className={styles.containerProduct}>
-      {listItens.map((item, index) => {
-        return <CardMarketplace key={index} item={item} />;
-      })}
+      {listItens.map((product) => ( // Change `item` to `product`
+        <CardMarketplace key={product.id} product={product} /> // Use `product` here
+      ))}
     </div>
   );
 }
