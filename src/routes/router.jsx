@@ -84,7 +84,7 @@ const router = createBrowserRouter([
         element: <Ranking />,
       },
       {
-        path: "product",
+        path: "product/:id", // Updated route for product details
         element: <Product />,
       },
       {

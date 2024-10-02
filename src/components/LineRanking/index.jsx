@@ -1,38 +1,18 @@
 import styles from "./lineRanking.module.css";
 
-const rankings = [
-  {
-    position: "4º",
-    name: "Aleatorio 4",
-    totalPoints: "12.000",
-    pointsExchange: "12.000",
-  },
-  {
-    position: "5º",
-    name: "Aleatorio 5",
-    totalPoints: "10.000",
-    pointsExchange: "10.000",
-  },
-  {
-    position: "6º",
-    name: "Aleatorio 6",
-    totalPoints: "8.000",
-    pointsExchange: "8.000",
-  },
-];
-
-export default function LineRanking() {
+export default function LineRanking({ rankingData }) {
   return (
     <div>
-      {rankings.map((rank, index) => (
+      {rankingData.slice(3).map((user, index) => (
         <div key={index} className={styles.container}>
-          <div className={styles.colocacao}>{rank.position}</div>
-          <div className={styles.name}>{rank.name}</div>
+          <div className={styles.colocacao}>{index + 4}º</div>{" "}
+          {/* Adicionando a posição */}
+          <div className={styles.name}>{user.fullname}</div>
           <div className={styles.totalpoints}>
-            Pontos Totais - {rank.totalPoints}
+            Pontos Totais - {parseInt(user.all_points).toLocaleString()}
           </div>
           <div className={styles.pointsexchange}>
-            Pontos para Troca - {rank.pointsExchange}
+            Pontos Atuais - {parseInt(user.current_points).toLocaleString()}
           </div>
         </div>
       ))}
