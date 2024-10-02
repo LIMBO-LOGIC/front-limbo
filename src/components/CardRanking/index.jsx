@@ -1,4 +1,4 @@
-import { FaMedal } from "react-icons/fa"; // Importando o ícone da medalha
+import { FaMedal } from "react-icons/fa";
 import styles from "./cardRanking.module.css";
 
 export default function CardRanking({ rankingData }) {
@@ -20,8 +20,12 @@ export default function CardRanking({ rankingData }) {
               />
             </div>
           </div>
-          <div className={styles.name}>{user.fullname}</div>
-          <div className={styles.username}>{user.nickname}</div>
+          <div className={styles.name}>
+            {user.fullname.split(" ").slice(0, 2).join(" ")}
+          </div>
+          <div className={styles.username}>
+            {user.nickname.split(" ").slice(0, 2).join(" ")}
+          </div>
           <div className={styles.totalpoints}>Total de Pontos</div>
           <div className={styles.totalpointsNumber}>
             {parseInt(user.all_points).toLocaleString()}
