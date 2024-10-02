@@ -11,6 +11,7 @@ import tela_corridas_ao_vivo_part_2 from "../../assets/tela_corridas_ao_vivo_par
 import tela_chute_sorte_part_1 from "../../assets/tela_chute_sorte_part_1.png";
 import tela_chute_sorte_part_2 from "../../assets/tela_chute_sorte_part_2.png";
 import tela_marktplace from "../../assets/tela_marktplace.png";
+import tela_marktplace_part_2 from "../../assets/tela_marktplace_part_2.png";
 import tela_quiz from "../../assets/tela_quiz.png";
 import tela_ranking from "../../assets/tela_ranking.png";
 import carro1 from "../../assets/carro1.png";
@@ -240,6 +241,17 @@ export default function LandingPage() {
             </p>
 
             <img src={tela_marktplace} alt="" />
+          </div>
+          <div className={styles.solucaoSection}>
+            <div className={styles.solucaoIcon}>
+              <GiMoneyStack />
+            </div>
+            <h2 className={styles.solucaoSubtitle}>Martkplace 2</h2>
+            <p className={styles.solucaoText}>
+              Após acessar nosso marketplace você poderá acessar à parte dos produtos
+            </p>
+
+            <img src={tela_marktplace_part_2} alt="" />
           </div>
           <div className={styles.solucaoSection}>
             <div className={styles.solucaoIcon}>
