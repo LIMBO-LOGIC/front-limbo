@@ -1,7 +1,7 @@
 .product {
   display: flex;
   flex-direction: column;
-  padding: 40px 36px;
+  padding: 16px 36px;
   font-family: var(--font-montserrat);
 }
 
@@ -55,10 +55,10 @@
   height: 500px;
 
   img {
-    height: 100%; 
-    width: auto; 
-    max-width: 100%; 
-    object-fit: cover; 
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    object-fit: cover;
   }
 }
 
