@@ -32,7 +32,7 @@
   --bs-table-bg: var(--bg-blue) !important;
 }
 
-._loading_overlay_wrapper{
+._loading_overlay_wrapper {
   height: 100vh !important;
 }
 
@@ -51,7 +51,7 @@ button {
 }
 
 a {
-  color: initial;
+  color: inherit;
   text-decoration: inherit !important;
 }
 

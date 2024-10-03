@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react"; // Importando hooks
-import PageTitle from "../../components/PageTitle";
 import axios from "axios"; // Importando axios
-import styles from "./marketplace.module.css";
+import { useEffect, useState } from "react"; // Importando hooks
 import ContainerProduct from "../../components/ContainerProduct";
+import PageTitle from "../../components/PageTitle";
 import useContexts from "../../hooks/useContext";
 import { baseUrl } from "../../service/api";
+import styles from "./Favorite.module.css";
 
-export default function Marketplace() {
+export default function Favorite() {
   const [productList, setProductList] = useState([]); // Estado para armazenar os produtos
-  const { setIsLoading } = useContexts();
+  const { setIsLoading, dataUser } = useContexts();
 
   useEffect(() => {
     setIsLoading(true);
     // Chamada para o endpoint
     axios
-      .get(`${baseUrl}/products`, {
+      .get(`${baseUrl}/product-rescues/${dataUser.id}`, {
         headers: {
           accept: "application/json",
         },
@@ -33,10 +33,10 @@ export default function Marketplace() {
 
   return (
     <section className={styles.marketplace}>
-      <PageTitle text={"Marketplace"} />
+      <PageTitle text={"Favoritos"} />
       <div className={styles.boxMain}>
         {productList.length > 0 && ( // Verifica se há produtos para mostrar
-          <ContainerProduct listItens={productList} />
+          <ContainerProduct listItens={productList} type={"favorite"} />
         )}
       </div>
     </section>

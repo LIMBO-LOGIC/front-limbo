@@ -1,10 +1,9 @@
-import { CiSearch } from "react-icons/ci";
 import styles from "./header.module.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
 import { useEffect, useState } from "react";
 import useContexts from "../../hooks/useContext";
-
+import { FaRegHeart } from "react-icons/fa";
 export default function Header() {
   const navigate = useNavigate();
   const [user, setUser] = useState("");
@@ -13,7 +12,7 @@ export default function Header() {
 
   useEffect(() => {
     const userStorage = JSON.parse(localStorage.getItem("userStorage"));
-    
+
     if (userStorage) {
       setNameUser(userStorage.fullname.split(" ")[0]);
       setUser(userStorage);
@@ -23,7 +22,7 @@ export default function Header() {
 
   const handleLogout = () => {
     localStorage.removeItem("userStorage");
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
@@ -40,8 +39,13 @@ export default function Header() {
           onClick={() => navigate("/race/profile")}
         >
           <span className={styles.userName}>{nameUser}</span>
-          <span className={styles.userPoints}>{user.current_points} pontos</span>
-        </div>
+          <span className={styles.userPoints}>
+            {user.current_points} pontos
+          </span>
+        </div>{" "}
+        <Link to={"/race/favorites"}>
+          <FaRegHeart className={styles.coracao} />
+        </Link>
         <div className={styles.logout}>
           <IoIosLogOut onClick={handleLogout} />
         </div>

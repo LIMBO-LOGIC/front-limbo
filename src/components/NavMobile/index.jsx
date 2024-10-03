@@ -108,6 +108,7 @@ export default function NavMobile() {
               <Link
                 className={styles.linkItemProfile}
                 onClick={() => setToggled(!toggled)}
+                to={"/race/favorites"}
               >
                 {/* <img src={usaFlag} alt="EUA flag" className={styles.flagIcon} /> */}
                 <FaRegHeart />

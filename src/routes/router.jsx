@@ -17,6 +17,7 @@ import Races from "../pages/Races";
 import Ranking from "../pages/Ranking";
 import Register from "../pages/Register";
 import Teams from "./../pages/Teams/index";
+import Favorite from "../pages/Favorite";
 
 const router = createBrowserRouter([
   {
@@ -102,6 +103,10 @@ const router = createBrowserRouter([
       {
         path: "luck-kick/choice/:idRace/:idRacingBet",
         element: <ChoiceLucky />,
+      },
+      {
+        path: "favorites",
+        element: <Favorite />,
       },
       {
         path: "*",

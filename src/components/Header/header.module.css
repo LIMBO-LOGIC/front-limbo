@@ -53,3 +53,10 @@
   font-size: 12px;
   color: #666;
 }
+.coracao {
+  color: #666 !important;
+  cursor: pointer;
+}
+.coracao :hover{
+  color: #004ecc 
+}

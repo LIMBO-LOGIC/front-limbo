@@ -1,0 +1,23 @@
+.marketplace {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  min-height: calc(100vh - 100px) !important;
+  font-family: var(--font-montserrat);
+  padding-bottom: 100px;
+}
+
+.boxMain {
+  padding: 40px 36px;
+}
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.cardContainer img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
