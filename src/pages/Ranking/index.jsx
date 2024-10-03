@@ -5,14 +5,15 @@ import PageTitle from "../../components/PageTitle";
 import axios from "axios";
 import { baseUrl } from "../../service/api";
 import styles from "./Ranking.module.css";
-import LoadingOverlay from "react-loading-overlay-ts";
 import { toast } from "react-toastify";
+import useContexts from "../../hooks/useContext";
 
 export default function Ranking() {
   const [rankingData, setRankingData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { setIsLoading } = useContexts();
 
   useEffect(() => {
+    setIsLoading(true)
     const fetchRankingData = async () => {
       try {
         const response = await axios.get(`${baseUrl}/user/points`, {
@@ -26,7 +27,9 @@ export default function Ranking() {
         console.log(error);
         toast.error("Erro ao carregar dados do ranking.");
       } finally {
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000)
       }
     };
 
@@ -34,15 +37,7 @@ export default function Ranking() {
   }, []);
 
   return (
-    <LoadingOverlay
-      active={isLoading}
-      spinner
-      text="Carregando..."
-      wrapperStyle={{ height: "100vh" }}
-      styles={{
-        content: (base) => ({ ...base }),
-      }}
-    >
+
       <section className={styles.flexGrowSection}>
         <PageTitle text={`Ranking`} />
         <CardRanking rankingData={rankingData} />{" "}
@@ -50,6 +45,5 @@ export default function Ranking() {
         <LineRanking rankingData={rankingData} />{" "}
         {/* Passando dados para LineRanking */}
       </section>
-    </LoadingOverlay>
   );
 }

@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react"; // Importando hooks
 import PageTitle from "../../components/PageTitle";
-import CardMarketplace from "../../components/CardMarketplace"; // Importando o componente CardMarketplace
 import axios from "axios"; // Importando axios
 import styles from "./marketplace.module.css";
+import ContainerProduct from "../../components/ContainerProduct";
+import useContexts from "../../hooks/useContext";
 
 export default function Marketplace() {
   const [productList, setProductList] = useState([]); // Estado para armazenar os produtos
+  const { setIsLoading } = useContexts();
 
   useEffect(() => {
+    setIsLoading(true)
     // Chamada para o endpoint
     axios
       .get("https://back-limbo-production.up.railway.app/products", {
@@ -21,23 +24,17 @@ export default function Marketplace() {
       })
       .catch((error) => {
         console.log(error);
-      });
-  }, []);
+      }).finally(() => {
+        setIsLoading(false);
+      })
+  }, [setIsLoading, setProductList]);
 
   return (
     <section className={styles.marketplace}>
       <PageTitle text={"Marketplace"} />
       <div className={styles.boxMain}>
-        {productList.length > 0 ? ( // Verifica se há produtos para mostrar
-          <div className={styles.cardContainer}>
-            {" "}
-            {/* Novo contêiner para os cartões */}
-            {productList.map((product) => (
-              <CardMarketplace key={product.id} product={product} /> // Renderiza cada CardMarketplace
-            ))}
-          </div>
-        ) : (
-          <div>Carregando produtos...</div>
+        {productList.length > 0 && ( // Verifica se há produtos para mostrar
+          <ContainerProduct listItens={productList}/>
         )}
       </div>
     </section>
