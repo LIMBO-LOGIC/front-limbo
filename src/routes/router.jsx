@@ -27,6 +27,10 @@ const router = createBrowserRouter([
         index: true,
         element: <LandingPage />,
       },
+      {
+        path: "*",
+        element: <NotFound route={"/"}/>,
+      },
     ],
   },
   // {
@@ -101,7 +105,7 @@ const router = createBrowserRouter([
       },
       {
         path: "*",
-        element: <NotFound />,
+        element: <NotFound route={"/race"}/>,
       },
     ],
   },
