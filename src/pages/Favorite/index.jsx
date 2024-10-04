@@ -45,7 +45,7 @@ export default function Favorite() {
 
         setProductList(filteredProducts);
       } catch (error) {
-        console.error("Erro ao buscar favoritos:", error);
+        console.error("Erro ao buscar favoritos:", error)
       } finally {
         setIsLoading(false);
       }
