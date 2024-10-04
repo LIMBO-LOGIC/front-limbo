@@ -1,9 +1,8 @@
-// CardMarketplace.jsx
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa"; // Importar também o ícone de coração vazio
 import styles from "./cardMarketplace.module.css";
 import { useNavigate } from "react-router-dom";
 
-export default function CardMarketplace({ product }) {
+export default function CardMarketplace({ product, onFavorite, isFavorited }) {
   const navigate = useNavigate();
 
   if (!product) {
@@ -14,7 +13,7 @@ export default function CardMarketplace({ product }) {
     <div className={styles.cardMarketplace}>
       <div
         className={styles.boxImg}
-        onClick={() => navigate(`/race/product/${product.id}`)} // Pass the product ID
+        onClick={() => navigate(`/race/product/${product.id}`)}
       >
         <img
           className={styles.imgProduct}
@@ -28,7 +27,21 @@ export default function CardMarketplace({ product }) {
             <h2>{product.name}</h2>
             <h3>{product.description}</h3>
           </div>
-          <FaHeart />
+          {isFavorited ? (
+            <FaHeart
+              onClick={(e) => {
+                e.stopPropagation();
+                onFavorite(product);
+              }}
+            />
+          ) : (
+            <FaRegHeart
+              onClick={(e) => {
+                e.stopPropagation();
+                onFavorite(product);
+              }}
+            />
+          )}
         </div>
         <p className={styles.description}>{product.details}</p>
         <div className={styles.points}>

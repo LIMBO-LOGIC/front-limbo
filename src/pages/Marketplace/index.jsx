@@ -8,7 +8,8 @@ import { baseUrl } from "../../service/api";
 
 export default function Marketplace() {
   const [productList, setProductList] = useState([]); // Estado para armazenar os produtos
-  const { setIsLoading } = useContexts();
+  const [favorites, setFavorites] = useState([]); // Estado para armazenar favoritos
+  const { setIsLoading, dataUser } = useContexts();
 
   useEffect(() => {
     setIsLoading(true);
@@ -29,14 +30,49 @@ export default function Marketplace() {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [setIsLoading, setProductList]);
+  }, [setIsLoading]);
+
+  const handleFavorite = async (product) => {
+    if (favorites.includes(product.id)) {
+      // Remover dos favoritos
+      try {
+        await axios.delete(
+          `${baseUrl}/favoriteProduct/${dataUser.id}/${product.id}`
+        );
+        setFavorites(favorites.filter((id) => id !== product.id));
+      } catch (error) {
+        console.log("Erro ao remover dos favoritos:", error);
+      }
+    } else {
+      try {
+        // Tentar adicionar aos favoritos
+        const response = await axios.post(`${baseUrl}/favoriteProduct`, {
+          userId: dataUser.id,
+          productId: product.id,
+        });
+
+        // Adicionar o produto aos favoritos apenas se a criação for bem-sucedida
+        if (response.status === 200) {
+          setFavorites([...favorites, product.id]);
+        }
+      } catch (error) {
+        console.log("Erro ao adicionar aos favoritos:", error);
+      }
+    }
+  };
 
   return (
     <section className={styles.marketplace}>
       <PageTitle text={"Marketplace"} />
       <div className={styles.boxMain}>
-        {productList.length > 0 && ( // Verifica se há produtos para mostrar
-          <ContainerProduct listItens={productList} />
+        {productList.length > 0 && (
+          <ContainerProduct
+            listItens={productList.map((product) => ({
+              ...product,
+              isFavorited: favorites.includes(product.id),
+            }))}
+            onFavorite={handleFavorite}
+          />
         )}
       </div>
     </section>
