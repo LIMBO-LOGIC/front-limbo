@@ -1,20 +1,9 @@
-import { useState } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Form } from "react-bootstrap";
 
-function ModalRedeemProduct() {
-  const [show, setShow] = useState(false);
-
-  // Funções para abrir e fechar a modal
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+function ModalRedeemProduct({ setIsShow, isShow }) {
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Resgatar Produto
-      </Button>
-
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={isShow} onHide={setIsShow}>
         <Modal.Header closeButton>
           <Modal.Title>Resgate de Produto</Modal.Title>
         </Modal.Header>

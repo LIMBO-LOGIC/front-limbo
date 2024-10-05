@@ -18,6 +18,7 @@ import Ranking from "../pages/Ranking";
 import Register from "../pages/Register";
 import Teams from "./../pages/Teams/index";
 import Favorite from "../pages/Favorite";
+import AdminLayout from "../layouts/AdminLayout";
 
 const router = createBrowserRouter([
   {
@@ -34,16 +35,20 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // {
-  //   path: "/admin",
-  //   element: <AdminLayout />,
-  //   children: [
-  //     {
-  //       index: true,
-  //       element: <Login />,
-  //     },
-  //   ],
-  // },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
+      {
+        index: true,
+        element: <Login />,
+      },
+      {
+        path: 'races',
+        element: <Races />,
+      },
+    ],
+  },
   {
     path: "/login",
     element: <Login />,

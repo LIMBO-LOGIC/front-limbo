@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseUrl } from "../../service/api";
 import useContexts from "../../hooks/useContext";
+import ModalRedeemProduct from "../ModalRedeemProduct";
 
 CardMarketplace.propTypes = {
   product: PropTypes.shape({
@@ -32,6 +33,7 @@ export default function CardMarketplace({
   const path = useLocation();
   const [isFavoriteProduct, setIsFavoriteProduct] = useState(null);
   const { dataUser, setIsLoading } = useContexts();
+  const [isShowModal, setIsShowModal] = useState(false);
 
   useEffect(() => {
     setIsFavoriteProduct(isFavorited);
@@ -78,54 +80,55 @@ export default function CardMarketplace({
     return <div>Produto não disponível</div>;
   }
 
-  const handleRedeem = () => {
-
-  }
+  const handleRedeem = () => {};
 
   return (
-    <div className={styles.cardMarketplace}>
-      <div
-        className={styles.boxImg}
-        onClick={() => navigate(`/race/product/${product.id}`)}
-      >
-        <img
-          className={styles.imgProduct}
-          src={product.image}
-          alt={product.name}
-        />
-      </div>
-      <div className={styles.dataCard}>
-        <div className={styles.boxTitle}>
-          <div className={styles.titles}>
-            <h2>{product.name}</h2>
-            <h3>{product.description}</h3>
+    <>
+      <div className={styles.cardMarketplace}>
+        <div
+          className={styles.boxImg}
+          onClick={() => navigate(`/race/product/${product.id}`)}
+        >
+          <img
+            className={styles.imgProduct}
+            src={product.image}
+            alt={product.name}
+          />
+        </div>
+        <div className={styles.dataCard}>
+          <div className={styles.boxTitle}>
+            <div className={styles.titles}>
+              <h2>{product.name}</h2>
+              <h3>{product.description}</h3>
+            </div>
+            {isFavoriteProduct ? (
+              <FaHeart
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleFavorite(product);
+                }}
+              />
+            ) : (
+              <FaRegHeart
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleFavorite(product);
+                }}
+              />
+            )}
           </div>
-          {isFavoriteProduct ? (
-            <FaHeart
-              onClick={(e) => {
-                e.stopPropagation();
-                handleFavorite(product);
-              }}
-            />
-          ) : (
-            <FaRegHeart
-              onClick={(e) => {
-                e.stopPropagation();
-                handleFavorite(product);
-              }}
-            />
-          )}
-        </div>
-        <p className={styles.description}>{product.details}</p>
-        <div className={styles.points}>
-          <p>{product.change_points} pontos</p>
-          {path.pathname != "/race/profile" && (
-            <span onClick={handleRedeem} className={styles.btnRedeem}>
-              Resgatar
-            </span>
-          )}
+          <p className={styles.description}>{product.details}</p>
+          <div className={styles.points}>
+            <p>{product.change_points} pontos</p>
+            {path.pathname != "/race/profile" && (
+              <span onClick={handleRedeem} className={styles.btnRedeem}>
+                Resgatar
+              </span>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+      <ModalRedeemProduct setIsShow={setIsShowModal} isShow={isShowModal}/>
+    </>
   );
 }
