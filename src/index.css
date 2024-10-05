@@ -108,6 +108,44 @@ section {
   }
 }
 
+.containerRaceADM {
+
+  /* Resetando CSS padrão da sidebar*/
+  .css-1wvake5 {
+    border: none !important;
+    border-color: none !important;
+  }
+
+  .css-18unl23{
+    background-color: #00005a !important;
+  }
+
+  .css-honxw6,
+  .css-jn69v9 {
+    height: 8px !important;
+    width: 8px !important;
+  }
+
+  .css-dip3t8 {
+    background: none !important;
+  }
+
+  .ps-menu-button {
+    height: auto !important;
+  }
+
+  .ps-menu-button:hover {
+    background: none !important;
+  }
+  .css-dip3t8 {
+    background-color: #00005B !important;
+  }
+
+  .pt-sub {
+    padding-left: 32px;
+  }
+}
+
 /* Resetando CSS padrão da sidebar*/
 .css-1wvake5 {
   border: none !important;

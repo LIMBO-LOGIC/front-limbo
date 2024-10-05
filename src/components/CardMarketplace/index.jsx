@@ -80,7 +80,6 @@ export default function CardMarketplace({
     return <div>Produto não disponível</div>;
   }
 
-  const handleRedeem = () => {};
 
   return (
     <>
@@ -121,7 +120,7 @@ export default function CardMarketplace({
           <div className={styles.points}>
             <p>{product.change_points} pontos</p>
             {path.pathname != "/race/profile" && (
-              <span onClick={handleRedeem} className={styles.btnRedeem}>
+              <span onClick={() => setIsShowModal(true)} className={styles.btnRedeem}>
                 Resgatar
               </span>
             )}

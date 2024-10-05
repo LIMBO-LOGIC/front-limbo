@@ -22,6 +22,7 @@
   font-family: "Inter", sans-serif;
   margin-top: 12px;
   color: rgb(255, 255, 255);
+  background-color: #00005B !important;
 
   .linkItem {
     display: flex;
@@ -38,9 +39,9 @@
   }
 
   .linkItem:hover {
-    background-color:  #00005B;
+    background-color:  var(--white-default);
     span {
-      color: rgb(255, 255, 255) !important;
+      color: #00005B !important;
     }
   }
 
@@ -78,6 +79,10 @@
 }
 
 .itemMenu:hover {
-  color: rgb(255, 255, 255); 
-  background-color:  #00005B; 
+  color: #00005B !important; 
+  background-color:  var(--white-default); 
+
+  svg{
+    color: #00005B !important; 
+  }
 }

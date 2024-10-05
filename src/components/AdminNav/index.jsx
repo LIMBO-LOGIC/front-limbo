@@ -1,6 +1,6 @@
 import { Menu, Sidebar, SubMenu } from "react-pro-sidebar";
 import styles from "./adminNav.module.css";
-import formulaEImage from "/assets/logo-formulaE.png";
+import formulaEImage from "/assets/logo_formulaE_branca.png";
 import { BiSolidCategory } from "react-icons/bi";
 import { PropTypes } from "prop-types";
 import {
