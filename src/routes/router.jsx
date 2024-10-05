@@ -19,6 +19,7 @@ import Register from "../pages/Register";
 import Teams from "./../pages/Teams/index";
 import Favorite from "../pages/Favorite";
 import AdminLayout from "../layouts/AdminLayout";
+import AdminRace from "../pages/AdminRace";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'races',
-        element: <Races />,
+        element: <AdminRace />,
       },
     ],
   },
