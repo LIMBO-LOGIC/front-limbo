@@ -1,53 +1,122 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import ContainerProduct from "../../components/ContainerProduct";
 import PageTitle from "../../components/PageTitle";
 import useContexts from "../../hooks/useContext";
 import styles from "./product.module.css";
+import { baseUrl } from "../../service/api";
 
 export default function Product() {
   const { id } = useParams();
-  const { setIsLoading } = useContexts();
+  const { setIsLoading, dataUser } = useContexts();
   const [product, setProduct] = useState(null);
-  const [remainingProducts, setRemainingProducts] = useState([]); // State for all products
+  const [remainingProducts, setRemainingProducts] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+  const [isFavoriteProduct, setIsFavoriteProduct] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    // Fetch the specific product
     axios
-      .get(`https://back-limbo-production.up.railway.app/products/${id}`, {
+      .get(`${baseUrl}/products/${id}`, {
         headers: {
           accept: "application/json",
         },
       })
       .then((response) => {
         setProduct(response.data);
+
+        axios
+          .get(`${baseUrl}/favoriteProduct/${dataUser.id}`, {
+            headers: {
+              accept: "application/json",
+            },
+          })
+          .then((res) => {
+            setFavorites(res.data);
+            console.log(response.data);
+            console.log(res.data);
+
+            const favoriteProd = res.data.find(
+              (fav) => fav.product.id === response.data.id
+            );
+            if (favoriteProd != undefined) {
+              setIsFavoriteProduct(true);
+            } else {
+              setIsFavoriteProduct(false);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => {
         console.log(error);
       })
       .finally(() => {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1000);
+        setIsLoading(false);
       });
 
-    // Fetch all products
     axios
-      .get("https://back-limbo-production.up.railway.app/products", {
+      .get(`${baseUrl}/products`, {
         headers: {
           accept: "application/json",
         },
       })
       .then((response) => {
-        setRemainingProducts(response.data.filter((p) => p.id !== id));
+        const list = []
+
+        for (let index = 0; list.length < 6; index++) {
+          const element = response.data[index]
+          
+          if(element.id !== id){
+            list.push(element);
+          }
+        }
+        setRemainingProducts(list)
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [id]);
+  }, [id, setIsLoading, dataUser, setFavorites, setProduct]);
+
+  const handleFavorite = async () => {
+    const favoriteProduct = favorites.find(
+      (fav) => fav.product.id === product.id
+    );
+    const favorited = isFavoriteProduct;
+
+    setIsFavoriteProduct(!isFavoriteProduct);
+    setIsLoading(true);
+
+    if (favorited) {
+      try {
+        await axios.delete(`${baseUrl}/favoriteProduct/${favoriteProduct.id}`);
+
+        setFavorites(favorites.filter((fav) => fav.product.id !== product.id));
+      } catch (error) {
+        console.log("Erro ao remover dos favoritos:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      try {
+        const response = await axios.post(`${baseUrl}/favoriteProduct`, {
+          userId: dataUser.id,
+          productId: product.id,
+        });
+
+        if (response.status === 201) {
+          setFavorites([...favorites, response.data]);
+        }
+      } catch (error) {
+        console.log("Erro ao adicionar aos favoritos:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
 
   return (
     <>
@@ -73,14 +142,35 @@ export default function Product() {
             <div className={styles.cardPrice}>
               <div className={styles.linePrince}>
                 <p>{product != null ? product.change_points : ""} pontos</p>
-                <FaHeart />
+                {isFavoriteProduct ? (
+                  <FaHeart
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleFavorite(product);
+                    }}
+                  />
+                ) : (
+                  <FaRegHeart
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleFavorite(product);
+                    }}
+                  />
+                )}
               </div>
               <button>Resgatar produto</button>
             </div>
           </div>
         </div>
         <h3 className={styles.titleSection}>Mais produtos</h3>
-        <ContainerProduct listItens={remainingProducts} />{" "}
+        <ContainerProduct
+          listItens={remainingProducts.map((product) => ({
+            ...product,
+            isFavorited: favorites.find((fav) => fav.product.id === product.id),
+          }))}
+          favorites={favorites}
+          setFavorites={setFavorites}
+        />{" "}
         {/* Pass the remaining products */}
       </section>
     </>

@@ -108,7 +108,7 @@
     font-size: 20px;
     cursor: pointer;
     transition: all 0.4s;
-    color: rgba(12, 104, 244, 0.5);
+    color: rgba(12, 104, 244, 0.85);
   }
 
   svg:hover {
