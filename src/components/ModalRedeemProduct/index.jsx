@@ -24,10 +24,10 @@ function ModalRedeemProduct({ setIsShow, isShow }) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={setIsShow(!isShow)}>
             Cancelar
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={() => {}}>
             Confirmar Resgate
           </Button>
         </Modal.Footer>
