@@ -1,4 +1,10 @@
 import { Modal, Button, Form } from "react-bootstrap";
+import { PropTypes } from "prop-types";
+
+ModalRedeemProduct.propTypes = {
+  setIsShow: PropTypes.func,
+  isShow: PropTypes.bool,
+};
 
 function ModalRedeemProduct({ setIsShow, isShow }) {
   return (
@@ -24,7 +30,7 @@ function ModalRedeemProduct({ setIsShow, isShow }) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={setIsShow(!isShow)}>
+          <Button variant="secondary" onClick={() => setIsShow(!isShow)}>
             Cancelar
           </Button>
           <Button variant="primary" onClick={() => {}}>
