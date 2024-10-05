@@ -62,41 +62,19 @@ export default function AdminNav() {
         <ItemMenu>
           <Link to="/race" className={styles.itemMenu}>
             <BiSolidCategory />
-            <p>Race</p>
+            <p>Corridas</p>
           </Link>
         </ItemMenu>
         <ItemMenu>
           <Link to="/race/teams" className={styles.itemMenu}>
             <FaUsers />
-            <p>Equipes</p>
+            <p>Produtos</p>
           </Link>
         </ItemMenu>
-        <SubMenu
-          defaultOpen={false}
-          label="Corridas"
-          icon={<FaFlagCheckered />}
-          className={styles.subMenu}
-        >
-          <ItemSubMenu>
-            <Link className={styles.linkItem} to="/race/races">
-              <span>Corridas</span>
-            </Link>
-          </ItemSubMenu>
-          <ItemSubMenu>
-            <Link to={"/race/live-race"} className={styles.linkItem}>
-              <span>Corrida ao vivo</span>
-            </Link>
-          </ItemSubMenu>
-          <ItemSubMenu>
-            <Link to={"/race/luck-kick"} className={styles.linkItem}>
-              <span>Chute da sorte</span>
-            </Link>
-          </ItemSubMenu>
-        </SubMenu>
         <ItemMenu>
           <Link to="/race/marketplace" className={styles.itemMenu}>
             <FaShoppingBag />
-            <p>Marketplace</p>
+            <p>Usuarios</p>
           </Link>
         </ItemMenu>
         <ItemMenu>

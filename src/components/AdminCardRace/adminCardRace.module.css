@@ -134,6 +134,7 @@
   border-radius: 4px;
   font-family: var(--font-inter);
   color: var(--white-default);
+  cursor: pointer;
 }
 
 .flagCountry {

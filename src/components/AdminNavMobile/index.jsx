@@ -12,7 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./adminNavMobile.module.css";
 import { LiaMedalSolid } from "react-icons/lia";
 import { BiSolidCategory } from "react-icons/bi";
-import formulaEImage from "/assets/logo-formulaE.png";
+import formulaEImage from "/assets/logo_formulaE_branca.png";
 import { IoMenu } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
 import useContexts from "../../hooks/useContext";

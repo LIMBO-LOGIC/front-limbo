@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CardRace from "../../components/AdminCardRace";
-import PageTitle from "../../components/PageTitle";
+import AdminPageTitle from "../../components/AdminPageTitle";
 import styles from "./admin.module.css";
 import axios from "axios";
 import { baseUrl } from "../../service/api";
@@ -55,7 +55,7 @@ export default function LuckyKick() {
 
   return (
     <section>
-      <PageTitle text="Corridas" />
+      <AdminPageTitle text="Corridas" />
       <div className={styles.containerCard}>
         {races.map((race, index) => (
           <CardRace

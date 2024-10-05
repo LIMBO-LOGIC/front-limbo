@@ -129,11 +129,8 @@ export default function AdminCardRace({
         (handleRaceText() == "finalizada" && status == false) ? (
           ""
         ) : (
-          <span
-            style={{ backgroundColor: status ? "#000360" : "#00B69B" }}
-            className={styles.tag}
-          >
-            {status ? "Chute Realizado" : "Aberto para chute"}
+          <span style={{ backgroundColor: "#ff3c00" }} className={styles.tag}>
+            {status ? "Deletar" : "Deletar"}
           </span>
         )}
       </div>

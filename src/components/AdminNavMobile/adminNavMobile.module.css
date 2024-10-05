@@ -4,7 +4,7 @@
   align-items: center;
   height: 100px;
   padding-right: 36px;
-  background-color: var(--menu-blue); /* Fundo azul */
+  background-color: #00005B; /* Fundo azul */
 
   img {
     max-width: 200px;
