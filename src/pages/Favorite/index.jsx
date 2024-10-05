@@ -10,6 +10,8 @@ import styles from "./Favorite.module.css";
 export default function Favorite() {
   const [productList, setProductList] = useState([]);
   const { setIsLoading, dataUser } = useContexts();
+  const [favorites, setFavorites] = useState([]);
+
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -24,7 +26,7 @@ export default function Favorite() {
           }
         );
         console.log(response.data);
-
+        setFavorites(response.data)
         const uniqueProducts = new Set();
         const filteredProducts = response.data.reduce((acc, item) => {
           const product = item.product;
@@ -38,6 +40,8 @@ export default function Favorite() {
               description: product.description,
               details: product.details,
               change_points: product.change_points,
+              id_favorite_product: item.id,
+              isFavorited: true
             });
           }
           return acc;
@@ -61,7 +65,8 @@ export default function Favorite() {
         {productList.length > 0 ? (
           <ContainerProduct
             listItens={productList}
-            onFavorite={() => {}} // Implementar função de favoritar se necessário
+            setFavorites={setFavorites}
+            favorites={favorites}
           />
         ) : (
           <NoneFavorite />

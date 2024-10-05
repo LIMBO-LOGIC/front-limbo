@@ -4,18 +4,20 @@ import styles from "./containerProduct.module.css";
 
 ContainerProduct.propTypes = {
   listItens: PropTypes.array.isRequired,
-  onFavorite: PropTypes.func.isRequired, // Adicionando PropTypes para onFavorite
+  setFavorites: PropTypes.func,
+  favorites: PropTypes.array,
 };
 
-export default function ContainerProduct({ listItens, onFavorite }) {
+export default function ContainerProduct({ listItens, setFavorites, favorites }) {
   return (
     <div className={styles.containerProduct}>
       {listItens.map((product) => (
         <CardMarketplace
           key={product.id}
           product={product}
-          onFavorite={onFavorite} // Passando a função onFavorite
-          isFavorited={product.isFavorited} // Passando o estado de favorito
+          isFavorited={product.isFavorited ? true : false} 
+          setFavorites={setFavorites ? setFavorites : undefined}
+          favorites={favorites ? favorites : undefined}
         />
       ))}
     </div>

@@ -1,10 +1,12 @@
 import styles from "./header.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { IoIosLogOut } from "react-icons/io";
 import { useEffect, useState, useRef } from "react";
 import useContexts from "../../hooks/useContext";
 import { FaRegHeart } from "react-icons/fa";
 import { AiOutlineArrowDown } from "react-icons/ai";
+import {
+  FiLogOut,
+} from "react-icons/fi";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -64,10 +66,40 @@ export default function Header() {
             {user.current_points} pontos
           </span>
         </div>
-        <AiOutlineArrowDown className={styles.arrow} onClick={toggleMenu} />
+        {/* <AiOutlineArrowDown className={styles.arrow} onClick={toggleMenu} /> */}
+        <AiOutlineArrowDown
+          onClick={toggleMenu}
+          className={`${styles.arrow} dropdown-toggle`}
+          data-bs-auto-close="outside"
+          aria-expanded="false"
+          data-bs-toggle="dropdown"
+        />
+        <ul
+          className="dropdown-menu links-drop mt-3"
+          aria-labelledby="dropdownMenuButton"
+        >
+          <li>
+            <Link
+              to={"/race/favorites"}
+              className={`${styles.menuItem} dropdown-item`}
+            >
+              <FaRegHeart size={18}/>
+             Favoritos
+            </Link>
+          </li>
+          <li>
+            <div
+              className={`${styles.menuItem} dropdown-item`}
+              onClick={handleLogout}
+            >
+              <FiLogOut size={18} />
+              Sair
+            </div>
+          </li>
+        </ul>
       </div>
 
-      {menuOpen && (
+      {/* {menuOpen && (
         <div ref={menuRef} className={styles.menu}>
           <Link to={"/race/favorites"} className={styles.menuItem}>
             <FaRegHeart className={styles.menuIcon} />
@@ -78,7 +110,7 @@ export default function Header() {
             <span>Sair</span>
           </div>
         </div>
-      )}
+      )} */}
     </header>
   );
 }

@@ -7,13 +7,12 @@ import useContexts from "../../hooks/useContext";
 import { baseUrl } from "../../service/api";
 
 export default function Marketplace() {
-  const [productList, setProductList] = useState([]); // Estado para armazenar os produtos
-  const [favorites, setFavorites] = useState([]); // Estado para armazenar favoritos
+  const [productList, setProductList] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const { setIsLoading, dataUser } = useContexts();
 
   useEffect(() => {
     setIsLoading(true);
-    // Chamada para o endpoint
     axios
       .get(`${baseUrl}/products`, {
         headers: {
@@ -22,7 +21,7 @@ export default function Marketplace() {
       })
       .then((response) => {
         console.log(response.data);
-        setProductList(response.data); // Atualizando o estado com os dados recebidos
+        setProductList(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -30,36 +29,54 @@ export default function Marketplace() {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [setIsLoading]);
 
-  const handleFavorite = async (product) => {
-    if (favorites.includes(product.id)) {
-      // Remover dos favoritos
-      try {
-        await axios.delete(
-          `${baseUrl}/favoriteProduct/${dataUser.id}/${product.id}`
-        );
-        setFavorites(favorites.filter((id) => id !== product.id));
-      } catch (error) {
-        console.log("Erro ao remover dos favoritos:", error);
-      }
-    } else {
-      try {
-        // Tentar adicionar aos favoritos
-        const response = await axios.post(`${baseUrl}/favoriteProduct`, {
-          userId: dataUser.id,
-          productId: product.id,
-        });
+    setIsLoading(true);
 
-        // Adicionar o produto aos favoritos apenas se a criação for bem-sucedida
-        if (response.status === 200) {
-          setFavorites([...favorites, product.id]);
-        }
-      } catch (error) {
-        console.log("Erro ao adicionar aos favoritos:", error);
-      }
-    }
-  };
+    axios
+      .get(`${baseUrl}/favoriteProduct/${dataUser.id}`, {
+        headers: {
+          accept: "application/json",
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setFavorites(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [setIsLoading, dataUser]);
+
+  // const handleFavorite = async (product) => {
+  //   const favoriteProduct = favorites.find((fav) => fav.product.id === product.id);
+  //   console.log(favoriteProduct);
+  //   if (favoriteProduct) {
+  //     try {
+  //       await axios.delete(
+  //         `${baseUrl}/favoriteProduct/${favoriteProduct.id}`
+  //       );
+  //       setFavorites(favorites.filter((id) => id !== product.id));
+  //     } catch (error) {
+  //       console.log("Erro ao remover dos favoritos:", error);
+  //     }
+  //   } else {
+  //     try {
+  //       const response = await axios.post(`${baseUrl}/favoriteProduct`, {
+  //         userId: dataUser.id,
+  //         productId: product.id,
+  //       });
+
+  //       if (response.status === 200) {
+  //         setFavorites([...favorites, response.data]);
+  //       }
+  //     } catch (error) {
+  //       console.log("Erro ao adicionar aos favoritos:", error);
+  //     }
+  //   }
+  // };
 
   return (
     <section className={styles.marketplace}>
@@ -69,9 +86,10 @@ export default function Marketplace() {
           <ContainerProduct
             listItens={productList.map((product) => ({
               ...product,
-              isFavorited: favorites.includes(product.id),
+              isFavorited: favorites.find((fav) => fav.product.id === product.id),
             }))}
-            onFavorite={handleFavorite}
+            setFavorites={setFavorites}
+            favorites={favorites}
           />
         )}
       </div>

@@ -34,7 +34,7 @@ export default function Ranking() {
     };
 
     fetchRankingData();
-  }, []);
+  }, [setIsLoading]);
 
   return (
 

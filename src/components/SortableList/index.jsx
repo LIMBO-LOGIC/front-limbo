@@ -28,7 +28,7 @@ const DraggableItem = ({ item, index, moveItem }) => {
     
     <li
       className={styles.item}
-      style={idRacingBet != 0 ? { background: "rgba(255, 255, 255, 0.4)" }: {}}
+      style={idRacingBet != 0 ? { background: "rgba(255, 255, 255, 0.1)" }: {}}
       ref={(node) => drag(drop(node))}
     >
       <p className={styles.position}>{item.position + 1}º</p>

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { FaMedal } from "react-icons/fa";
 import styles from "./cardRanking.module.css";
 
