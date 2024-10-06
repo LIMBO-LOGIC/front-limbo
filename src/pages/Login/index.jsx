@@ -44,8 +44,14 @@ const Login = () => {
           toast.success("Login realizado com sucesso!");
         }
 
-        setDataUser(response.data.user);
-        localStorage.setItem("userStorage", JSON.stringify(response.data.user));
+        const currentDate = new Date();
+        const formattedDate = currentDate.toISOString();
+
+        let json = response.data.user
+        json.dateSalved = formattedDate
+
+        setDataUser(json);
+        localStorage.setItem("userStorage", JSON.stringify(json));
         navigate("/race");
       })
       .catch((error) => {

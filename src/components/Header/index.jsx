@@ -4,17 +4,25 @@ import { useEffect, useState, useRef } from "react";
 import useContexts from "../../hooks/useContext";
 import { FaRegHeart } from "react-icons/fa";
 import { AiOutlineArrowDown } from "react-icons/ai";
-import {
-  FiLogOut,
-} from "react-icons/fi";
+import { FiLogOut } from "react-icons/fi";
+import axios from "axios";
+import { baseUrl } from "../../service/api";
 
 export default function Header() {
   const navigate = useNavigate();
   const [user, setUser] = useState("");
   const [nameUser, setNameUser] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
-  const { setDataUser } = useContexts();
+  const { setDataUser,dataUser ,setIsLoading } = useContexts();
   const menuRef = useRef(null); // Ref para o menu
+
+  const checkIf24HoursPassed = (lastDate) => {
+    const currentDate = new Date();
+    const lastFetchDate = new Date(lastDate);
+    const diffInMs = currentDate - lastFetchDate; // Diferença em milissegundos
+    const diffInHours = diffInMs / (1000 * 60 * 60); // Converter para horas
+    return diffInHours >= 24; // Retorna true se passaram 24 horas
+  };
 
   useEffect(() => {
     const userStorage = JSON.parse(localStorage.getItem("userStorage"));
@@ -24,7 +32,33 @@ export default function Header() {
       setUser(userStorage);
       setDataUser(userStorage);
     }
-  }, [setDataUser]);
+
+    if (checkIf24HoursPassed(userStorage.dateSalved)) {
+      setIsLoading(true);
+      axios
+        .get(`${baseUrl}/user/${userStorage.id}`)
+        .then((response) => {
+          const currentDate = new Date();
+          const formattedDate = currentDate.toISOString();
+
+          let json = response.data.user;
+          json.dateSalved = formattedDate;
+
+          setNameUser(json.fullname.split(" ")[0]);
+          setUser(json);
+          setDataUser(json);
+          localStorage.setItem("userStorage", JSON.stringify(json));
+        })
+        .catch((error) => {
+          console.log("====================================");
+          console.log(error);
+          console.log("====================================");
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, [setDataUser, setIsLoading]);
 
   const handleLogout = () => {
     localStorage.removeItem("userStorage");
@@ -63,7 +97,7 @@ export default function Header() {
         <div className={styles.userInfo}>
           <span className={styles.userGreeting}>Olá, {nameUser}!</span>
           <span className={styles.userPoints}>
-            {user.current_points} pontos
+            {dataUser.current_points} pontos
           </span>
         </div>
         {/* <AiOutlineArrowDown className={styles.arrow} onClick={toggleMenu} /> */}
@@ -83,8 +117,8 @@ export default function Header() {
               to={"/race/favorites"}
               className={`${styles.menuItem} dropdown-item`}
             >
-              <FaRegHeart size={18}/>
-             Favoritos
+              <FaRegHeart size={18} />
+              Favoritos
             </Link>
           </li>
           <li>
