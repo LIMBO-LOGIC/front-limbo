@@ -287,9 +287,11 @@ function ModalRedeemProduct({ setIsShow, isShow, product }) {
           dialogClassName="modal-dialog-centered modal-dialog-scrollable modal-lg"
         >
           <Modal.Header closeButton>
-            <Modal.Title>Resgate de Produto 2</Modal.Title>
+            <Modal.Title>Resgate de Produto</Modal.Title>
           </Modal.Header>
-          <Modal.Body></Modal.Body>
+          <Modal.Body>
+          <h5>Pontos insuficientes para resgatar esse produto.</h5>
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Fechar
