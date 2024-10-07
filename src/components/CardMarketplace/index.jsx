@@ -127,7 +127,7 @@ export default function CardMarketplace({
           </div>
         </div>
       </div>
-      <ModalRedeemProduct setIsShow={setIsShowModal} isShow={isShowModal}/>
+      <ModalRedeemProduct setIsShow={setIsShowModal} isShow={isShowModal} product={product}/>
     </>
   );
 }

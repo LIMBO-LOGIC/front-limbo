@@ -1,0 +1,22 @@
+.containerProduct {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.imgProduct {
+  max-height: 200px;
+}
+
+.imgFrete {
+  height: 30px;
+}
+
+.cardEndereco {
+  background-color: #f3f3f3 !important;
+}
+
+.bodyConfirmed img{
+  max-height: 400px;
+}
