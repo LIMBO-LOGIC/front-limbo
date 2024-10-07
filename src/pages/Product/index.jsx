@@ -16,6 +16,17 @@ export default function Product() {
   const [favorites, setFavorites] = useState([]);
   const [isFavoriteProduct, setIsFavoriteProduct] = useState(null);
 
+  const capitalize = (text) => {
+    return text
+      ? text
+          .split(" ")
+          .map(
+            (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+          )
+          .join(" ")
+      : "";
+  };
+
   useEffect(() => {
     setIsLoading(true);
     axios
@@ -35,8 +46,6 @@ export default function Product() {
           })
           .then((res) => {
             setFavorites(res.data);
-            console.log(response.data);
-            console.log(res.data);
 
             const favoriteProd = res.data.find(
               (fav) => fav.product.id === response.data.id
@@ -65,16 +74,16 @@ export default function Product() {
         },
       })
       .then((response) => {
-        const list = []
+        const list = [];
 
         for (let index = 0; list.length < 6; index++) {
-          const element = response.data[index]
-          
-          if(element.id !== id){
+          const element = response.data[index];
+
+          if (element.id !== id) {
             list.push(element);
           }
         }
-        setRemainingProducts(list)
+        setRemainingProducts(list);
       })
       .catch((error) => {
         console.log(error);
@@ -122,7 +131,6 @@ export default function Product() {
     <>
       <PageTitle text={"Produtos"} />
       <section className={styles.product}>
-        {" "}
         <div className={styles.boxProduct}>
           <div className={styles.boxImg}>
             <img
@@ -132,7 +140,9 @@ export default function Product() {
           </div>
           <div className={styles.boxInfoProduct}>
             <div className={styles.titles}>
-              <h1>{product != null ? product.name : "Carregando"}</h1>
+              <h1>
+                {capitalize(product != null ? product.name : "Carregando")}
+              </h1>
               <hr />
               <h2>{product != null ? product.description : ""}</h2>
             </div>
@@ -158,7 +168,7 @@ export default function Product() {
                   />
                 )}
               </div>
-              <button>Resgatar produto</button>
+              <button className={styles.resgatar}>Resgatar produto</button>
             </div>
           </div>
         </div>
@@ -170,8 +180,7 @@ export default function Product() {
           }))}
           favorites={favorites}
           setFavorites={setFavorites}
-        />{" "}
-        {/* Pass the remaining products */}
+        />
       </section>
     </>
   );
