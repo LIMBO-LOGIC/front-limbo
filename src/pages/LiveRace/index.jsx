@@ -12,6 +12,7 @@ import { TbArrowRightToArc } from "react-icons/tb";
 import useContexts from "../../hooks/useContext";
 import { io } from "socket.io-client";
 import { Link, useNavigate } from "react-router-dom";
+import useCircuits from "../../hooks/useCircuits";
 
 const socket = io(urlChat, {
   path: "/clients/socketio/hubs/Hub",
@@ -20,7 +21,8 @@ const socket = io(urlChat, {
 export default function LiveRace() {
   const navigate = useNavigate();
 
-  const [listPointsLocations, setListPointsLocations] = useState([]);
+  // const [listPointsLocations, setListPointsLocations] = useState([]);
+  const listPointsLocations = useCircuits();
   const [pilotsRace, setPilotsRace] = useState([]);
 
   const [temperature, setTemperature] = useState("0°C");
@@ -71,37 +73,45 @@ export default function LiveRace() {
       .catch((error) => {
         console.log(error);
       });
-    axios
-      .get(`${urlAPIChat}locations/saopaulo`)
-      .then((response) => {
-        setListPointsLocations(response.data.data.devices);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [setListPointsLocations, setPilotsRace]);
+    // axios
+    //   .get(`${urlAPIChat}locations/saopaulo`)
+    //   .then((response) => {
+    //     setListPointsLocations(response.data.data.devices);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // }, [setListPointsLocations, setPilotsRace]);
+  }, [setPilotsRace]);
 
-  const handleChangeData = async (location) => {
-    axios
-      .get(
-        `http://${IP_ADRESS_IOT}:1026/v2/entities/urn:ngsi-ld:SaoPaulo:${location}/attrs`,
-        {
-          headers: {
-            "fiware-service": "smart",
-            "fiware-servicepath": "/",
-            accept: "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response.data);
-        setTemperature(response.data.temperature.value);
-        setHumidity(`${response.data.humidity.value}%`);
-        setLuminosity(response.data.luminosity.value);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  // const handleChangeData = async (location) => {
+  //   axios
+  //     .get(
+  //       `http://${IP_ADRESS_IOT}:1026/v2/entities/urn:ngsi-ld:SaoPaulo:${location}/attrs`,
+  //       {
+  //         headers: {
+  //           "fiware-service": "smart",
+  //           "fiware-servicepath": "/",
+  //           accept: "application/json",
+  //         },
+  //       }
+  //     )
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       setTemperature(response.data.temperature.value);
+  //       setHumidity(`${response.data.humidity.value}%`);
+  //       setLuminosity(response.data.luminosity.value);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+  const handleChangeData = (data) => {
+    console.log(data);
+    let devide = JSON.parse(data);
+    setTemperature(devide.temperature);
+    setHumidity(`${devide.humidity}%`);
+    setLuminosity(devide.luminosity);
   };
 
   const sendMessage = () => {
@@ -193,7 +203,7 @@ export default function LiveRace() {
               <option value="0" disabled selected>
                 Selecione o ponto da pista
               </option>
-              {listPointsLocations.map((device) => {
+              {/* {listPointsLocations.map((device) => {
                 return (
                   <option
                     key={device.device_id}
@@ -202,6 +212,19 @@ export default function LiveRace() {
                       .toUpperCase()}
                   >
                     {device.device_id.replace("saoPaulo", "")}
+                  </option>
+                );
+              })} */}
+              {listPointsLocations.map((device) => {
+                return (
+                  <option
+                    key={device.id}
+                    data-humidity={device.humidity}
+                    data-luminosity={device.luminosity}
+                    data-temperature={device.temperature}
+                    value={JSON.stringify(device)}
+                  >
+                    {device.id.toUpperCase()}
                   </option>
                 );
               })}

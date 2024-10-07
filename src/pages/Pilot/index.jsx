@@ -12,42 +12,28 @@ export default function Pilot() {
   const [color, setColor] = useState("");
   const { id } = useParams();
   const { setIsLoading } = useContexts();
+  const [valor, setValor] = useState(
+    Math.floor(Math.random() * (280 - 180 + 1)) + 180
+  );
 
   useEffect(() => {
-    const handleChangeData = async () => {
-      axios
-        .get(
-          `http://${IP_ADRESS_IOT}:1026/v2/entities/urn:ngsi-ld:Car:${id}/attrs`,
-          {
-            headers: {
-              "fiware-service": "smart",
-              "fiware-servicepath": "/",
-              accept: "application/json",
-            },
-          }
-        )
-        .then((response) => {
-          console.log(response.data);
-          setDataCar(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    handleChangeData();
+    const intervalo = setInterval(() => {
+      const novoValor = Math.floor(Math.random() * (280 - 180 + 1)) + 180;
+      setValor(novoValor);
+    }, 1000);
 
-    const intervalId = setInterval(handleChangeData, 1000);
-
-    return () => clearInterval(intervalId);
+    return () => clearInterval(intervalo);
   }, []);
 
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get(`${urlAPIChat}race/pilots/${id}`)
+      .get(`${urlAPIChat}fixed/race/pilots/${id}`)
       .then((response) => {
+        console.log(response.data);
         setPilot(response.data.data[0]);
         setColor(response.data.data[0].color_team);
+        setDataCar(response.data.data);
         setNameImg(
           `https://res.cloudinary.com/drwk6ohcn/image/upload/v1727363509/Pilots/${response.data.data[0].name
             .toLowerCase()
@@ -61,6 +47,55 @@ export default function Pilot() {
         setIsLoading(false);
       });
   }, [setPilot, id, setIsLoading]);
+
+  // useEffect(() => {
+  //   const handleChangeData = async () => {
+  //     axios
+  //       .get(
+  //         `http://${IP_ADRESS_IOT}:1026/v2/entities/urn:ngsi-ld:Car:${id}/attrs`,
+  //         {
+  //           headers: {
+  //             "fiware-service": "smart",
+  //             "fiware-servicepath": "/",
+  //             accept: "application/json",
+  //           },
+  //         }
+  //       )
+  //       .then((response) => {
+  //         console.log(response.data);
+  //         setDataCar(response.data);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   };
+  //   handleChangeData();
+
+  //   const intervalId = setInterval(handleChangeData, 1000);
+
+  //   return () => clearInterval(intervalId);
+  // }, []);
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   axios
+  //     .get(`${urlAPIChat}race/pilots/${id}`)
+  //     .then((response) => {
+  //       setPilot(response.data.data[0]);
+  //       setColor(response.data.data[0].color_team);
+  //       setNameImg(
+  //         `https://res.cloudinary.com/drwk6ohcn/image/upload/v1727363509/Pilots/${response.data.data[0].name
+  //           .toLowerCase()
+  //           .replaceAll(" ", "-")}.png`
+  //       );
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })
+  //     .finally(() => {
+  //       setIsLoading(false);
+  //     });
+  // }, [setPilot, id, setIsLoading]);
 
   const stylePilot = {
     color: color,
@@ -99,7 +134,9 @@ export default function Pilot() {
             Velocidade
           </p>
           <p className={styles.valueCard} style={stylePilot}>
-          {dataCar ? dataCar.speed.value : '0.0'}<strong style={{ opacity: 0.52 }}>Km/h</strong>
+            {/* {dataCar ? dataCar.speed.value : '0.0'}<strong style={{ opacity: 0.52 }}>Km/h</strong> */}
+            {valor}
+            <strong style={{ opacity: 0.52 }}>Km/h</strong>
           </p>
         </div>
         <div
@@ -110,7 +147,9 @@ export default function Pilot() {
             Temperatura
           </p>
           <p className={styles.valueCard} style={stylePilot}>
-            {dataCar ? dataCar.temperature.value : '0'}<strong style={{ opacity: 0.52 }}>ºC</strong>
+            {dataCar ? dataCar[0].temperature : "0"}
+            <strong style={{ opacity: 0.52 }}>ºC</strong>
+            {/* {dataCar ? dataCar.temperature.value : '0'}<strong style={{ opacity: 0.52 }}>ºC</strong> */}
           </p>
         </div>
         <div
@@ -121,7 +160,10 @@ export default function Pilot() {
             Luminosidade
           </p>
           <p className={styles.valueCard} style={stylePilot}>
-          {dataCar ? dataCar.luminosity.value : '0'}<strong style={{ opacity: 0.52 }}>lux</strong>
+            {/* {dataCar ? dataCar.luminosity.value : "0"} */}
+            {/* <strong style={{ opacity: 0.52 }}>lux</strong> */}
+            {dataCar ? dataCar[0].luminosity : "0"}
+            <strong style={{ opacity: 0.52 }}>lux</strong>
           </p>
         </div>
         <div
@@ -132,7 +174,10 @@ export default function Pilot() {
             Umidade
           </p>
           <p className={styles.valueCard} style={stylePilot}>
-          {dataCar? dataCar.humidity.value : '0'}<strong style={{ opacity: 0.52 }}>%</strong>
+            {/* {dataCar ? dataCar.humidity.value : "0"}
+            <strong style={{ opacity: 0.52 }}>%</strong> */}
+            {dataCar ? dataCar[0].humidity : "0"}
+            <strong style={{ opacity: 0.52 }}>%</strong>
           </p>
         </div>
       </div>
