@@ -10,7 +10,6 @@ import { baseUrl } from "../../service/api";
 
 export default function Header() {
   const navigate = useNavigate();
-  const [user, setUser] = useState("");
   const [nameUser, setNameUser] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const { setDataUser,dataUser ,setIsLoading } = useContexts();
@@ -29,7 +28,6 @@ export default function Header() {
 
     if (userStorage) {
       setNameUser(userStorage.fullname.split(" ")[0]);
-      setUser(userStorage);
       setDataUser(userStorage);
     }
 
@@ -41,11 +39,10 @@ export default function Header() {
           const currentDate = new Date();
           const formattedDate = currentDate.toISOString();
 
-          let json = response.data.user;
+          let json = response.data;
           json.dateSalved = formattedDate;
 
           setNameUser(json.fullname.split(" ")[0]);
-          setUser(json);
           setDataUser(json);
           localStorage.setItem("userStorage", JSON.stringify(json));
         })
@@ -89,7 +86,7 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.userProfile}>
         <img
-          src={user.profile_picture}
+          src={dataUser.profile_picture}
           alt="User profile"
           className={styles.userImage}
           onClick={() => navigate("/race/profile")}
