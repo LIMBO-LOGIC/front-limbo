@@ -92,7 +92,7 @@ export default function Header() {
           onClick={() => navigate("/race/profile")}
         />
         <div className={styles.userInfo}>
-          <span className={styles.userGreeting}>Olá, {nameUser}!</span>
+          <span className={styles.userGreeting}>Olá, {nameUser}</span>
           <span className={styles.userPoints}>
             {dataUser.current_points} pontos
           </span>
