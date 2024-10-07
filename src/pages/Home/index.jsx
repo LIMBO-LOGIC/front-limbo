@@ -1,6 +1,6 @@
 import styles from "./home.module.css";
 import racingCircuit from "../../assets/racing_circuit.png";
-import flagBrazil from "../../assets/bandeira_brasil.png";
+import flagEua from "../../assets/bandeira_eua.png";
 import SectionTitle from "../../components/SectionTitle";
 import TeamCard from "../../components/TeamCard";
 import ContainerTeamRace from "../../components/ContainerTeamRace";
@@ -45,14 +45,14 @@ export default function Home() {
           <p className={styles.title}>Próxima Corrida:</p>
           <div className={styles.locationRace}>
             <img
-              src={flagBrazil}
+              src={flagEua}
               alt="Bandeira do país do circuito"
               className={styles.countryFlag}
             />
             <div className={styles.line}></div>
             <div className={styles.raceText}>
-              <p className={styles.location}>São Paulo</p>
-              <p className={styles.round}>7 de Dezembro</p>
+              <p className={styles.location}>Miami</p>
+              <p className={styles.round}>9 de Outubro</p>
             </div>
           </div>
         </div>
