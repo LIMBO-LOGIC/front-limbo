@@ -4,7 +4,7 @@
 }
 
 .messageUser {
-  max-width:90%;
+  max-width: 90%;
   width: max-content;
   border-radius: 10px;
   padding: 2px 6px;
@@ -28,6 +28,7 @@
     height: 36px;
     width: 36px;
     border-radius: 24px;
+    object-fit: cover;
   }
 }
 
