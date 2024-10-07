@@ -86,7 +86,7 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.userProfile}>
         <img
-          src={dataUser.profile_picture}
+          src={dataUser != undefined && dataUser.profile_picture}
           alt="User profile"
           className={styles.userImage}
           onClick={() => navigate("/race/profile")}
@@ -94,7 +94,7 @@ export default function Header() {
         <div className={styles.userInfo}>
           <span className={styles.userGreeting}>Olá, {nameUser}</span>
           <span className={styles.userPoints}>
-            {dataUser.current_points} pontos
+            {dataUser != undefined && dataUser.current_points} pontos
           </span>
         </div>
         {/* <AiOutlineArrowDown className={styles.arrow} onClick={toggleMenu} /> */}
