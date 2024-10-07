@@ -7,6 +7,7 @@ import PageTitle from "../../components/PageTitle";
 import useContexts from "../../hooks/useContext";
 import styles from "./product.module.css";
 import { baseUrl } from "../../service/api";
+import ModalRedeemProduct from "../../components/ModalRedeemProduct";
 
 export default function Product() {
   const { id } = useParams();
@@ -15,6 +16,7 @@ export default function Product() {
   const [remainingProducts, setRemainingProducts] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [isFavoriteProduct, setIsFavoriteProduct] = useState(null);
+  const [isShowModal, setIsShowModal] = useState(false);
 
   const capitalize = (text) => {
     return text
@@ -168,7 +170,7 @@ export default function Product() {
                   />
                 )}
               </div>
-              <button className={styles.resgatar}>Resgatar produto</button>
+              <button onClick={() => setIsShowModal(true)} className={styles.resgatar}>Resgatar produto</button>
             </div>
           </div>
         </div>
@@ -182,6 +184,7 @@ export default function Product() {
           setFavorites={setFavorites}
         />
       </section>
+      <ModalRedeemProduct setIsShow={setIsShowModal} isShow={isShowModal} product={product != null && product}/>
     </>
   );
 }

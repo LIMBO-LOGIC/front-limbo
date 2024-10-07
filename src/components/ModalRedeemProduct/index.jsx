@@ -20,7 +20,7 @@ ModalRedeemProduct.propTypes = {
     image: PropTypes.string.isRequired,
     change_points: PropTypes.string.isRequired,
     id_favorite_product: PropTypes.number,
-  }).isRequired,
+  })
 };
 
 function ModalRedeemProduct({ setIsShow, isShow, product }) {
