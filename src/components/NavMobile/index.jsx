@@ -6,6 +6,7 @@ import {
   FaRegHeart,
   FaShoppingBag,
   FaUsers,
+  FaRegUser,
 } from "react-icons/fa";
 import { Menu, Sidebar, SubMenu } from "react-pro-sidebar";
 import { Link, useNavigate } from "react-router-dom";
@@ -104,6 +105,18 @@ export default function NavMobile() {
             className={styles.userProfile}
             onClick={handleMenuItemClick}
           >
+            <ItemSubMenu>
+              <Link
+                className={styles.linkItemProfile}
+                onClick={() => setToggled(!toggled)}
+                to={"/race/profile"}
+              >
+                {/* <img src={usaFlag} alt="EUA flag" className={styles.flagIcon} /> */}
+                <FaRegUser />
+
+                <p>Perfil</p>
+              </Link>
+            </ItemSubMenu>
             <ItemSubMenu>
               <Link
                 className={styles.linkItemProfile}

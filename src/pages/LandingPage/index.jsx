@@ -55,7 +55,7 @@ export default function LandingPage() {
         />
         <div className={styles.textContainer}>
           <h3>
-            Formula E <br /> <span>Live Hub</span>
+            Formula E <br /> <span>LiveHub</span>
           </h3>
           <a href="/#desafio">
             <button className={styles.button}>Explore</button>
