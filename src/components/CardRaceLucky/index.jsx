@@ -124,26 +124,44 @@ export default function CardRaceLucky({
         >
           Corrida {handleRaceText()}
         </span>
-        <span
-          style={{ backgroundColor: status ? "#000360" : "#00B69B" }}
-          className={styles.tag}
-        >
-          {status ? "Chute Realizado" : "Aberto para chute"}
-        </span>
+
+        {handleRaceText() == "cancelada" ||
+        (handleRaceText() == "finalizada" && status == false) ? (
+          ""
+        ) : (
+          <span
+            style={{ backgroundColor: status ? "#000360" : "#00B69B" }}
+            className={styles.tag}
+          >
+            {status ? "Chute Realizado" : "Aberto para chute"}
+          </span>
+        )}
       </div>
 
-      <button
-        onClick={() => {
-          if (status) {
-            navigate(`./choice/${idRace}/${isExist[0].id_racing_bet}`);
-          } else {
-            navigate(`./choice/${idRace}/0`);
-          }
-        }}
-        className={status ? styles.btnDisabled : styles.btnKick}
-      >
-        {status ? "Chute Realizado" : "Chutar"}
-      </button>
+      {handleRaceText() == "finalizada" && !status ? (
+        <button 
+        onClick={() => navigate(`./choice/${idRace}/0`)}
+        className={styles.btnDisabled}>
+          Finalizado - Ver Resultado
+        </button>
+      ) : (
+        <button
+          onClick={() => {
+            if (status) {
+              navigate(`./choice/${idRace}/${isExist[0].id_racing_bet}`);
+            } else {
+              navigate(`./choice/${idRace}/0`);
+            }
+          }}
+          className={status ? styles.btnKicked : styles.btnKick}
+        >
+          {status
+            ? handleRaceText() == "finalizada"
+              ? "Ver resultado"
+              : "Chute Realizado"
+            : "Chutar"}
+        </button>
+      )}
     </div>
   );
 }

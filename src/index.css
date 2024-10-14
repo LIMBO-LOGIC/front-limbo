@@ -32,7 +32,7 @@
   --bs-table-bg: var(--bg-blue) !important;
 }
 
-._loading_overlay_wrapper{
+._loading_overlay_wrapper {
   height: 100vh !important;
 }
 
@@ -51,7 +51,7 @@ button {
 }
 
 a {
-  color: initial;
+  color: inherit;
   text-decoration: inherit !important;
 }
 
@@ -105,6 +105,44 @@ section {
 @media (max-width: 480px) {
   html {
     font-size: 80%;
+  }
+}
+
+.containerRaceADM {
+
+  /* Resetando CSS padrão da sidebar*/
+  .css-1wvake5 {
+    border: none !important;
+    border-color: none !important;
+  }
+
+  .css-18unl23{
+    background-color: #00005a !important;
+  }
+
+  .css-honxw6,
+  .css-jn69v9 {
+    height: 8px !important;
+    width: 8px !important;
+  }
+
+  .css-dip3t8 {
+    background: none !important;
+  }
+
+  .ps-menu-button {
+    height: auto !important;
+  }
+
+  .ps-menu-button:hover {
+    background: none !important;
+  }
+  .css-dip3t8 {
+    background-color: #00005B !important;
+  }
+
+  .pt-sub {
+    padding-left: 32px;
   }
 }
 

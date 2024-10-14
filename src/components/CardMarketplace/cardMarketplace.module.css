@@ -15,25 +15,30 @@
   width: 100%;
   height: auto;
   cursor: pointer;
+  height: 220px;
+  align-items: center;
+
 }
 
 .imgProduct {
   height: auto;
-  width: 100%;
+  width: auto;
   max-height: 200px;
 }
 
 .dataCard {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 12px;
   border-radius: 26px;
   background-color: var(--bg-blue);
   color: var(--white-default);
   padding: 18px 12px;
+  height: 244px;
 
   p {
-    font-size: 10px;
+    font-size: 14px;
   }
 }
 
@@ -41,14 +46,14 @@
   display: flex;
   justify-content: space-between;
 
-  svg{
+  svg {
     font-size: 18px;
     cursor: pointer;
     transition: all 0.4s;
     color: rgba(0, 255, 255, 0.53);
   }
 
-  svg:hover{
+  svg:hover {
     color: rgba(0, 255, 255, 0.8);
   }
 }
@@ -58,25 +63,22 @@
   flex-direction: column;
   align-items: flex-start;
   max-width: 84%;
-
   h2 {
     font-size: 18px;
     font-weight: 700;
-
     display: -webkit-box;
-    line-clamp: 1;
-    -webkit-line-clamp: 1;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
+    max-height: 45px;
   }
-
   h3 {
-    font-size: 10px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 400;
     width: 100%;
-
     display: -webkit-box;
     line-clamp: 1;
     -webkit-line-clamp: 1;
@@ -84,43 +86,39 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
+    color: #e9ecef;
   }
 }
-
-.description{
-    height: 75px;
-    text-align: justify;
-
-    display: -webkit-box;
-    line-clamp: 5;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
+.description {
+  height: 75px;
+  text-align: justify;
+  display: -webkit-box;
+  line-clamp: 5;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  /* font-size: 20px; */
 }
-
-.points{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 12px;
-
-    p{
-        font-size: 12px;
-        font-weight: 700;
-    }
+.points {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  p {
+    font-size: 12px;
+    font-weight: 700;
+  }
 }
-
-.btnRedeem{
-    cursor: pointer;
-    font-size: 10px;
-    padding: 4px 10px;
-    border-radius: 22px;
-    transition: all .5s;
-    background-color: rgba(0, 108, 207, 1);
+.btnRedeem {
+  cursor: pointer;
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 22px;
+  transition: all 0.5s;
+  background-color: rgba(0, 108, 207, 1);
 }
-
-.btnRedeem:hover{
-    background-color: rgba(0, 108, 207, 0.8);
+.btnRedeem:hover {
+  background-color: rgba(0, 108, 207, 0.8);
 }

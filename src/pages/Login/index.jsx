@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios"; // Importando axios para requisições HTTP
+import axios from "axios";
 import styles from "./login.module.css";
 import imagem_login from "../../assets/tela_login_imagem.png";
 import logo from "../../../public/assets/logo_formulaE_branca.png";
@@ -8,6 +8,7 @@ import { baseUrl } from "../../service/api";
 import { toast } from "react-toastify";
 import useContexts from "../../hooks/useContext";
 import LoadingOverlay from "react-loading-overlay-ts";
+import { FiEye, FiEyeOff } from "react-icons/fi"; // Importando ícones
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const Login = () => {
   const [senha, setSenha] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState();
+  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/esconder senha
   const { setDataUser } = useContexts();
 
   const handleLogin = async (event) => {
@@ -44,8 +46,14 @@ const Login = () => {
           toast.success("Login realizado com sucesso!");
         }
 
-        setDataUser(response.data.user);
-        localStorage.setItem("userStorage", JSON.stringify(response.data.user));
+        const currentDate = new Date();
+        const formattedDate = currentDate.toISOString();
+
+        let json = response.data.user;
+        json.dateSalved = formattedDate;
+
+        setDataUser(json);
+        localStorage.setItem("userStorage", JSON.stringify(json));
         navigate("/race");
       })
       .catch((error) => {
@@ -74,9 +82,9 @@ const Login = () => {
       active={isLoading}
       spinner
       text="Carregando..."
-      wrapperStyle={{ height: "100vh" }} // Estilo aplicado corretamente
+      wrapperStyle={{ height: "100vh" }}
       styles={{
-        content: (base) => ({ ...base }), // Mantém os estilos padrão
+        content: (base) => ({ ...base }),
       }}
     >
       <div className={styles.main_login}>
@@ -96,23 +104,28 @@ const Login = () => {
                 id="usuario"
                 value={usuario}
                 onChange={(e) => setUsuario(e.target.value)}
-                disabled={isLoading} // Desabilita o campo enquanto carrega
+                disabled={isLoading}
               />
             </div>
 
             <div className={styles.textfield}>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="senha"
                 placeholder="Senha"
                 id="senha"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
-                disabled={isLoading} // Desabilita o campo enquanto carrega
+                disabled={isLoading}
               />
+              <span
+                className={styles.eyeIcon} // Altere para usar a classe CSS definida
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FiEyeOff /> : <FiEye />}
+              </span>
             </div>
 
-            {/* Exibe mensagem de erro, se houver */}
             {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
             <Link to="/register" className={styles.itemMenu}>
@@ -129,7 +142,7 @@ const Login = () => {
             <button
               className={styles.btn_login}
               onClick={handleLogin}
-              disabled={isLoading} // Desabilita o botão durante o carregamento
+              disabled={isLoading}
             >
               {isLoading ? "Carregando..." : "Login"}
             </button>

@@ -1,17 +1,25 @@
-import { PropTypes } from "prop-types";
+import PropTypes from "prop-types"; // Importando PropTypes
 import CardMarketplace from "../CardMarketplace";
-import styles from './containerProduct.module.css'
+import styles from "./containerProduct.module.css";
 
 ContainerProduct.propTypes = {
-  listItens: PropTypes.array,
+  listItens: PropTypes.array.isRequired,
+  setFavorites: PropTypes.func,
+  favorites: PropTypes.array,
 };
 
-export default function ContainerProduct({ listItens }) {
+export default function ContainerProduct({ listItens, setFavorites, favorites }) {
   return (
     <div className={styles.containerProduct}>
-      {listItens.map((item, index) => {
-        return <CardMarketplace key={index} item={item} />;
-      })}
+      {listItens.map((product) => (
+        <CardMarketplace
+          key={product.id}
+          product={product}
+          isFavorited={product.isFavorited ? true : false} 
+          setFavorites={setFavorites ? setFavorites : undefined}
+          favorites={favorites ? favorites : undefined}
+        />
+      ))}
     </div>
   );
 }

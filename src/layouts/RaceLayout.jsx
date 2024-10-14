@@ -24,7 +24,7 @@ export default function RaceLayout() {
       active={isLoading}
       spinner
       text="Carregando..."
-      wrapperStyle={{ height: "100vh" }} // Estilo aplicado corretamente
+      wrapperStyle={{ height: "100vh", zIndex: '1000' }} // Estilo aplicado corretamente
       styles={{
         content: (base) => ({ ...base }), // Mantém os estilos padrão
       }}

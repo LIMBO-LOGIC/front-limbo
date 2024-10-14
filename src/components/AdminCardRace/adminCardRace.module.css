@@ -1,0 +1,143 @@
+.cardRaceLuck {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  width: 100%;
+  min-width: 320px;
+
+  border-radius: 8px;
+  border: 1px solid #adb5bd;
+  box-shadow: 0px 0px 22.091px 3.535px rgba(0, 0, 0, 0.25);
+  background-color: var(--white-default);
+}
+
+.circuit {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.btnKick {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 0px;
+  border-radius: 10px;
+  transition: all 0.5s;
+  color: var(--white-default);
+  background-color: var(--bg-blue);
+}
+
+.btnKick:hover {
+  background-color: #0020a4;
+}
+
+.btnDisabled {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 0px;
+  border-radius: 10px;
+  transition: all 0.5s;
+  color: var(--white-default);
+  background: rgba(0, 0, 90, 0.78);
+  /* cursor: default !important; */
+}
+
+.btnKicked {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 0px;
+  border-radius: 10px;
+  transition: all 0.5s;
+  color: var(--white-default);
+  background: rgba(0, 0, 100, 1);
+}
+
+.boxDate {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  align-items: center;
+  gap: 0px;
+  line-height: 1.2;
+
+  .day {
+    font-size: 40px;
+  }
+
+  .month {
+    text-align: center;
+    font-size: 24px;
+  }
+}
+
+.containerCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.boxData {
+  display: flex;
+  height: 100%;
+  gap: 16px;
+
+  p {
+    font-weight: 700;
+    font-family: var(--font-montserrat);
+    color: var(--text-color);
+  }
+}
+
+.boxLocationRound {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.location {
+  font-size: 20px;
+}
+
+.round {
+  font-size: 24px;
+}
+
+.boxDate,
+.boxLocationRound {
+  padding: 2px 0px;
+}
+
+.line {
+  display: flex;
+  width: 2px;
+  background: linear-gradient(180deg, #0ff 0%, #00f 50%, #0ff 100%);
+}
+
+.boxTags {
+  display: flex;
+  gap: 4px;
+}
+
+.tag {
+  display: flex;
+  width: max-content;
+  padding: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 4px;
+  font-family: var(--font-inter);
+  color: var(--white-default);
+  cursor: pointer;
+}
+
+.flagCountry {
+  border-radius: 4px;
+  box-shadow: 0px 0px 22.091px 3.535px rgba(0, 0, 0, 0.25);
+}

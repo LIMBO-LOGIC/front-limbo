@@ -1,0 +1,11 @@
+.title {
+  padding: 16px 36px;
+  font-size: clamp(2rem, 1.8239rem + 0.5634vw, 2.5rem);
+  font-weight: 600;
+  background-color: white;
+  color: var(--white-default);
+  border-radius: 8px;
+  color: #00005B;
+  margin: 30px 30px;
+  border: 1px solid #00005B;
+}

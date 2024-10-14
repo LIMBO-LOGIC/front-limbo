@@ -17,6 +17,9 @@ import Races from "../pages/Races";
 import Ranking from "../pages/Ranking";
 import Register from "../pages/Register";
 import Teams from "./../pages/Teams/index";
+import Favorite from "../pages/Favorite";
+import AdminLayout from "../layouts/AdminLayout";
+import AdminRace from "../pages/AdminRace";
 
 const router = createBrowserRouter([
   {
@@ -27,18 +30,26 @@ const router = createBrowserRouter([
         index: true,
         element: <LandingPage />,
       },
+      {
+        path: "*",
+        element: <NotFound route={"/"}/>,
+      },
     ],
   },
-  // {
-  //   path: "/admin",
-  //   element: <AdminLayout />,
-  //   children: [
-  //     {
-  //       index: true,
-  //       element: <Login />,
-  //     },
-  //   ],
-  // },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
+      {
+        index: true,
+        element: <Login />,
+      },
+      {
+        path: 'races',
+        element: <AdminRace />,
+      },
+    ],
+  },
   {
     path: "/login",
     element: <Login />,
@@ -84,7 +95,7 @@ const router = createBrowserRouter([
         element: <Ranking />,
       },
       {
-        path: "product",
+        path: "product/:id", // Updated route for product details
         element: <Product />,
       },
       {
@@ -100,8 +111,12 @@ const router = createBrowserRouter([
         element: <ChoiceLucky />,
       },
       {
+        path: "favorites",
+        element: <Favorite />,
+      },
+      {
         path: "*",
-        element: <NotFound />,
+        element: <NotFound route={"/race"}/>,
       },
     ],
   },

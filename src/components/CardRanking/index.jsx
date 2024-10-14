@@ -1,59 +1,39 @@
-import { FaMedal } from "react-icons/fa"; // Importando o ícone da medalha
+/* eslint-disable react/prop-types */
+import { FaMedal } from "react-icons/fa";
 import styles from "./cardRanking.module.css";
-import fotoProfile from "../../assets/foto_profile_ranking.png";
 
-const users = [
-  {
-    name: "Luiz Gustavo",
-    username: "Luiz Gusta",
-    totalPoints: 15000,
-    pointsExchange: 12000,
-    medal: "gold",
-  },
-  {
-    name: "Maria Silva",
-    username: "Maria S.",
-    totalPoints: 20000,
-    pointsExchange: 18000,
-    medal: "silver",
-  },
-  {
-    name: "Carlos Jose",
-    username: "Carlos J.",
-    totalPoints: 10000,
-    pointsExchange: 8000,
-    medal: "bronze",
-  },
-];
-
-export default function CardRanking() {
+export default function CardRanking({ rankingData }) {
   return (
     <div className={styles.container}>
-      {users.map((user, index) => (
+      {rankingData.slice(0, 3).map((user, index) => (
         <div key={index} className={styles.box1}>
           <div className={styles.CardPhoto}>
-            <img src={fotoProfile} alt="Foto do Perfil" />
+            <img
+              src={user.profile_picture || "defaultProfilePic.jpg"}
+              alt="Foto do Perfil"
+              className={styles.CardPhoto_Photo}
+            />
             <div className={styles.medal}>
               <FaMedal
                 color={
-                  user.medal === "gold"
-                    ? "gold"
-                    : user.medal === "silver"
-                    ? "silver"
-                    : "#cd7f32"
+                  index === 0 ? "gold" : index === 1 ? "silver" : "#cd7f32"
                 }
               />
             </div>
           </div>
-          <div className={styles.name}>{user.name}</div>
-          <div className={styles.username}>{user.username}</div>
+          <div className={styles.name}>
+            {user.fullname.split(" ").slice(0, 2).join(" ")}
+          </div>
+          <div className={styles.username}>
+            {user.nickname.split(" ").slice(0, 2).join(" ")}
+          </div>
           <div className={styles.totalpoints}>Total de Pontos</div>
           <div className={styles.totalpointsNumber}>
-            {user.totalPoints.toLocaleString()}
+            {parseInt(user.all_points).toLocaleString()}
           </div>
-          <div className={styles.pointsexchange}>Pontos para Troca</div>
+          <div className={styles.pointsexchange}>Pontos Atuais</div>
           <div className={styles.pointsexchangeNumber}>
-            {user.pointsExchange.toLocaleString()}
+            {parseInt(user.current_points).toLocaleString()}
           </div>
         </div>
       ))}
