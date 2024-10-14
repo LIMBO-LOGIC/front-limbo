@@ -216,6 +216,15 @@ html {
     padding: 20px;
   }
 }
+
+@media (min-width: 769px) and (max-width: 960px) {
+  .solucaoSections {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 80px;
+  }
+}
+
 @media (min-width: 769px) and (max-width: 1024px) {
   .textContainer h3 {
     font-size: 64px;

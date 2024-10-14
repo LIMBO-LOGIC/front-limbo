@@ -30,6 +30,10 @@ O **Formula E Live Hub** é a central definitiva para todos os entusiastas da ca
   - MongoDB (armazenamento de dados do chat)
   - PostgreSQL (armazenamento de dados de usuários e informações da Fórmula E)
 
+## Acesso didático
+- Usuário: professor.fiap
+- Senha: 1234
+
 ## Links
 - [Deploy da Aplicação](https://formulaelivehub.netlify.app)
 
