@@ -111,7 +111,7 @@ function ModalRedeemProduct({ setIsShow, isShow, product }) {
 
   return (
     <>
-      {Number(dataUser.current_points) > Number(product.change_points) ? (
+      {Number(dataUser.current_points) >= Number(product.change_points) ? (
         <Modal
           show={isShow}
           onHide={handleClose}
