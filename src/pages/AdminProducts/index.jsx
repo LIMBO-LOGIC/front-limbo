@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useEffect, useState } from "react";
 
 const AllProduct = () => {
   const [products, setProducts] = useState([]);
@@ -146,18 +146,6 @@ const AllProduct = () => {
           />
         </div>
         <div className="mb-3">
-          <label>
-            Ativo:
-            <input
-              type="checkbox"
-              checked={formData.active}
-              onChange={() =>
-                setFormData({ ...formData, active: !formData.active })
-              }
-            />
-          </label>
-        </div>
-        <div className="mb-3">
           <textarea
             className="form-control"
             placeholder="Imagem (base64)"
@@ -203,7 +191,16 @@ const AllProduct = () => {
               <td>{product.name}</td>
               <td>{product.description}</td>
               <td>{product.change_points}</td>
-              <td>{product.active ? "Sim" : "Não"}</td>
+              <td>
+                <input
+                  type="checkbox"
+                  checked={product.active}
+                  onChange={(e) => {
+                    e.stopPropagation(); // Prevent row click
+                    handleToggleActive(product.id, e.target.checked);
+                  }}
+                />
+              </td>
               <td>
                 <button
                   className="btn btn-danger"
@@ -270,18 +267,6 @@ const AllProduct = () => {
             }
             required
           />
-        </div>
-        <div className="mb-3">
-          <label>
-            Ativo:
-            <input
-              type="checkbox"
-              checked={formData.active}
-              onChange={() =>
-                setFormData({ ...formData, active: !formData.active })
-              }
-            />
-          </label>
         </div>
         <div className="mb-3">
           <textarea

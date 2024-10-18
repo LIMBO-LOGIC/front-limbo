@@ -101,18 +101,6 @@ const CreateProduct = () => {
           />
         </div>
         <div className="mb-3">
-          <label>
-            Ativo:
-            <input
-              type="checkbox"
-              checked={formData.active}
-              onChange={() =>
-                setFormData({ ...formData, active: !formData.active })
-              }
-            />
-          </label>
-        </div>
-        <div className="mb-3">
           <textarea
             className="form-control"
             placeholder="Imagem (base64)"
