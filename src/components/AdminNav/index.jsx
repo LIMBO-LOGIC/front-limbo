@@ -1,16 +1,9 @@
 import { Menu, Sidebar, SubMenu } from "react-pro-sidebar";
 import styles from "./adminNav.module.css";
 import formulaEImage from "/assets/logo_formulaE_branca.png";
-import { BiSolidCategory } from "react-icons/bi";
 import { PropTypes } from "prop-types";
-import {
-  FaFlagCheckered,
-  FaGamepad,
-  FaShoppingBag,
-  FaUsers,
-} from "react-icons/fa";
+import { FiShoppingBag } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
-import { LiaMedalSolid } from "react-icons/lia";
 
 const ItemMenu = ({ children }) => {
   return (
@@ -54,47 +47,38 @@ export default function AdminNav() {
       <div className={styles.boxImg}>
         <img
           src={formulaEImage}
-          onClick={() => navigate("/race")}
+          onClick={() => navigate("/admin")}
           alt="logo formula e"
         />
       </div>
       <Menu className={styles.navRace}>
-        <ItemMenu>
-          <Link to="/race" className={styles.itemMenu}>
-            <BiSolidCategory />
-            <p>Corridas</p>
-          </Link>
-        </ItemMenu>
-        <ItemMenu>
-          <Link to="/race/teams" className={styles.itemMenu}>
-            <FaUsers />
-            <p>Produtos</p>
-          </Link>
-        </ItemMenu>
-        <ItemMenu>
-          <Link to="/race/marketplace" className={styles.itemMenu}>
-            <FaShoppingBag />
-            <p>Usuarios</p>
-          </Link>
-        </ItemMenu>
-        <ItemMenu>
-          <Link to="/race/quiz" className={styles.itemMenu}>
-            <FaGamepad />
-            <p>Quiz</p>
-          </Link>
-        </ItemMenu>
-        <ItemMenu>
-          <Link to="/race/ranking" className={styles.itemMenu}>
-            <LiaMedalSolid />
-            <p>Ranking</p>
-          </Link>
-        </ItemMenu>
-        {/* <ItemMenu>
-          <Link to="/" className={styles.itemMenu}>
-            <FaShoppingBag />
-            <p>Fórum</p>
-          </Link>
-        </ItemMenu> */}
+        <SubMenu
+          defaultOpen={false}
+          label="Produtos"
+          icon={<FiShoppingBag />}
+          className={styles.subMenu}
+        >
+          <ItemSubMenu>
+            <Link className={styles.linkItem} to="/admin/allProduct">
+              <span>Geral Produtos</span>
+            </Link>
+          </ItemSubMenu>
+          <ItemSubMenu>
+            <Link className={styles.linkItem} to="/admin/creatProduct">
+              <span>Criar Produtos</span>
+            </Link>
+          </ItemSubMenu>
+          <ItemSubMenu>
+            <Link to={"/admin/productlist"} className={styles.linkItem}>
+              <span>Lista Produtos</span>
+            </Link>
+          </ItemSubMenu>
+          <ItemSubMenu>
+            <Link to={"/admin/uptadeProduct"} className={styles.linkItem}>
+              <span>Atualizar Produtos</span>
+            </Link>
+          </ItemSubMenu>
+        </SubMenu>
       </Menu>
     </Sidebar>
   );

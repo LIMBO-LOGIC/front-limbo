@@ -19,7 +19,11 @@ import Register from "../pages/Register";
 import Teams from "./../pages/Teams/index";
 import Favorite from "../pages/Favorite";
 import AdminLayout from "../layouts/AdminLayout";
-import AdminRace from "../pages/AdminRace";
+import AllProduct from "../pages/AdminProducts";
+import AdminLandingPage from "../pages/AdminLandinPage";
+import CreateProduct from "../pages/AdminCreateProducts";
+import ProductList from "../pages/AdminProductList";
+import UptadeProduct from "../pages/AdminUptadeProduct";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +36,7 @@ const router = createBrowserRouter([
       },
       {
         path: "*",
-        element: <NotFound route={"/"}/>,
+        element: <NotFound route={"/"} />,
       },
     ],
   },
@@ -42,11 +46,23 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Login />,
+        element: <AdminLandingPage />,
       },
       {
-        path: 'races',
-        element: <AdminRace />,
+        path: "allProduct",
+        element: <AllProduct />,
+      },
+      {
+        path: "creatProduct",
+        element: <CreateProduct />,
+      },
+      {
+        path: "productList",
+        element: <ProductList />,
+      },
+      {
+        path: "uptadeProduct",
+        element: <UptadeProduct />,
       },
     ],
   },
@@ -116,7 +132,7 @@ const router = createBrowserRouter([
       },
       {
         path: "*",
-        element: <NotFound route={"/race"}/>,
+        element: <NotFound route={"/race"} />,
       },
     ],
   },
