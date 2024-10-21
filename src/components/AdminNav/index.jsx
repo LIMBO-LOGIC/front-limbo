@@ -4,7 +4,7 @@ import formulaEImage from "/assets/logo_formulaE_branca.png";
 import { PropTypes } from "prop-types";
 import { FiShoppingBag } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
-import { BiSolidCategory } from "react-icons/bi";
+import { FaFlagCheckered } from "react-icons/fa";
 
 const ItemMenu = ({ children }) => {
   return (
@@ -56,7 +56,7 @@ export default function AdminNav() {
         <SubMenu
           defaultOpen={false}
           label="Corrida"
-          icon={<FiShoppingBag />}
+          icon={<FaFlagCheckered />}
           className={styles.subMenu}
         >
           <ItemSubMenu>
