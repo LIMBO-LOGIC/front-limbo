@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios"; // Importando axios para fazer requisições HTTP
+import axios from "axios";
 import styles from "./register.module.css";
 import imagem_direita from "../../assets/tela_registro.svg";
 import UploadPhotoUser from "./UploadPhotoUser";
@@ -7,6 +7,8 @@ import { Link, useNavigate } from "react-router-dom";
 import LoadingOverlay from "react-loading-overlay-ts";
 import { toast } from "react-toastify";
 import { baseUrl } from "../../service/api";
+import { auth, provider } from '../../firebaseConfig'; // Ajuste o caminho conforme necessário
+import { signInWithPopup } from "firebase/auth";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -21,11 +23,9 @@ const Register = () => {
 
   const getCurrentDate = () => {
     const date = new Date();
-
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Mês começa de 0, então é necessário adicionar 1
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
-
     return `${year}${month}${day}`;
   };
 
@@ -36,7 +36,6 @@ const Register = () => {
 
   const handleRegister = async (event) => {
     event.preventDefault();
-
     setIsLoading(true);
     if (!picture) {
       setErrorMessage("Por favor, insira uma foto de perfil.");
@@ -59,6 +58,7 @@ const Register = () => {
 
     let publicID = `${email.split("@")[0]}-${getCurrentDate()}`;
     publicID = publicID[0] + publicID[1];
+
     function fileToBase64(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -69,7 +69,6 @@ const Register = () => {
     }
 
     const uploadToCloudinary = (base64Image) => {
-      console.log(base64Image);
       const formData = new FormData();
       formData.append("file", base64Image);
       formData.append("upload_preset", "u38nm7ok");
@@ -78,15 +77,8 @@ const Register = () => {
       formData.append("public_id", publicID);
 
       axios
-        .post(
-          "https://api.cloudinary.com/v1_1/drwk6ohcn/image/upload",
-          formData
-        )
+        .post("https://api.cloudinary.com/v1_1/drwk6ohcn/image/upload", formData)
         .then(async (response) => {
-          console.log("Imagem carregada com sucesso:", response.data);
-          console.log(response);
-          console.log(response.data);
-
           const body = {
             fullname: nomeCompleto,
             nickname: username,
@@ -95,43 +87,41 @@ const Register = () => {
             password: senha,
             profile_picture: response.data.secure_url,
           };
-          await axios
-            .post(`${baseUrl}/user/register`, body, {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            })
-            .then(() => {
-              toast.success("Cadastro realizado com sucesso!");
-              navigate("/login");
-            })
-            .catch((error) => {
-              if (error.status === 401) {
-                toast.error("Email ou senha inválido!");
-              } else {
-                toast.error(
-                  "Erro ao tentar fazer o cadastro. Tente novamente mais tarde."
-                );
-              }
-              console.error("Erro de Cadastro:", error);
-            })
-            .finally(() => {
-              setIsLoading(false);
-            });
+          await axios.post(`${baseUrl}/user/register`, body, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+          .then(() => {
+            toast.success("Cadastro realizado com sucesso!");
+            navigate("/login");
+          })
+          .catch((error) => {
+            if (error.response && error.response.status === 401) {
+              toast.error("Email ou senha inválido!");
+            } else {
+              toast.error("Erro ao tentar fazer o cadastro. Tente novamente mais tarde.");
+            }
+            console.error("Erro de Cadastro:", error);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
         })
         .catch((error) => {
           console.error("Erro ao carregar a imagem:", error);
+          setIsLoading(false);
         });
     };
 
     const file = picture;
     fileToBase64(file)
       .then((base64) => {
-        console.log(base64);
         uploadToCloudinary(base64);
       })
       .catch((error) => {
         console.error("Erro ao converter o arquivo em Base64:", error);
+        setIsLoading(false);
       });
   };
 
@@ -141,14 +131,45 @@ const Register = () => {
     }
   };
 
+  // Função para registrar com Google
+  const handleGoogleRegister = async () => {
+    setIsLoading(true);
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      const body = {
+        fullname: user.displayName,
+        nickname: user.email.split('@')[0],
+        email: user.email,
+        birthdate: "", // Você pode definir um valor padrão ou solicitar isso ao usuário
+        profile_picture: user.photoURL,
+      };
+
+      await axios.post(`${baseUrl}/user/register`, body, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      toast.success("Cadastro realizado com sucesso!");
+      navigate("/login");
+    } catch (error) {
+      console.error("Erro ao registrar com Google:", error);
+      toast.error("Erro ao tentar fazer o cadastro com Google.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <LoadingOverlay
       active={isLoading}
       spinner
       text="Carregando..."
-      wrapperStyle={{ height: "100vh" }} // Estilo aplicado corretamente
+      wrapperStyle={{ height: "100vh" }}
       styles={{
-        content: (base) => ({ ...base }), // Mantém os estilos padrão
+        content: (base) => ({ ...base }),
       }}
     >
       <div className={styles.main_login}>
@@ -164,13 +185,6 @@ const Register = () => {
                 handleImageChange(file);
               }}
             />
-            {/* {imagemPreview && (
-            <img
-              src={imagemPreview}
-              alt="Pré-visualização"
-              className={styles.previewImage}
-            />
-          )} */}
           </div>
 
           <div className={styles.card_usuario}>
@@ -182,7 +196,7 @@ const Register = () => {
                 placeholder="Nome Completo"
                 value={nomeCompleto}
                 onChange={(e) => setNomeCompleto(e.target.value)}
-                disabled={isLoading} // Desabilita o campo durante o carregamento
+                disabled={isLoading}
               />
             </div>
 
@@ -194,7 +208,7 @@ const Register = () => {
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                disabled={isLoading} // Desabilita o campo durante o carregamento
+                disabled={isLoading}
               />
             </div>
 
@@ -206,7 +220,7 @@ const Register = () => {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                disabled={isLoading} // Desabilita o campo durante o carregamento
+                disabled={isLoading}
               />
             </div>
 
@@ -218,7 +232,7 @@ const Register = () => {
                 placeholder="Data de nascimento (dd/mm/yyyy)"
                 value={dataNascimento}
                 onChange={(e) => setDataNascimento(e.target.value)}
-                disabled={isLoading} // Desabilita o campo durante o carregamento
+                disabled={isLoading}
               />
             </div>
 
@@ -230,7 +244,7 @@ const Register = () => {
                 placeholder="Senha"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
-                disabled={isLoading} // Desabilita o campo durante o carregamento
+                disabled={isLoading}
               />
             </div>
 
@@ -240,15 +254,23 @@ const Register = () => {
               </p>
             </Link>
 
-            {/* Exibe mensagem de erro, se houver */}
             {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
             <button
               className={styles.btn_login}
               onClick={handleRegister}
-              disabled={isLoading} // Desabilita o botão enquanto carrega
+              disabled={isLoading}
             >
               {isLoading ? "Registrando..." : "Registrar"}
+            </button>
+
+            {/* Botão para registrar com Google */}
+            <button
+              className={styles.btn_google}
+              onClick={handleGoogleRegister}
+              disabled={isLoading}
+            >
+              Registrar com Google
             </button>
           </div>
         </div>

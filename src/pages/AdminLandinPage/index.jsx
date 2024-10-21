@@ -1,5 +1,10 @@
+
 const AdminLandingPage = () => {
-  return <>ADMIN</>;
+  return (
+    <>
+      admin
+    </>
+  );
 };
 
 export default AdminLandingPage;
