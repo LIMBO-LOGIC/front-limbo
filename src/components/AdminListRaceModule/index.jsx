@@ -1,6 +1,8 @@
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { baseUrl } from "../../service/api";
+import { FaPen, FaTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const ListRaceModule = () => {
   const [races, setRaces] = useState([]);
@@ -13,9 +15,8 @@ const ListRaceModule = () => {
 
   const fetchRaces = async () => {
     try {
-      const response = await axios.get(
-        "https://back-limbo-production.up.railway.app/racing"
-      );
+      const response = await axios.get(`${baseUrl}/racing`);
+      console.log(response.data);
       setRaces(response.data);
     } catch (error) {
       console.error("Erro ao buscar corridas:", error);
@@ -24,9 +25,7 @@ const ListRaceModule = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(
-        `https://back-limbo-production.up.railway.app/racing/${id}`
-      );
+      await axios.delete(`${baseUrl}/racing/${id}`);
       setModalMessage("Corrida deletada com sucesso!");
       fetchRaces(); // Atualiza a lista após a exclusão
       setShowModal(true);
@@ -37,44 +36,69 @@ const ListRaceModule = () => {
     }
   };
 
+  function formatarDataISO(dataISO) {
+    const data = new Date(dataISO);
+
+    // Ajustando para o horário local
+    const dia = String(data.getDate()).padStart(2, "0");
+    const mes = String(data.getMonth() + 1).padStart(2, "0"); // Janeiro é 0
+    const ano = data.getFullYear();
+
+    const horas = String(data.getHours()).padStart(2, "0");
+    const minutos = String(data.getMinutes()).padStart(2, "0");
+
+    return `${dia}/${mes}/${ano}, ${horas}:${minutos}`;
+  }
+
   return (
-    <div className="container">
-      <h2>Lista de Corridas</h2>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Data</th>
-            <th>Localização</th>
-            <th>Rodada</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {races.map((race) => (
-            <tr key={race.id_racing}>
-              <td>{race.id_racing}</td>
-              <td>{new Date(race.race_date).toLocaleString()}</td>
-              <td>{race.circuit_location}</td>
-              <td>{race.round}</td>
-              <td>
-                <button
-                  className="btn btn-warning me-2"
-                  onClick={() => handleEdit(race)}
-                >
-                  Editar
-                </button>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => handleDelete(race.id_racing)}
-                >
-                  Deletar
-                </button>
-              </td>
+    <div className="container-sm px-4">
+      <div className="mt-3 mb-3 d-flex align-items-center justify-content-between">
+        <h2 className="fs-7">Lista de Corridas</h2>
+        <Link to="/admin/createRace" className="btn btn-lg btn-primary">Criar corrida</Link>
+      </div>
+      <div className="table-responsive">
+        <table className="table table-hover caption-top">
+          <thead className="table-dark">
+            <tr>
+              <th scope="col" className="col">
+                Localização
+              </th>
+              <th scope="col" className="col">
+                Data/Hora
+              </th>
+              <th scope="col" className="col">
+                Rodada
+              </th>
+              <th scope="col" className="col" width="20%">
+                Ações
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {races.map((race) => (
+              <tr key={race.id_racing}>
+                <td>{race.circuit_location}</td>
+                <td>{formatarDataISO(race.race_date)}</td>
+                <td>{race.round}</td>
+                <td>
+                  <button
+                    className="btn btn-warning px-4 me-2 py-1"
+                    onClick={() => {}}
+                  >
+                    <FaPen size={18} />
+                  </button>
+                  <button
+                    className="btn btn-danger px-4 py-1"
+                    onClick={() => handleDelete(race.id_racing)}
+                  >
+                    <FaTrashAlt size={18} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* Modal de Mensagem */}
       <div

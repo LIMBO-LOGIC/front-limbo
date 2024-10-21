@@ -9,7 +9,7 @@ const CreateRaceModule = () => {
     circuit_location: "",
     circuit_image: "",
     status: "A",
-    round: 1,
+    round: 0,
   });
 
   const [updateData, setUpdateData] = useState(null); // Estado para dados da corrida a ser atualizada

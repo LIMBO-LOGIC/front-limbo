@@ -6,7 +6,7 @@ import PageTitle from "../../components/PageTitle";
 import { useEffect, useState } from "react";
 import ChatReceived from "../../components/ChatReceived";
 import ChatSent from "../../components/ChatSent";
-import { IP_ADRESS_IOT, urlAPIChat, urlChat } from "../../service/api";
+import { urlAPIChat, urlChat } from "../../service/api";
 import axios from "axios";
 import { TbArrowRightToArc } from "react-icons/tb";
 import useContexts from "../../hooks/useContext";

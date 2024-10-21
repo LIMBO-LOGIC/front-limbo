@@ -17,6 +17,7 @@ export default function Races() {
     axios
     .get(`${urlAPIChat}races`)
     .then((response) => {
+      console.log(response.data.data)
       setRaces(response.data.data);
     })
     .catch((error) => {
