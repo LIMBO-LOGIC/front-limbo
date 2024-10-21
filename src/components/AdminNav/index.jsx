@@ -4,6 +4,7 @@ import formulaEImage from "/assets/logo_formulaE_branca.png";
 import { PropTypes } from "prop-types";
 import { FiShoppingBag } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
+import { BiSolidCategory } from "react-icons/bi";
 
 const ItemMenu = ({ children }) => {
   return (
@@ -52,6 +53,33 @@ export default function AdminNav() {
         />
       </div>
       <Menu className={styles.navRace}>
+        <SubMenu
+          defaultOpen={false}
+          label="Corrida"
+          icon={<FiShoppingBag />}
+          className={styles.subMenu}
+        >
+          <ItemSubMenu>
+            <Link className={styles.linkItem} to="/admin/allCreateRace">
+              <span>Geral Corrida</span>
+            </Link>
+          </ItemSubMenu>
+          <ItemSubMenu>
+            <Link to={"/admin/createRace"} className={styles.linkItem}>
+              <span>Criar Corridas</span>
+            </Link>
+          </ItemSubMenu>
+          <ItemSubMenu>
+            <Link to={"/admin/raceList"} className={styles.linkItem}>
+              <span>Lista Corridas</span>
+            </Link>
+          </ItemSubMenu>
+          <ItemSubMenu>
+            <Link to={"/admin/uptadeRace"} className={styles.linkItem}>
+              <span>Atualizar Corridas</span>
+            </Link>
+          </ItemSubMenu>
+        </SubMenu>
         <SubMenu
           defaultOpen={false}
           label="Produtos"

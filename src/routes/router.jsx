@@ -24,6 +24,10 @@ import AdminLandingPage from "../pages/AdminLandinPage";
 import CreateProduct from "../pages/AdminCreateProducts";
 import ProductList from "../pages/AdminProductList";
 import UptadeProduct from "../pages/AdminUptadeProduct";
+import CreateRace from "../pages/AdminCreateRace";
+import CreateRaceAll from "../pages/AdminRace";
+import ListaRace from "../pages/AdminRaceList";
+import UptadeRace from "../pages/AdminUptadeRace";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +67,22 @@ const router = createBrowserRouter([
       {
         path: "uptadeProduct",
         element: <UptadeProduct />,
+      },
+      {
+        path: "allCreateRace",
+        element: <CreateRaceAll />,
+      },
+      {
+        path: "createRace",
+        element: <CreateRace />,
+      },
+      {
+        path: "raceList",
+        element: <ListaRace />,
+      },
+      {
+        path: "uptadeRace",
+        element: <UptadeRace />,
       },
     ],
   },
