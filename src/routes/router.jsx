@@ -81,7 +81,7 @@ const router = createBrowserRouter([
         element: <ListaRace />,
       },
       {
-        path: "uptadeRace",
+        path: "uptadeRace/:id",
         element: <UptadeRace />,
       },
     ],

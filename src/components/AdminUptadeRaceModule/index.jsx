@@ -1,20 +1,26 @@
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const UpdateRaceModule = () => {
+  const {id} = useParams()
   const [formData, setFormData] = useState({
     race_date: "",
     country_flag: "",
     circuit_location: "",
     circuit_image: "",
     status: "A",
-    round: 1,
+    round: 0,
   });
 
   const [updateData, setUpdateData] = useState(null); // Estado para dados da corrida a ser atualizada
   const [modalMessage, setModalMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    fetchRace(id);
+  }, [id]);
 
   // Você pode chamar essa função para obter a corrida a ser atualizada, se necessário
   const fetchRace = async (id) => {
@@ -71,9 +77,9 @@ const UpdateRaceModule = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container pt-4">
       <h2>Atualizar Corrida</h2>
-      <form onSubmit={handleUpdate} className="mb-4">
+      <form onSubmit={handleUpdate} className="mb-4 pt-3">
         <div className="mb-3">
           <input
             type="datetime-local"

@@ -59,9 +59,9 @@ export default function AdminHeader() {
           onClick={() => navigate("/race/profile")}
         />
         <div className={styles.userInfo}>
-          <span className={styles.userGreeting}>Olá, Admin {nameUser}!</span>
+          <span className={styles.userGreeting}>Olá, {nameUser}!</span>
           <span className={styles.userPoints}>
-            {user.current_points} pontos
+            Admin 
           </span>
         </div>
         {/* <AiOutlineArrowDown className={styles.arrow} onClick={toggleMenu} /> */}
