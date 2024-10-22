@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import LoadingOverlay from "react-loading-overlay-ts";
 import { toast } from "react-toastify";
 import { baseUrl } from "../../service/api";
-import { auth, provider } from '../../firebaseConfig'; // Ajuste o caminho conforme necessário
+import { auth, provider } from "../../firebaseConfig"; // Ajuste o caminho conforme necessário
 import { signInWithPopup } from "firebase/auth";
 
 const Register = () => {
@@ -42,7 +42,7 @@ const Register = () => {
       setIsLoading(false);
       return;
     }
-    
+
     if (
       !picture ||
       !nomeCompleto ||
@@ -77,7 +77,10 @@ const Register = () => {
       formData.append("public_id", publicID);
 
       axios
-        .post("https://api.cloudinary.com/v1_1/drwk6ohcn/image/upload", formData)
+        .post(
+          "https://api.cloudinary.com/v1_1/drwk6ohcn/image/upload",
+          formData
+        )
         .then(async (response) => {
           const body = {
             fullname: nomeCompleto,
@@ -87,26 +90,29 @@ const Register = () => {
             password: senha,
             profile_picture: response.data.secure_url,
           };
-          await axios.post(`${baseUrl}/user/register`, body, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-          .then(() => {
-            toast.success("Cadastro realizado com sucesso!");
-            navigate("/login");
-          })
-          .catch((error) => {
-            if (error.response && error.response.status === 401) {
-              toast.error("Email ou senha inválido!");
-            } else {
-              toast.error("Erro ao tentar fazer o cadastro. Tente novamente mais tarde.");
-            }
-            console.error("Erro de Cadastro:", error);
-          })
-          .finally(() => {
-            setIsLoading(false);
-          });
+          await axios
+            .post(`${baseUrl}/user/register`, body, {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+            .then(() => {
+              toast.success("Cadastro realizado com sucesso!");
+              navigate("/login");
+            })
+            .catch((error) => {
+              if (error.response && error.response.status === 401) {
+                toast.error("Email ou senha inválido!");
+              } else {
+                toast.error(
+                  "Erro ao tentar fazer o cadastro. Tente novamente mais tarde."
+                );
+              }
+              console.error("Erro de Cadastro:", error);
+            })
+            .finally(() => {
+              setIsLoading(false);
+            });
         })
         .catch((error) => {
           console.error("Erro ao carregar a imagem:", error);
@@ -138,11 +144,12 @@ const Register = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
+      // Aqui tratamos o caso em que o 'birthdate' não está disponível
       const body = {
         fullname: user.displayName,
-        nickname: user.email.split('@')[0],
+        nickname: user.email.split("@")[0],
         email: user.email,
-        birthdate: "", // Você pode definir um valor padrão ou solicitar isso ao usuário
+        birthdate: "1990/01/01", // Colocamos uma data padrão se não houver uma data de nascimento
         profile_picture: user.photoURL,
       };
 
@@ -156,7 +163,14 @@ const Register = () => {
       navigate("/login");
     } catch (error) {
       console.error("Erro ao registrar com Google:", error);
-      toast.error("Erro ao tentar fazer o cadastro com Google.");
+      // Tratamento de erro
+      if (error.code) {
+        toast.error(`Erro de autenticação: ${error.code}`);
+      } else if (error.response && error.response.data) {
+        toast.error(`Erro de cadastro: ${error.response.data.message}`);
+      } else {
+        toast.error("Erro ao tentar fazer o cadastro com Google.");
+      }
     } finally {
       setIsLoading(false);
     }
