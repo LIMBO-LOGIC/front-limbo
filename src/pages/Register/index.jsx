@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import LoadingOverlay from "react-loading-overlay-ts";
 import { toast } from "react-toastify";
 import { baseUrl } from "../../service/api";
-import { auth, provider } from "../../firebaseConfig"; // Ajuste o caminho conforme necessário
+import { auth, provider } from "../../firebaseConfig";
 import { signInWithPopup } from "firebase/auth";
 
 const Register = () => {
@@ -34,24 +34,26 @@ const Register = () => {
     reader.readAsDataURL(file);
   };
 
+  const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email); // Validação simples de email
+
   const handleRegister = async (event) => {
     event.preventDefault();
     setIsLoading(true);
+
     if (!picture) {
       setErrorMessage("Por favor, insira uma foto de perfil.");
       setIsLoading(false);
       return;
     }
 
-    if (
-      !picture ||
-      !nomeCompleto ||
-      !username ||
-      !email ||
-      !dataNascimento ||
-      !senha
-    ) {
+    if (!nomeCompleto || !username || !email || !dataNascimento || !senha) {
       setErrorMessage("Por favor, preencha todos os campos.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      setErrorMessage("Email inválido.");
       setIsLoading(false);
       return;
     }
@@ -90,6 +92,9 @@ const Register = () => {
             password: senha,
             profile_picture: response.data.secure_url,
           };
+
+          console.log("Dados enviados para o servidor:", body); // Log dos dados enviados
+
           await axios
             .post(`${baseUrl}/user/register`, body, {
               headers: {
@@ -101,14 +106,19 @@ const Register = () => {
               navigate("/login");
             })
             .catch((error) => {
-              if (error.response && error.response.status === 401) {
-                toast.error("Email ou senha inválido!");
+              console.error("Erro de Cadastro:", error);
+              if (error.response) {
+                console.log("Erro do servidor:", error.response.data); // Detalhes do erro
+                if (error.response.data.message) {
+                  toast.error(
+                    `Erro de cadastro: ${error.response.data.message}`
+                  );
+                }
               } else {
                 toast.error(
                   "Erro ao tentar fazer o cadastro. Tente novamente mais tarde."
                 );
               }
-              console.error("Erro de Cadastro:", error);
             })
             .finally(() => {
               setIsLoading(false);
@@ -137,21 +147,21 @@ const Register = () => {
     }
   };
 
-  // Função para registrar com Google
   const handleGoogleRegister = async () => {
     setIsLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // Aqui tratamos o caso em que o 'birthdate' não está disponível
       const body = {
         fullname: user.displayName,
         nickname: user.email.split("@")[0],
         email: user.email,
-        birthdate: "1990/01/01", // Colocamos uma data padrão se não houver uma data de nascimento
+        birthdate: "1990/01/01", // Data padrão
         profile_picture: user.photoURL,
       };
+
+      console.log("Dados enviados para o servidor:", body); // Log dos dados enviados
 
       await axios.post(`${baseUrl}/user/register`, body, {
         headers: {
@@ -163,11 +173,11 @@ const Register = () => {
       navigate("/login");
     } catch (error) {
       console.error("Erro ao registrar com Google:", error);
-      // Tratamento de erro
-      if (error.code) {
-        toast.error(`Erro de autenticação: ${error.code}`);
-      } else if (error.response && error.response.data) {
-        toast.error(`Erro de cadastro: ${error.response.data.message}`);
+      if (error.response) {
+        console.log("Erro do servidor:", error.response.data); // Detalhes do erro
+        if (error.response.data.message) {
+          toast.error(`Erro de cadastro: ${error.response.data.message}`);
+        }
       } else {
         toast.error("Erro ao tentar fazer o cadastro com Google.");
       }
@@ -278,13 +288,12 @@ const Register = () => {
               {isLoading ? "Registrando..." : "Registrar"}
             </button>
 
-            {/* Botão para registrar com Google */}
             <button
               className={styles.btn_google}
               onClick={handleGoogleRegister}
               disabled={isLoading}
             >
-              Registrar com Google teste teste
+              Registrar com Google teste 1
             </button>
           </div>
         </div>
