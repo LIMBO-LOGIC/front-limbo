@@ -1,6 +1,6 @@
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const CreateRaceModule = () => {
   const [formData, setFormData] = useState({
@@ -71,21 +71,6 @@ const CreateRaceModule = () => {
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(
-        `https://back-limbo-production.up.railway.app/racing/${id}`
-      );
-      setModalMessage("Corrida deletada com sucesso!");
-      fetchRaces(); // Atualiza a lista após a exclusão
-      setShowModal(true);
-    } catch (error) {
-      console.error("Erro ao deletar corrida:", error);
-      setModalMessage("Erro ao deletar corrida.");
-      setShowModal(true);
-    }
-  };
-
   const handleEdit = (race) => {
     setUpdateData(race); // Armazena dados da corrida selecionada para edição
     setFormData({
@@ -107,7 +92,7 @@ const CreateRaceModule = () => {
       status: "A",
       round: 1,
     });
-    setUpdateData(null); // Limpa dados de atualização
+    setUpdateData(null);
   };
 
   return (

@@ -53,7 +53,13 @@ export default function AdminNav() {
         />
       </div>
       <Menu className={styles.navRace}>
-        <SubMenu
+        <ItemMenu>
+          <Link to="/admin/raceList" className={styles.itemMenu}>
+            <FaFlagCheckered />
+            <p>Corridas</p>
+          </Link>
+        </ItemMenu>
+        {/* <SubMenu
           defaultOpen={false}
           label="Corrida"
           icon={<FaFlagCheckered />}
@@ -73,13 +79,13 @@ export default function AdminNav() {
             <Link to={"/admin/raceList"} className={styles.linkItem}>
               <span>Lista Corridas</span>
             </Link>
-          </ItemSubMenu>
-          <ItemSubMenu>
+            </ItemSubMenu>
+            <ItemSubMenu>
             <Link to={"/admin/uptadeRace"} className={styles.linkItem}>
               <span>Atualizar Corridas</span>
             </Link>
           </ItemSubMenu>
-        </SubMenu>
+        </SubMenu> */}
         <SubMenu
           defaultOpen={false}
           label="Produtos"

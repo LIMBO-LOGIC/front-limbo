@@ -2,12 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { baseUrl } from "../../service/api";
 import { FaPen, FaTrashAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ListRaceModule = () => {
   const [races, setRaces] = useState([]);
   const [modalMessage, setModalMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchRaces();
@@ -23,12 +25,28 @@ const ListRaceModule = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id, race) => {
+    Swal.fire({
+      title: `Tem certeza que deseja excluir a corrida "${race}"?`,
+      text: "Esta ação não poderá ser desfeita!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#ADADAD",
+      confirmButtonText: "Sim, excluir!",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteRace(id);
+      }
+    });
+  };
+
+  const deleteRace = async (id) => {
     try {
       await axios.delete(`${baseUrl}/racing/${id}`);
-      setModalMessage("Corrida deletada com sucesso!");
-      fetchRaces(); // Atualiza a lista após a exclusão
-      setShowModal(true);
+      Swal.fire("Excluído!", "A corrida foi excluída com sucesso.", "success");
+      fetchRaces();
     } catch (error) {
       console.error("Erro ao deletar corrida:", error);
       setModalMessage("Erro ao deletar corrida.");
@@ -54,7 +72,9 @@ const ListRaceModule = () => {
     <div className="container-sm px-4">
       <div className="mt-3 mb-3 d-flex align-items-center justify-content-between">
         <h2 className="fs-7">Lista de Corridas</h2>
-        <Link to="/admin/createRace" className="btn btn-lg btn-primary">Criar corrida</Link>
+        <Link to="/admin/createRace" className="btn btn-lg btn-primary">
+          Criar corrida
+        </Link>
       </div>
       <div className="table-responsive">
         <table className="table table-hover caption-top">
@@ -83,13 +103,13 @@ const ListRaceModule = () => {
                 <td>
                   <button
                     className="btn btn-warning px-4 me-2 py-1"
-                    onClick={() => {}}
+                    onClick={() => {navigate(`/admin/uptadeRace/${race.id_racing}`)}}
                   >
                     <FaPen size={18} />
                   </button>
                   <button
                     className="btn btn-danger px-4 py-1"
-                    onClick={() => handleDelete(race.id_racing)}
+                    onClick={() => handleDelete(race.id_racing, race.circuit_location)}
                   >
                     <FaTrashAlt size={18} />
                   </button>
