@@ -113,6 +113,8 @@ const Register = () => {
                   toast.error(
                     `Erro de cadastro: ${error.response.data.message}`
                   );
+                } else {
+                  toast.error("Erro de cadastro. Verifique os dados enviados.");
                 }
               } else {
                 toast.error(
@@ -120,6 +122,7 @@ const Register = () => {
                 );
               }
             })
+
             .finally(() => {
               setIsLoading(false);
             });
@@ -151,17 +154,21 @@ const Register = () => {
     setIsLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
+      console.log(result);
       const user = result.user;
 
       const body = {
-        fullname: user.displayName,
+        fullname: user.displayName || "Nome Padrão", // Adicione um fallback
         nickname: user.email.split("@")[0],
         email: user.email,
-        birthdate: "1990/01/01", // Data padrão
-        profile_picture: user.photoURL,
+        birthdate: "12/03/1980", // Data padrão
+        profile_picture: user.photoURL || "URL padrão", // Adicione um fallback
       };
 
-      console.log("Dados enviados para o servidor:", body); // Log dos dados enviados
+      console.log(
+        "Dados enviados para o servidor ao registrar com Google:",
+        body
+      );
 
       await axios.post(`${baseUrl}/user/register`, body, {
         headers: {
@@ -293,7 +300,7 @@ const Register = () => {
               onClick={handleGoogleRegister}
               disabled={isLoading}
             >
-              Registrar com Google teste 1
+              Registrar com Google teste 2
             </button>
           </div>
         </div>
