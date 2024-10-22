@@ -154,15 +154,16 @@ const Register = () => {
     setIsLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
-      console.log(result);
       const user = result.user;
 
+      // Definir o corpo da requisição conforme o formato esperado
       const body = {
-        fullname: user.displayName || "Nome Padrão", // Adicione um fallback
-        nickname: user.email.split("@")[0],
-        email: user.email,
-        birthdate: "12/03/1980", // Data padrão
-        profile_picture: user.photoURL || "URL padrão", // Adicione um fallback
+        fullname: user.displayName || "Nome Padrão", // Nome completo do usuário
+        nickname: user.email.split("@")[0], // Gerar o nickname a partir do email
+        email: user.email, // Email do Google
+        birthdate: "2006/12/03", // Data de nascimento padrão
+        password: "senha_padrão_para_google", // Senha padrão (ajuste conforme necessário)
+        profile_picture: user.photoURL || "URL da foto padrão", // URL da foto ou uma base64 se preferir
       };
 
       console.log(
@@ -300,7 +301,7 @@ const Register = () => {
               onClick={handleGoogleRegister}
               disabled={isLoading}
             >
-              Registrar com Google teste 2
+              Registrar com Google teste 3
             </button>
           </div>
         </div>
