@@ -17,7 +17,7 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
-  const [senha, setSenha] = useState("");
+  const [senha, setSenha] = useState(""); // Campo de senha
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -155,13 +155,20 @@ const Register = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // Definir o corpo da requisição conforme o formato esperado
+      // Validar se a senha foi fornecida
+      if (!senha) {
+        toast.error("Por favor, insira uma senha.");
+        setIsLoading(false);
+        return;
+      }
+
+      // Definir o corpo da requisição com a senha fornecida
       const body = {
         fullname: user.displayName || "Nome Padrão", // Nome completo do usuário
         nickname: user.email.split("@")[0], // Gerar o nickname a partir do email
         email: user.email, // Email do Google
         birthdate: "2006/12/03", // Data de nascimento padrão
-        password: "senha_padrão_para_google", // Senha padrão (ajuste conforme necessário)
+        password: senha, // Senha fornecida pelo usuário
         profile_picture: user.photoURL || "URL da foto padrão", // URL da foto ou uma base64 se preferir
       };
 
@@ -281,32 +288,34 @@ const Register = () => {
 
             <Link to="/login" className={styles.itemMenu}>
               <p className={styles.conta}>
-                Já tem conta? <span>Logue aqui</span>
+                Já tem conta? <strong>Entre aqui!</strong>
               </p>
             </Link>
 
-            {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+            <div className={styles.botao}>
+              <button
+                className={styles.btn_register}
+                onClick={handleRegister}
+                disabled={isLoading}
+              >
+                Registrar-se
+              </button>
+            </div>
 
-            <button
-              className={styles.btn_login}
-              onClick={handleRegister}
-              disabled={isLoading}
-            >
-              {isLoading ? "Registrando..." : "Registrar"}
-            </button>
-
-            <button
-              className={styles.btn_google}
-              onClick={handleGoogleRegister}
-              disabled={isLoading}
-            >
-              Registrar com Google teste padrao
-            </button>
+            <div className={styles.google}>
+              <button
+                className={styles.btn_google}
+                onClick={handleGoogleRegister}
+                disabled={isLoading}
+              >
+                Registrar com Google
+              </button>
+            </div>
           </div>
         </div>
 
         <div className={styles.right_login}>
-          <img src={imagem_direita} className={styles.image} alt="Animação" />
+          <img src={imagem_direita} alt="imagem_login" />
         </div>
       </div>
     </LoadingOverlay>
