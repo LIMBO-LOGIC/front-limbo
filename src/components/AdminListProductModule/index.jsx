@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useEffect, useState } from "react";
+import Switch from "../Switch";
 
 const ProductListModule = () => {
   const [products, setProducts] = useState([]);
@@ -100,7 +100,6 @@ const ProductListModule = () => {
       <table className="table">
         <thead>
           <tr>
-            <th>ID</th>
             <th>Nome</th>
             <th>Descrição</th>
             <th>Pontos de Troca</th>
@@ -124,11 +123,12 @@ const ProductListModule = () => {
                 });
               }}
             >
-              <td>{product.id}</td>
               <td>{product.name}</td>
               <td>{product.description}</td>
               <td>{product.change_points}</td>
-              <td>{product.active ? "Sim" : "Não"}</td>
+              <td>
+                <Switch check={!product.active}/>
+              </td>
               <td>
                 <button
                   className="btn btn-danger"
