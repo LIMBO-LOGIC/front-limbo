@@ -18,6 +18,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [senha, setSenha] = useState("");
+  const [isGoogleRegister, setIsGoogleRegister] = useState(false); // Controle para exibir campos adicionais
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -40,7 +41,7 @@ const Register = () => {
     event.preventDefault();
     setIsLoading(true);
 
-    if (!picture) {
+    if (!picture && !isGoogleRegister) {
       setErrorMessage("Por favor, insira uma foto de perfil.");
       setIsLoading(false);
       return;
@@ -134,14 +135,49 @@ const Register = () => {
     };
 
     const file = picture;
-    fileToBase64(file)
-      .then((base64) => {
-        uploadToCloudinary(base64);
-      })
-      .catch((error) => {
-        console.error("Erro ao converter o arquivo em Base64:", error);
-        setIsLoading(false);
-      });
+    if (!isGoogleRegister && file) {
+      fileToBase64(file)
+        .then((base64) => {
+          uploadToCloudinary(base64);
+        })
+        .catch((error) => {
+          console.error("Erro ao converter o arquivo em Base64:", error);
+          setIsLoading(false);
+        });
+    } else {
+      const body = {
+        fullname: nomeCompleto,
+        nickname: username,
+        email: email,
+        birthdate: dataNascimento.replaceAll("-", "/"),
+        password: senha,
+        profile_picture: picture, // URL da foto padrão
+      };
+
+      await axios
+        .post(`${baseUrl}/user/register`, body, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then(() => {
+          toast.success("Cadastro realizado com sucesso!");
+          navigate("/");
+        })
+        .catch((error) => {
+          console.error("Erro de Cadastro:", error);
+          if (error.response) {
+            console.log("Erro do servidor:", error.response.data); // Detalhes do erro
+            if (error.response.data.message) {
+              toast.error(`Erro de cadastro: ${error.response.data.message}`);
+            } else {
+              toast.error("Erro de cadastro. Verifique os dados enviados.");
+            }
+          } else {
+            toast.error("Erro ao tentar fazer o cadastro. Tente novamente.");
+          }
+        });
+    }
   };
 
   const handleKeyPress = (event) => {
@@ -156,29 +192,15 @@ const Register = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // Definir o corpo da requisição conforme o formato esperado
-      const body = {
-        fullname: user.displayName || "Nome Padrão", // Nome completo do usuário
-        nickname: user.email.split("@")[0], // Gerar o nickname a partir do email
-        email: user.email, // Email do Google
-        birthdate: "2006/12/03", // Data de nascimento padrão
-        password: "senha_padrão_para_google", // Senha padrão (ajuste conforme necessário)
-        profile_picture: user.photoURL || "URL da foto padrão", // URL da foto ou uma base64 se preferir
-      };
+      // Preencher dados com o Google e permitir que o usuário escolha a senha
+      setNomeCompleto(user.displayName || "Nome Padrão");
+      setUsername(user.email.split("@")[0]);
+      setEmail(user.email);
+      setPicture(user.photoURL || "URL da foto padrão");
 
-      console.log(
-        "Dados enviados para o servidor ao registrar com Google:",
-        body
-      );
-
-      await axios.post(`${baseUrl}/user/register`, body, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      toast.success("Cadastro realizado com sucesso!");
-      navigate("/login");
+      // Mostrar campos de senha e data de nascimento
+      setIsGoogleRegister(true);
+      setIsLoading(false);
     } catch (error) {
       console.error("Erro ao registrar com Google:", error);
       if (error.response) {
@@ -189,8 +211,6 @@ const Register = () => {
       } else {
         toast.error("Erro ao tentar fazer o cadastro com Google.");
       }
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -228,7 +248,7 @@ const Register = () => {
                 placeholder="Nome Completo"
                 value={nomeCompleto}
                 onChange={(e) => setNomeCompleto(e.target.value)}
-                disabled={isLoading}
+                disabled={isLoading || isGoogleRegister}
               />
             </div>
 
@@ -240,7 +260,7 @@ const Register = () => {
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                disabled={isLoading}
+                disabled={isLoading || isGoogleRegister}
               />
             </div>
 
@@ -252,7 +272,7 @@ const Register = () => {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                disabled={isLoading}
+                disabled={isLoading || isGoogleRegister}
               />
             </div>
 
@@ -301,7 +321,7 @@ const Register = () => {
               onClick={handleGoogleRegister}
               disabled={isLoading}
             >
-              Registrar com Google teste 
+              Registrar com Google 3
             </button>
           </div>
         </div>
