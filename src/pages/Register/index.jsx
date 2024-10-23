@@ -301,7 +301,7 @@ const Register = () => {
               onClick={handleGoogleRegister}
               disabled={isLoading}
             >
-              Registrar com Google teste 3
+              Registrar com Google teste 
             </button>
           </div>
         </div>
