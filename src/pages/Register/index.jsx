@@ -31,7 +31,20 @@ const Register = () => {
   };
 
   const handleImageChange = (file) => {
+    if (!file) {
+      console.error("Arquivo inválido ou não fornecido.");
+      return;
+    }
+
     const reader = new FileReader();
+    reader.onload = (e) => {
+      // Exibir a imagem carregada ou fazer algo com o resultado (opcional)
+      console.log("Imagem carregada: ", e.target.result);
+    };
+    reader.onerror = (error) => {
+      console.error("Erro ao carregar a imagem:", error);
+    };
+
     reader.readAsDataURL(file);
   };
 
