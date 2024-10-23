@@ -38,14 +38,15 @@ const Register = () => {
 
     const reader = new FileReader();
     reader.onload = (e) => {
-      // Exibir a imagem carregada ou fazer algo com o resultado (opcional)
-      console.log("Imagem carregada: ", e.target.result);
+      // O resultado da leitura da imagem como base64
+      setPicture(e.target.result); // Armazena a imagem como base64 no estado
+      console.log("Imagem carregada em base64:", e.target.result);
     };
     reader.onerror = (error) => {
       console.error("Erro ao carregar a imagem:", error);
     };
 
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(file); // Lê o arquivo de imagem como base64
   };
 
   const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email); // Validação simples de email
@@ -334,7 +335,7 @@ const Register = () => {
               onClick={handleGoogleRegister}
               disabled={isLoading}
             >
-              Registrar com Google 3
+              Registrar com Google 5
             </button>
           </div>
         </div>
