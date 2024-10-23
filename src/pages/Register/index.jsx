@@ -18,7 +18,6 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [senha, setSenha] = useState("");
-  const [senhaGoogle, setSenhaGoogle] = useState(""); // Nova variável para senha do Google
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -35,7 +34,7 @@ const Register = () => {
     reader.readAsDataURL(file);
   };
 
-  const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
+  const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email); // Validação simples de email
 
   const handleRegister = async (event) => {
     event.preventDefault();
@@ -94,7 +93,7 @@ const Register = () => {
             profile_picture: response.data.secure_url,
           };
 
-          console.log("Dados enviados para o servidor:", body);
+          console.log("Dados enviados para o servidor:", body); // Log dos dados enviados
 
           await axios
             .post(`${baseUrl}/user/register`, body, {
@@ -104,12 +103,12 @@ const Register = () => {
             })
             .then(() => {
               toast.success("Cadastro realizado com sucesso!");
-              navigate("/race");
+              navigate("/login");
             })
             .catch((error) => {
               console.error("Erro de Cadastro:", error);
               if (error.response) {
-                console.log("Erro do servidor:", error.response.data);
+                console.log("Erro do servidor:", error.response.data); // Detalhes do erro
                 if (error.response.data.message) {
                   toast.error(
                     `Erro de cadastro: ${error.response.data.message}`
@@ -156,14 +155,14 @@ const Register = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // O usuário agora define uma senha após o login com o Google
+      // Definir o corpo da requisição conforme o formato esperado
       const body = {
-        fullname: user.displayName || "Nome Padrão",
-        nickname: user.email.split("@")[0],
-        email: user.email,
-        birthdate: "2006/12/03",
-        password: senhaGoogle, // Agora a senha escolhida pelo usuário
-        profile_picture: user.photoURL || "URL da foto padrão",
+        fullname: user.displayName || "Nome Padrão", // Nome completo do usuário
+        nickname: user.email.split("@")[0], // Gerar o nickname a partir do email
+        email: user.email, // Email do Google
+        birthdate: "2006/12/03", // Data de nascimento padrão
+        password: "senha_padrão_para_google", // Senha padrão (ajuste conforme necessário)
+        profile_picture: user.photoURL || "URL da foto padrão", // URL da foto ou uma base64 se preferir
       };
 
       console.log(
@@ -178,11 +177,11 @@ const Register = () => {
       });
 
       toast.success("Cadastro realizado com sucesso!");
-      navigate("/race");
+      navigate("/login");
     } catch (error) {
       console.error("Erro ao registrar com Google:", error);
       if (error.response) {
-        console.log("Erro do servidor:", error.response.data);
+        console.log("Erro do servidor:", error.response.data); // Detalhes do erro
         if (error.response.data.message) {
           toast.error(`Erro de cadastro: ${error.response.data.message}`);
         }
@@ -280,19 +279,6 @@ const Register = () => {
               />
             </div>
 
-            {/* Adicionando um campo para a senha do Google */}
-            <div className={styles.textfield}>
-              <input
-                required
-                type="password"
-                name="senhaGoogle"
-                placeholder="Senha para Google"
-                value={senhaGoogle}
-                onChange={(e) => setSenhaGoogle(e.target.value)}
-                disabled={isLoading}
-              />
-            </div>
-
             <Link to="/login" className={styles.itemMenu}>
               <p className={styles.conta}>
                 Já tem conta? <span>Logue aqui</span>
@@ -314,7 +300,7 @@ const Register = () => {
               onClick={handleGoogleRegister}
               disabled={isLoading}
             >
-              Registrar com Google 4
+              Registrar com Google teste padrao
             </button>
           </div>
         </div>
