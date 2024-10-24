@@ -1,17 +1,17 @@
-import { useState } from "react";
 import axios from "axios";
-import styles from "./register.module.css";
-import imagem_direita from "../../assets/tela_registro.svg";
-import UploadPhotoUser from "./UploadPhotoUser";
-import { Link, useNavigate } from "react-router-dom";
-import LoadingOverlay from "react-loading-overlay-ts";
-import { toast } from "react-toastify";
-import { baseUrl } from "../../service/api";
-import { auth, provider } from "../../firebaseConfig";
-import { signInWithPopup } from "firebase/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Modal, Button } from "react-bootstrap";
+import { signInWithPopup } from "firebase/auth";
+import { useState } from "react";
+import { Button, Modal } from "react-bootstrap";
 import { FaGoogle } from "react-icons/fa";
+import LoadingOverlay from "react-loading-overlay-ts";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import imagem_direita from "../../assets/tela_registro.svg";
+import { auth, provider } from "../../firebaseConfig";
+import { baseUrl } from "../../service/api";
+import UploadPhotoUser from "./UploadPhotoUser";
+import styles from "./register.module.css";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -122,6 +122,8 @@ const Register = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
+
+      console.log(result)
 
       setGoogleUser(user); // Armazena dados do usuário do Google
       setShowPasswordModal(true); // Mostra o modal para solicitar a senha
