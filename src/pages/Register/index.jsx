@@ -146,7 +146,6 @@ const Register = () => {
       nickname: googleUser.email.split("@")[0],
       email: googleUser.email,
       birthdate: "2006/12/03",
-      password: senha,
       profile_picture: googleUser.photoURL || "URL da foto padrão",
     };
 
