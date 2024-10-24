@@ -20,10 +20,8 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
-  const [senha, setSenha] = useState(""); // Senha que o usuário digitará no modal
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [showPasswordModal, setShowPasswordModal] = useState(false); // Estado do modal de senha
   const [googleUser, setGoogleUser] = useState(null); // Estado para armazenar dados do Google
 
   const handleImageChange = (file) => {
@@ -126,7 +124,6 @@ const Register = () => {
       console.log(result)
 
       setGoogleUser(user); // Armazena dados do usuário do Google
-      setShowPasswordModal(true); // Mostra o modal para solicitar a senha
     } catch (error) {
       console.error("Erro ao registrar com Google:", error);
       toast.error("Erro ao tentar fazer o cadastro com Google.");
@@ -170,12 +167,12 @@ const Register = () => {
       setDataUser(json);
       localStorage.setItem("userStorage", JSON.stringify(json));
 
+      navigate("/race");
     } catch (error) {
       console.error("Erro ao registrar com Google:", error);
       toast.error("Erro ao tentar fazer o cadastro.");
     } finally {
       setIsLoading(false);
-      setShowPasswordModal(false);
     }
   };
 
@@ -290,35 +287,6 @@ const Register = () => {
         <div className={styles.right_login}>
           <img src={imagem_direita} className={styles.image} alt="Animação" />
         </div>
-        {/* Modal de senha */}
-        <Modal
-          show={showPasswordModal}
-          onHide={() => setShowPasswordModal(false)}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Insira sua senha</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <input
-              type="password"
-              placeholder="Digite sua senha"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
-              className="form-control"
-            />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={() => setShowPasswordModal(false)}
-            >
-              Cancelar
-            </Button>
-            <Button variant="primary" onClick={handleSubmitWithPassword}>
-              Confirmar
-            </Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     </LoadingOverlay>
   );
