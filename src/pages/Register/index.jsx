@@ -36,6 +36,7 @@ const Register = () => {
     event.preventDefault();
     setIsLoading(true);
 
+    // Verificações e validações
     if (!picture) {
       setErrorMessage("Por favor, insira uma foto de perfil.");
       setIsLoading(false);
@@ -96,14 +97,26 @@ const Register = () => {
 
         console.log("Dados enviados para o servidor:", body);
 
+        // Registro do usuário
         await axios.post(`${baseUrl}/user/register`, body, {
           headers: {
             "Content-Type": "application/json",
           },
         });
 
-        toast.success("Cadastro realizado com sucesso!");
-        navigate("/login");
+        // Logar o usuário após o registro
+        await axios.post(
+          `${baseUrl}/user/login`,
+          { email, password: senha },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        toast.success("Cadastro e login realizados com sucesso!");
+        navigate("/race"); // Redireciona para a tela /race
       })
       .catch((error) => {
         console.error("Erro de cadastro:", error);
