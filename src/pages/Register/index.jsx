@@ -9,6 +9,9 @@ import { toast } from "react-toastify";
 import { baseUrl } from "../../service/api";
 import { auth, provider } from "../../firebaseConfig";
 import { signInWithPopup } from "firebase/auth";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Modal, Button } from "react-bootstrap";
+import { FaGoogle } from "react-icons/fa";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -17,24 +20,18 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
-  const [senha, setSenha] = useState("");
+  const [senha, setSenha] = useState(""); // Senha que o usuário digitará no modal
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const getCurrentDate = () => {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}${month}${day}`;
-  };
+  const [showPasswordModal, setShowPasswordModal] = useState(false); // Estado do modal de senha
+  const [googleUser, setGoogleUser] = useState(null); // Estado para armazenar dados do Google
 
   const handleImageChange = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
   };
 
-  const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email); // Validação simples de email
+  const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
   const handleRegister = async (event) => {
     event.preventDefault();
@@ -58,17 +55,18 @@ const Register = () => {
       return;
     }
 
-    let publicID = `${email.split("@")[0]}-${getCurrentDate()}`;
-    publicID = publicID[0] + publicID[1];
+    let publicID = `${email.split("@")[0]}-${new Date()
+      .toISOString()
+      .slice(0, 10)}`;
 
-    function fileToBase64(file) {
+    const fileToBase64 = (file) => {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => resolve(reader.result);
         reader.onerror = (error) => reject(error);
       });
-    }
+    };
 
     const uploadToCloudinary = (base64Image) => {
       const formData = new FormData();
@@ -78,76 +76,45 @@ const Register = () => {
       formData.append("resource_type", "image");
       formData.append("public_id", publicID);
 
-      axios
-        .post(
-          "https://api.cloudinary.com/v1_1/drwk6ohcn/image/upload",
-          formData
-        )
-        .then(async (response) => {
-          const body = {
-            fullname: nomeCompleto,
-            nickname: username,
-            email: email,
-            birthdate: dataNascimento.replaceAll("-", "/"),
-            password: senha,
-            profile_picture: response.data.secure_url,
-          };
-
-          console.log("Dados enviados para o servidor:", body); // Log dos dados enviados
-
-          await axios
-            .post(`${baseUrl}/user/register`, body, {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            })
-            .then(() => {
-              toast.success("Cadastro realizado com sucesso!");
-              navigate("/login");
-            })
-            .catch((error) => {
-              console.error("Erro de Cadastro:", error);
-              if (error.response) {
-                console.log("Erro do servidor:", error.response.data); // Detalhes do erro
-                if (error.response.data.message) {
-                  toast.error(
-                    `Erro de cadastro: ${error.response.data.message}`
-                  );
-                } else {
-                  toast.error("Erro de cadastro. Verifique os dados enviados.");
-                }
-              } else {
-                toast.error(
-                  "Erro ao tentar fazer o cadastro. Tente novamente mais tarde."
-                );
-              }
-            })
-
-            .finally(() => {
-              setIsLoading(false);
-            });
-        })
-        .catch((error) => {
-          console.error("Erro ao carregar a imagem:", error);
-          setIsLoading(false);
-        });
+      return axios.post(
+        "https://api.cloudinary.com/v1_1/drwk6ohcn/image/upload",
+        formData
+      );
     };
 
     const file = picture;
     fileToBase64(file)
-      .then((base64) => {
-        uploadToCloudinary(base64);
+      .then((base64) => uploadToCloudinary(base64))
+      .then(async (response) => {
+        const body = {
+          fullname: nomeCompleto,
+          nickname: username,
+          email: email,
+          birthdate: dataNascimento.replaceAll("-", "/"),
+          password: senha,
+          profile_picture: response.data.secure_url,
+        };
+
+        console.log("Dados enviados para o servidor:", body);
+
+        await axios.post(`${baseUrl}/user/register`, body, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        toast.success("Cadastro realizado com sucesso!");
+        navigate("/login");
       })
       .catch((error) => {
-        console.error("Erro ao converter o arquivo em Base64:", error);
+        console.error("Erro de cadastro:", error);
+        toast.error(
+          "Erro ao tentar fazer o cadastro. Tente novamente mais tarde."
+        );
+      })
+      .finally(() => {
         setIsLoading(false);
       });
-  };
-
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      handleRegister(event);
-    }
   };
 
   const handleGoogleRegister = async () => {
@@ -156,21 +123,35 @@ const Register = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // Definir o corpo da requisição conforme o formato esperado
-      const body = {
-        fullname: user.displayName || "Nome Padrão", // Nome completo do usuário
-        nickname: user.email.split("@")[0], // Gerar o nickname a partir do email
-        email: user.email, // Email do Google
-        birthdate: "2006/12/03", // Data de nascimento padrão
-        password: "senha_padrão_para_google", // Senha padrão (ajuste conforme necessário)
-        profile_picture: user.photoURL || "URL da foto padrão", // URL da foto ou uma base64 se preferir
-      };
+      setGoogleUser(user); // Armazena dados do usuário do Google
+      setShowPasswordModal(true); // Mostra o modal para solicitar a senha
+    } catch (error) {
+      console.error("Erro ao registrar com Google:", error);
+      toast.error("Erro ao tentar fazer o cadastro com Google.");
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-      console.log(
-        "Dados enviados para o servidor ao registrar com Google:",
-        body
-      );
+  const handleSubmitWithPassword = async () => {
+    if (!senha) {
+      toast.error("Por favor, insira uma senha.");
+      return;
+    }
 
+    setIsLoading(true);
+
+    const body = {
+      fullname: googleUser.displayName || "Nome Padrão",
+      nickname: googleUser.email.split("@")[0],
+      email: googleUser.email,
+      birthdate: "2006/12/03",
+      password: senha,
+      profile_picture: googleUser.photoURL || "URL da foto padrão",
+    };
+
+    try {
       await axios.post(`${baseUrl}/user/register`, body, {
         headers: {
           "Content-Type": "application/json",
@@ -181,16 +162,10 @@ const Register = () => {
       navigate("/login");
     } catch (error) {
       console.error("Erro ao registrar com Google:", error);
-      if (error.response) {
-        console.log("Erro do servidor:", error.response.data); // Detalhes do erro
-        if (error.response.data.message) {
-          toast.error(`Erro de cadastro: ${error.response.data.message}`);
-        }
-      } else {
-        toast.error("Erro ao tentar fazer o cadastro com Google.");
-      }
+      toast.error("Erro ao tentar fazer o cadastro.");
     } finally {
       setIsLoading(false);
+      setShowPasswordModal(false);
     }
   };
 
@@ -200,12 +175,9 @@ const Register = () => {
       spinner
       text="Carregando..."
       wrapperStyle={{ height: "100vh" }}
-      styles={{
-        content: (base) => ({ ...base }),
-      }}
     >
       <div className={styles.main_login}>
-        <div onKeyDown={handleKeyPress} className={styles.left_login}>
+        <div className={styles.left_login}>
           <h2 className={styles.login_login}>Registre-se</h2>
           <h5 className={styles.login_login}>Coloque a sua foto</h5>
 
@@ -261,7 +233,7 @@ const Register = () => {
                 required
                 type="date"
                 name="dataNascimento"
-                placeholder="Data de nascimento (dd/mm/yyyy)"
+                placeholder="Data de nascimento"
                 value={dataNascimento}
                 onChange={(e) => setDataNascimento(e.target.value)}
                 disabled={isLoading}
@@ -295,20 +267,48 @@ const Register = () => {
             >
               {isLoading ? "Registrando..." : "Registrar"}
             </button>
-
             <button
-              className={styles.btn_google}
+              className={styles.btnGoogle}
               onClick={handleGoogleRegister}
               disabled={isLoading}
             >
-              Registrar com Google teste 3
+              <FaGoogle className={styles.icon} />
+              {isLoading ? "Carregando..." : "Registrar com Google"}
             </button>
           </div>
         </div>
-
         <div className={styles.right_login}>
           <img src={imagem_direita} className={styles.image} alt="Animação" />
         </div>
+        {/* Modal de senha */}
+        <Modal
+          show={showPasswordModal}
+          onHide={() => setShowPasswordModal(false)}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Insira sua senha</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <input
+              type="password"
+              placeholder="Digite sua senha"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              className="form-control"
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => setShowPasswordModal(false)}
+            >
+              Cancelar
+            </Button>
+            <Button variant="primary" onClick={handleSubmitWithPassword}>
+              Confirmar
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </LoadingOverlay>
   );
