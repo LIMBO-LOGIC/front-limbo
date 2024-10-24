@@ -4,18 +4,23 @@ import { baseUrl } from "../../service/api";
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useContexts from "../../hooks/useContext";
 
 const ListRaceModule = () => {
   const [races, setRaces] = useState([]);
   const [modalMessage, setModalMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate()
+  const { setIsLoadingAdmin } = useContexts();
+
 
   useEffect(() => {
     fetchRaces();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchRaces = async () => {
+    setIsLoadingAdmin(true)
     try {
       const response = await axios.get(`${baseUrl}/racing`);
       console.log(response.data);
@@ -23,6 +28,7 @@ const ListRaceModule = () => {
     } catch (error) {
       console.error("Erro ao buscar corridas:", error);
     }
+    setIsLoadingAdmin(false)
   };
 
   const handleDelete = async (id, race) => {
@@ -77,7 +83,7 @@ const ListRaceModule = () => {
         </Link>
       </div>
       <div className="table-responsive">
-        <table className="table table-hover caption-top">
+        <table className="table caption-top">
           <thead className="table-dark">
             <tr>
               <th scope="col" className="col">

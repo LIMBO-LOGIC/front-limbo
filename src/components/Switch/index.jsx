@@ -1,21 +1,13 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import styles from "./switch.module.css";
 
-const Switch = ({check}) => {
+const Switch = ({check, onclick}) => {
   return (
-    <div>
-      <div className="bauble_box">
-        <input
-          className="bauble_input"
-          id="bauble_check"
-          name="bauble"
-          type="checkbox"
-          checked={check}
-        />
-        <label className="bauble_label" htmlFor="bauble_check">
-          Toggle
-        </label>
-      </div>
+    <div onClick={onclick}>
+      <label className={`${styles.switch}`}>
+        <input type="checkbox" checked={check} />
+        <span className={`${styles.slider}`} />
+      </label>
     </div>
   );
 };

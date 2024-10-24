@@ -1,10 +1,11 @@
-import { Menu, Sidebar, SubMenu } from "react-pro-sidebar";
+import { Menu, Sidebar } from "react-pro-sidebar";
 import styles from "./adminNav.module.css";
 import formulaEImage from "/assets/logo_formulaE_branca.png";
 import { PropTypes } from "prop-types";
 import { FiShoppingBag } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { FaFlagCheckered } from "react-icons/fa";
+import { BsFillHouseFill } from "react-icons/bs";
 
 const ItemMenu = ({ children }) => {
   return (
@@ -54,11 +55,24 @@ export default function AdminNav() {
       </div>
       <Menu className={styles.navRace}>
         <ItemMenu>
+          <Link to="/admin/" className={styles.itemMenu}>
+            <BsFillHouseFill />
+            <p>Home</p>
+          </Link>
+        </ItemMenu>
+        <ItemMenu>
           <Link to="/admin/raceList" className={styles.itemMenu}>
             <FaFlagCheckered />
             <p>Corridas</p>
           </Link>
         </ItemMenu>
+        <ItemMenu>
+          <Link to="/admin/productlist" className={styles.itemMenu}>
+            <FiShoppingBag />
+            <p>Produtos</p>
+          </Link>
+        </ItemMenu>
+
         {/* <SubMenu
           defaultOpen={false}
           label="Corrida"
@@ -86,7 +100,7 @@ export default function AdminNav() {
             </Link>
           </ItemSubMenu>
         </SubMenu> */}
-        <SubMenu
+        {/* <SubMenu
           defaultOpen={false}
           label="Produtos"
           icon={<FiShoppingBag />}
@@ -98,7 +112,7 @@ export default function AdminNav() {
             </Link>
           </ItemSubMenu>
           <ItemSubMenu>
-            <Link className={styles.linkItem} to="/admin/creatProduct">
+            <Link className={styles.linkItem} to="/admin/createProduct">
               <span>Criar Produtos</span>
             </Link>
           </ItemSubMenu>
@@ -112,7 +126,7 @@ export default function AdminNav() {
               <span>Atualizar Produtos</span>
             </Link>
           </ItemSubMenu>
-        </SubMenu>
+        </SubMenu> */}
       </Menu>
     </Sidebar>
   );

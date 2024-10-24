@@ -1,5 +1,4 @@
 .home {
-    padding: 40px 36px;
     padding-bottom: 120px;
 }
 
@@ -38,6 +37,7 @@
     position: relative; /* Para garantir que o conteúdo fique acima do pseudo-elemento */
     z-index: 1;
 }
+
 
 .title {
     font-size: clamp(1.25rem, 0.9667rem + 0.4444vw, 1.5rem);
@@ -80,51 +80,4 @@
 
 .round {
     font-size: clamp(1rem, 0.4333rem + 0.8889vw, 1.5rem);
-}
-
-.teamSection{
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.raceSection{
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    margin-top: 12px;
-}
-
-@media (max-width: 1020px) {
-    .nextRace {
-        height: 140px;
-    }
-}
-
-@media (max-width: 860px) {
-    .nextRace {
-        display: grid;
-        grid-auto-flow: dense;
-    }
-
-    .racingCircuit {
-        order: 2;
-        width: 100%;
-        height: auto;
-    }
-
-    .dataRace {
-        order: 1;
-        gap: 80px;
-    }
-
-    .teamSection{
-        margin-top: 350px;
-    }
-}
-
-@media (max-width: 767px) {
-    .teamSection{
-        margin-top: clamp(18.75rem, -3.2544rem + 65.1982vw, 28rem);
-    }
 }

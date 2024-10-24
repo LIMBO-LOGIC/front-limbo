@@ -1,184 +1,118 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Switch from "../Switch";
+import { baseUrl } from "../../service/api";
+import { Link, useNavigate } from "react-router-dom";
+import { FaPen, FaTrashAlt } from "react-icons/fa";
+import Swal from "sweetalert2";
+import useContexts from "../../hooks/useContext";
 
 const ProductListModule = () => {
   const [products, setProducts] = useState([]);
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    change_points: "",
-    active: true,
-    image: "",
-    details: "",
-  });
-  const [productId, setProductId] = useState("");
-  const [modalMessage, setModalMessage] = useState("");
-  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate()
+  const { setIsLoadingAdmin } = useContexts();
 
   useEffect(() => {
+  
     fetchProducts();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchProducts = async () => {
+    setIsLoadingAdmin(true)
     try {
       const response = await axios.get(
-        "https://back-limbo-production.up.railway.app/products"
+        `${baseUrl}/products`
       );
       setProducts(response.data);
     } catch (error) {
       console.error("Erro ao buscar produtos:", error);
     }
+    setIsLoadingAdmin(false)
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post(
-        "https://back-limbo-production.up.railway.app/products",
-        formData
-      );
-      setModalMessage("Produto criado com sucesso!");
-      fetchProducts();
-      resetForm();
-      setShowModal(true);
-    } catch (error) {
-      console.error("Erro ao criar produto:", error);
-      setModalMessage("Erro ao criar produto.");
-      setShowModal(true);
-    }
+  const handleDelete = async (id, name) => {
+    Swal.fire({
+      title: `Tem certeza que deseja excluir o produto "${name}"?`,
+      text: "Esta ação não poderá ser desfeita!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#ADADAD",
+      confirmButtonText: "Sim, excluir!",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteProduct(id);
+      }
+    });
   };
 
-  const handleDelete = async () => {
+  const deleteProduct = async (id) => {
     try {
       await axios.delete(
-        `https://back-limbo-production.up.railway.app/products/${productId}`
+        `${baseUrl}/products/${id}`
       );
-      setModalMessage("Produto deletado com sucesso!");
+      Swal.fire("Excluído!", "O produto foi excluído com sucesso.", "success");
       fetchProducts();
-      setProductId("");
-      setShowModal(true);
     } catch (error) {
+      Swal.fire("Erro ao deletar produto, tente novamente mais tarde!", "error");
       console.error("Erro ao deletar produto:", error);
-      setModalMessage("Erro ao deletar produto.");
-      setShowModal(true);
     }
   };
 
-  const handleUpdate = async () => {
-    try {
-      await axios.put(
-        `https://back-limbo-production.up.railway.app/products/${productId}`,
-        formData
-      );
-      setModalMessage("Produto atualizado com sucesso!");
-      fetchProducts();
-      resetForm();
-      setShowModal(true);
-    } catch (error) {
-      console.error("Erro ao atualizar produto:", error);
-      setModalMessage("Erro ao atualizar produto.");
-      setShowModal(true);
-    }
-  };
-
-  const resetForm = () => {
-    setFormData({
-      name: "",
-      description: "",
-      change_points: "",
-      active: true,
-      image: "",
-      details: "",
-    });
-    setProductId("");
-  };
+  const change_active = () => alert('Desativou')
 
   return (
     <div className="container">
-      <h2>Lista de Produtos</h2>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Pontos de Troca</th>
-            <th>Ativo</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr
-              key={product.id}
-              onClick={() => {
-                setProductId(product.id);
-                setFormData({
-                  name: product.name,
-                  description: product.description,
-                  change_points: product.change_points,
-                  active: product.active,
-                  image: product.image,
-                  details: product.details,
-                });
-              }}
-            >
-              <td>{product.name}</td>
-              <td>{product.description}</td>
-              <td>{product.change_points}</td>
-              <td>
-                <Switch check={!product.active}/>
-              </td>
-              <td>
-                <button
-                  className="btn btn-danger"
-                  onClick={(e) => {
-                    e.stopPropagation(); // Prevent row click
-                    setProductId(product.id);
-                    handleDelete();
-                  }}
-                >
-                  Deletar
-                </button>
-              </td>
+      <div className="mt-3 mb-3 d-flex align-items-center justify-content-between">
+        <h2 className="fs-7">Lista de Produtos</h2>
+        <Link to="/admin/createProduct" className="btn btn-lg btn-primary">
+          Criar produto
+        </Link>
+      </div>
+      <div className="table-responsive">
+        <table className="table caption-top">
+          <thead className="table-dark">
+            <tr>
+              <th scope="col" className="col-md-2">Nome</th>
+              <th scope="col" className="col-md-5">Descrição</th>
+              <th scope="col" style={{ whiteSpace: "nowrap" }} className="col">Pontos de Troca</th>
+              <th scope="col" className="col">Ativo</th>
+              <th scope="col" className="col">Ações</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {/* Modal de Mensagem */}
-      <div
-        className={`modal fade ${showModal ? "show" : ""}`}
-        style={{ display: showModal ? "block" : "none" }}
-        tabIndex="-1"
-        role="dialog"
-      >
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">Mensagem</h5>
-              <button
-                type="button"
-                className="close"
-                onClick={() => setShowModal(false)}
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr
+                key={product.id}
               >
-                <span>&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <p>{modalMessage}</p>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={() => setShowModal(false)}
-              >
-                Fechar
-              </button>
-            </div>
-          </div>
-        </div>
+                <td>{product.name}</td>
+                <td>{product.description}</td>
+                <td>{product.change_points}</td>
+                <td>
+                  <Switch check={product.active} onclick={change_active}/>
+                </td>
+                <td>
+                  <button
+                    className="btn btn-warning px-4 me-2 py-1"
+                    onClick={() => { navigate(`/admin/uptadeProduct/${product.id}`) }}
+                  >
+                    <FaPen size={18} />
+                  </button>
+                  <button
+                    className="btn btn-danger px-4 py-1"
+                    onClick={() => {
+                      handleDelete(product.id,product.name);
+                    }}
+                  >
+                    <FaTrashAlt size={18} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
