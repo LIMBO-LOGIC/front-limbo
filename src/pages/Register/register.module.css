@@ -14,7 +14,7 @@
   display: grid;
   grid-template-columns: 50vw 50vw;
 }
-.main_login h5{
+.main_login h5 {
   font-size: 30px;
   margin-top: 40px;
 }
@@ -113,15 +113,16 @@
   border-radius: 8px;
   text-transform: uppercase;
   letter-spacing: 3px;
-  color: #ffffff;
-  background-color: #222424;
+  color: rgba(0, 84, 255, 1);
+  background-color: #ffff;
   cursor: pointer;
   font-weight: 800;
   margin-top: 42px;
 }
 
 .btn_login:hover {
-  background-color: #1c1d1d;
+  background-color: rgb(2, 28, 80);
+  color: #ffff;
 }
 
 .conta {
@@ -134,6 +135,48 @@
 .linkItemProfile p {
   cursor: pointer;
 }
+.btnGoogle {
+  width: 100%;
+  padding: 16px 0; /* Removido o zero da direita, já que é 0 */
+  border: none;
+  border-radius: 8px;
+  background-color: #db4437; /* Cor do Google */
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  cursor: pointer;
+  font-weight: 800;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  animation: pop-in 0.5s ease forwards;
+}
+
+.icon {
+  margin-right: 8px;
+}
+
+.btnGoogle:disabled {
+  background-color: #a94442;
+  cursor: not-allowed;
+}
+
+.btnGoogle:hover {
+  background-color: #af1d10;
+  transform: scale(1.05);
+}
+
+@keyframes pop-in {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
 /* Media Queries */
 /* Media Queries */
 @media (max-width: 960px) {

@@ -11,6 +11,7 @@ import { auth, provider } from "../../firebaseConfig";
 import { signInWithPopup } from "firebase/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button } from "react-bootstrap";
+import { FaGoogle } from "react-icons/fa";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -266,21 +267,19 @@ const Register = () => {
             >
               {isLoading ? "Registrando..." : "Registrar"}
             </button>
-
             <button
-              className={styles.btn_google}
+              className={styles.btnGoogle}
               onClick={handleGoogleRegister}
               disabled={isLoading}
             >
-              Registrar com Google
+              <FaGoogle className={styles.icon} />
+              {isLoading ? "Carregando..." : "Registrar com Google"}
             </button>
           </div>
         </div>
-
         <div className={styles.right_login}>
           <img src={imagem_direita} className={styles.image} alt="Animação" />
         </div>
-
         {/* Modal de senha */}
         <Modal
           show={showPasswordModal}
