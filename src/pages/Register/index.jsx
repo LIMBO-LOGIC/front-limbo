@@ -160,8 +160,16 @@ const Register = () => {
         },
       });
 
+      const currentDate = new Date();
+      const formattedDate = currentDate.toISOString();
+
       toast.success("Cadastro realizado com sucesso!");
-      navigate("/login");
+      let json = response.data.user;
+      json.dateSalved = formattedDate;
+
+      setDataUser(json);
+      localStorage.setItem("userStorage", JSON.stringify(json));
+
     } catch (error) {
       console.error("Erro ao registrar com Google:", error);
       toast.error("Erro ao tentar fazer o cadastro.");
