@@ -6,6 +6,7 @@ import { FiShoppingBag } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { FaFlagCheckered } from "react-icons/fa";
 import { BsFillHouseFill } from "react-icons/bs";
+import { RiDiceLine } from "react-icons/ri";
 
 const ItemMenu = ({ children }) => {
   return (
@@ -72,61 +73,12 @@ export default function AdminNav() {
             <p>Produtos</p>
           </Link>
         </ItemMenu>
-
-        {/* <SubMenu
-          defaultOpen={false}
-          label="Corrida"
-          icon={<FaFlagCheckered />}
-          className={styles.subMenu}
-        >
-          <ItemSubMenu>
-            <Link className={styles.linkItem} to="/admin/allCreateRace">
-              <span>Geral Corrida</span>
-            </Link>
-          </ItemSubMenu>
-          <ItemSubMenu>
-            <Link to={"/admin/createRace"} className={styles.linkItem}>
-              <span>Criar Corridas</span>
-            </Link>
-          </ItemSubMenu>
-          <ItemSubMenu>
-            <Link to={"/admin/raceList"} className={styles.linkItem}>
-              <span>Lista Corridas</span>
-            </Link>
-            </ItemSubMenu>
-            <ItemSubMenu>
-            <Link to={"/admin/uptadeRace"} className={styles.linkItem}>
-              <span>Atualizar Corridas</span>
-            </Link>
-          </ItemSubMenu>
-        </SubMenu> */}
-        {/* <SubMenu
-          defaultOpen={false}
-          label="Produtos"
-          icon={<FiShoppingBag />}
-          className={styles.subMenu}
-        >
-          <ItemSubMenu>
-            <Link className={styles.linkItem} to="/admin/allProduct">
-              <span>Geral Produtos</span>
-            </Link>
-          </ItemSubMenu>
-          <ItemSubMenu>
-            <Link className={styles.linkItem} to="/admin/createProduct">
-              <span>Criar Produtos</span>
-            </Link>
-          </ItemSubMenu>
-          <ItemSubMenu>
-            <Link to={"/admin/productlist"} className={styles.linkItem}>
-              <span>Lista Produtos</span>
-            </Link>
-          </ItemSubMenu>
-          <ItemSubMenu>
-            <Link to={"/admin/uptadeProduct"} className={styles.linkItem}>
-              <span>Atualizar Produtos</span>
-            </Link>
-          </ItemSubMenu>
-        </SubMenu> */}
+        <ItemMenu>
+          <Link to="/admin/raceBet" className={styles.itemMenu}>
+            <RiDiceLine  />
+            <p>Chute da sorte</p>
+          </Link>
+        </ItemMenu>
       </Menu>
     </Sidebar>
   );
