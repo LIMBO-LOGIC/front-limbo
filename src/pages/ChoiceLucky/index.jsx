@@ -69,6 +69,8 @@ export default function ChoiceLucky() {
       listPilots: JSON.stringify(pilots),
     };
 
+    console.log(body)
+
     axios
       .post(`${baseUrl}/racing-bets`, body)
       .then((response) => {
