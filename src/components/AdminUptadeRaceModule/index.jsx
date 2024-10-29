@@ -2,6 +2,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { baseUrl } from "../../service/api";
 
 const UpdateRaceModule = () => {
   const {id} = useParams()
@@ -26,7 +27,7 @@ const UpdateRaceModule = () => {
   const fetchRace = async (id) => {
     try {
       const response = await axios.get(
-        `https://back-limbo-production.up.railway.app/racing/${id}`
+        `${baseUrl}/racing/${id}`
       );
       setUpdateData(response.data);
       setFormData({
@@ -50,7 +51,7 @@ const UpdateRaceModule = () => {
 
     try {
       await axios.put(
-        `https://back-limbo-production.up.railway.app/racing/${updateData.id_racing}`,
+        `${baseUrl}/racing/${updateData.id_racing}`,
         formData
       );
       setModalMessage("Corrida atualizada com sucesso!");

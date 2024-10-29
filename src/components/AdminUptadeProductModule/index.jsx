@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import useContexts from "../../hooks/useContext";
+import { baseUrl } from "../../service/api";
 
 const UptadeProductModule = () => {
   const { id } = useParams()
@@ -28,7 +29,7 @@ const UptadeProductModule = () => {
     setIsLoadingAdmin(true)
     try {
       const response = await axios.get(
-        `https://back-limbo-production.up.railway.app/products/${id}`
+        `${baseUrl}/products/${id}`
       );
       console.log(response);
       setFormData({
@@ -49,7 +50,7 @@ const UptadeProductModule = () => {
   const handleUpdate = async () => {
     try {
       await axios.put(
-        `https://back-limbo-production.up.railway.app/products/${productId}`,
+        `${baseUrl}/products/${productId}`,
         formData
       );
       setModalMessage("Produto atualizado com sucesso!");
