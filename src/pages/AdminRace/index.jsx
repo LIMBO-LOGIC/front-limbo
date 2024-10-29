@@ -56,7 +56,7 @@ const CreateRaceAll = () => {
 
     try {
       await axios.put(
-        `https://back-limbo-production.up.railway.app/racing/${updateData.id_racing}`,
+        `${baseUrl}/racing/${updateData.id_racing}`,
         formData
       );
       setModalMessage("Corrida atualizada com sucesso!");
@@ -74,7 +74,7 @@ const CreateRaceAll = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(
-        `https://back-limbo-production.up.railway.app/racing/${id}`
+        `${baseUrl}/racing/${id}`
       );
       setModalMessage("Corrida deletada com sucesso!");
       fetchRaces(); // Atualiza a lista após a exclusão

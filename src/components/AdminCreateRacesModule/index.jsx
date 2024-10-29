@@ -1,6 +1,7 @@
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
+import { baseUrl } from "../../service/api";
 
 const CreateRaceModule = () => {
   const [formData, setFormData] = useState({
@@ -24,7 +25,7 @@ const CreateRaceModule = () => {
   const fetchRaces = async () => {
     try {
       const response = await axios.get(
-        "https://back-limbo-production.up.railway.app/racing"
+        `${baseUrl}/racing`
       );
       setRaces(response.data);
     } catch (error) {
@@ -36,7 +37,7 @@ const CreateRaceModule = () => {
     e.preventDefault();
     try {
       await axios.post(
-        "https://back-limbo-production.up.railway.app/racing",
+        `${baseUrl}/racing`,
         formData
       );
       setModalMessage("Corrida criada com sucesso!");
@@ -56,7 +57,7 @@ const CreateRaceModule = () => {
 
     try {
       await axios.put(
-        `https://back-limbo-production.up.railway.app/racing/${updateData.id_racing}`,
+        `${baseUrl}/racing/${updateData.id_racing}`,
         formData
       );
       setModalMessage("Corrida atualizada com sucesso!");

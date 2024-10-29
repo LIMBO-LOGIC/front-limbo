@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { baseUrl } from "../../service/api";
 
 const CreateProductModule = () => {
   const [products, setProducts] = useState([]);
@@ -23,7 +24,7 @@ const CreateProductModule = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "https://back-limbo-production.up.railway.app/products"
+        `${baseUrl}/products`
       );
       setProducts(response.data);
     } catch (error) {
@@ -35,7 +36,7 @@ const CreateProductModule = () => {
     e.preventDefault();
     try {
       await axios.post(
-        "https://back-limbo-production.up.railway.app/products",
+        `${baseUrl}/products`,
         formData
       );
       setModalMessage("Produto criado com sucesso!");
