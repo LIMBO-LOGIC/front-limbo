@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { useParams } from "react-router-dom";
+import useContexts from "../../hooks/useContext";
 
 const UptadeProductModule = () => {
-  const [products, setProducts] = useState([]);
+  const { id } = useParams()
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -15,53 +16,33 @@ const UptadeProductModule = () => {
   const [productId, setProductId] = useState("");
   const [modalMessage, setModalMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const { setIsLoadingAdmin } = useContexts();
+
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    fetchProducts(id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
-  const fetchProducts = async () => {
+  const fetchProducts = async (id) => {
+    setIsLoadingAdmin(true)
     try {
       const response = await axios.get(
-        "https://back-limbo-production.up.railway.app/products"
+        `https://back-limbo-production.up.railway.app/products/${id}`
       );
-      setProducts(response.data);
+      console.log(response);
+      setFormData({
+        name: response.data.name,
+        description: response.data.description,
+        change_points: response.data.change_points,
+        active: response.data.active,
+        image: response.data.image,
+        details: response.data.details,
+      });
     } catch (error) {
       console.error("Erro ao buscar produtos:", error);
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post(
-        "https://back-limbo-production.up.railway.app/products",
-        formData
-      );
-      setModalMessage("Produto criado com sucesso!");
-      fetchProducts();
-      resetForm();
-      setShowModal(true);
-    } catch (error) {
-      console.error("Erro ao criar produto:", error);
-      setModalMessage("Erro ao criar produto.");
-      setShowModal(true);
-    }
-  };
-
-  const handleDelete = async () => {
-    try {
-      await axios.delete(
-        `https://back-limbo-production.up.railway.app/products/${productId}`
-      );
-      setModalMessage("Produto deletado com sucesso!");
-      fetchProducts();
-      setProductId("");
-      setShowModal(true);
-    } catch (error) {
-      console.error("Erro ao deletar produto:", error);
-      setModalMessage("Erro ao deletar produto.");
-      setShowModal(true);
+    } finally {
+      setIsLoadingAdmin(false)
     }
   };
 
@@ -94,37 +75,16 @@ const UptadeProductModule = () => {
     setProductId("");
   };
 
-  const handleProductSelect = (product) => {
-    setProductId(product.id);
-    setFormData({
-      name: product.name,
-      description: product.description,
-      change_points: product.change_points,
-      active: product.active,
-      image: product.image,
-      details: product.details,
-    });
-  };
-
   return (
-    <div className="container">
+    <div className="container pt-4">
       <h2>Atualizar Produto</h2>
       <form
         onSubmit={(e) => {
           e.preventDefault();
           handleUpdate();
         }}
-        className="mb-4"
+        className="mb-4 pt-3"
       >
-        <div className="mb-3">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="ID do Produto"
-            value={productId}
-            readOnly
-          />
-        </div>
         <div className="mb-3">
           <input
             type="text"

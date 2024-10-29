@@ -54,7 +54,7 @@ const Login = () => {
 
         setDataUser(json);
         localStorage.setItem("userStorage", JSON.stringify(json));
-        navigate("/race");
+        navigate(json.type_user == "USER" ? "/race" : "/admin");
       })
       .catch((error) => {
         if (error.status === 401) {

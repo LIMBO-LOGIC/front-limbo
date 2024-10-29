@@ -8,8 +8,8 @@
 @font-face {
   font-family: "MyCustomFont";
   src: local("MyCustomFont") url("./assets/fonts/FESans.var.woff2")
-      format("woff2"),
-    url("./assets/fonts/FESans.var.ttf") format("truetype");
+      format("opentype"),
+    url("./assets/fonts/FESans.var.ttf") format("ttf");
   font-weight: normal;
   font-style: normal;
 }

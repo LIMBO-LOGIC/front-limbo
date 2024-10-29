@@ -20,7 +20,6 @@ import Teams from "./../pages/Teams/index";
 import Favorite from "../pages/Favorite";
 import AdminLayout from "../layouts/AdminLayout";
 import AllProduct from "../pages/AdminProducts";
-import AdminLandingPage from "../pages/AdminLandinPage";
 import CreateProduct from "../pages/AdminCreateProducts";
 import ProductList from "../pages/AdminProductList";
 import UptadeProduct from "../pages/AdminUptadeProduct";
@@ -28,6 +27,7 @@ import CreateRace from "../pages/AdminCreateRace";
 import CreateRaceAll from "../pages/AdminRace";
 import ListaRace from "../pages/AdminRaceList";
 import UptadeRace from "../pages/AdminUptadeRace";
+import AdminHome from "../pages/AdminHome";
 
 const router = createBrowserRouter([
   {
@@ -50,14 +50,14 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <AdminLandingPage />,
+        element: <AdminHome />,
       },
       {
         path: "allProduct",
         element: <AllProduct />,
       },
       {
-        path: "creatProduct",
+        path: "createProduct",
         element: <CreateProduct />,
       },
       {
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
         element: <ProductList />,
       },
       {
-        path: "uptadeProduct",
+        path: "uptadeProduct/:id",
         element: <UptadeProduct />,
       },
       {
