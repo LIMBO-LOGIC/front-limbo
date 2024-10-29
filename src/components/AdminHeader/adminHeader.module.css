@@ -68,7 +68,7 @@
   cursor: pointer;
   padding: 0.3em 0.5em !important;
   background-color: transparent !important;
-  color: rgb(255, 255, 255) !important; /* Cinza para texto */
+  color: #00005B !important; /* Cinza para texto */
   font-weight: 500 !important;
   transition: all 0.5s;
 }
