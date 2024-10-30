@@ -25,6 +25,7 @@ export default function AdminCardRaceLucky({
   const navigate = useNavigate();
   const [dayMonth, setDayMonth] = useState([]);
   const status = isExist.length > 0;
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const monthsAbbrev = [
@@ -42,7 +43,6 @@ export default function AdminCardRaceLucky({
       "Dez",
     ];
 
-    // Renomeie a variável para evitar conflito
     const parsedDate = new Date(date);
     const day = parsedDate.getDate().toString().padStart(2, "0");
     const month = monthsAbbrev[parsedDate.getMonth()];
@@ -90,6 +90,22 @@ export default function AdminCardRaceLucky({
     }
   };
 
+  const handleShowModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleButtonClick = () => {
+    if (!status) {
+      handleShowModal(); // Mostra o modal se a corrida estiver indisponível
+    } else {
+      navigate(`./choice/${idRace}/${status ? isExist[0].id_racing_bet : 0}`);
+    }
+  };
+
   return (
     <div className={styles.cardRaceLuck}>
       <div className={styles.containerCard}>
@@ -125,44 +141,59 @@ export default function AdminCardRaceLucky({
           Corrida {handleRaceText()}
         </span>
 
-        {handleRaceText() == "cancelada" ||
-        (handleRaceText() == "finalizada" && status == false) ? (
+        {handleRaceText() === "cancelada" ||
+        (handleRaceText() === "finalizada" && !status) ? (
           ""
         ) : (
           <span
-            style={{ backgroundColor: status ? "#000360" : "#00B69B" }}
+            style={{ backgroundColor: status ? "#000360" : "#c91103" }}
             className={styles.tag}
           >
-            {status ? "Chute Realizado" : "Aberto para chute"}
+            {status ? "Resultado Realizado" : "Resultado indisponível"}
           </span>
         )}
       </div>
 
-      {handleRaceText() == "finalizada" && !status ? (
-        <button
-          onClick={() => navigate(`./choice/${idRace}/0`)}
-          className={styles.btnDisabled}
-        >
-          Finalizado - Ver Resultado
-        </button>
-      ) : (
-        <button
-          onClick={() => {
-            if (status) {
-              navigate(`./choice/${idRace}/${isExist[0].id_racing_bet}`);
-            } else {
-              navigate(`./choice/${idRace}/0`);
-            }
-          }}
-          className={status ? styles.btnKicked : styles.btnKick}
-        >
-          {status
-            ? handleRaceText() == "finalizada"
-              ? "Ver resultado"
-              : "Chute Realizado"
-            : "Chutar"}
-        </button>
+      <button
+        onClick={handleButtonClick}
+        className={status ? styles.btnKicked : styles.btnKick}
+      >
+        {status
+          ? handleRaceText() === "finalizada"
+            ? "Ver resultado"
+            : "Resultado Realizado"
+          : "Corrida indisponível"}
+      </button>
+
+      {isModalOpen && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <p>É impossível inserir o resultado, pois a corrida ainda não aconteceu.</p>
+            <button onClick={handleCloseModal}>Fechar</button>
+          </div>
+        </div>
       )}
+
+      <style jsx>{`
+        .modalOverlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .modalContent {
+          background: white;
+          padding: 20px;
+          border-radius: 8px;
+          text-align: center;
+        }
+      `}</style>
     </div>
   );
 }

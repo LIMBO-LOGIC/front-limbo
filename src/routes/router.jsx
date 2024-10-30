@@ -29,6 +29,7 @@ import ListaRace from "../pages/AdminRaceList";
 import UptadeRace from "../pages/AdminUptadeRace";
 import AdminLuckyKick from "../pages/AdminLuckyKick";
 import AdminHome from "../pages/AdminHome";
+import AdminChoiceLucky from "../pages/AdminChoiceLucky";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
       {
         path: "raceList",
         element: <ListaRace />,
+      },
+      {
+        path: "raceList/choice/:idRace/:idRacingBet",
+        element: <AdminChoiceLucky />,
       },
       {
         path: "uptadeRace/:id",
