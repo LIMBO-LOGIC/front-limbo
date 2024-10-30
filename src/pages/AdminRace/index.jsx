@@ -1,6 +1,7 @@
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { baseUrl } from "../../service/api";
 
 const CreateRaceAll = () => {
   const [formData, setFormData] = useState({
@@ -24,7 +25,7 @@ const CreateRaceAll = () => {
   const fetchRaces = async () => {
     try {
       const response = await axios.get(
-        "https://back-limbo-production.up.railway.app/racing"
+        `${baseUrl}/racing`
       );
       setRaces(response.data);
     } catch (error) {
@@ -36,7 +37,7 @@ const CreateRaceAll = () => {
     e.preventDefault();
     try {
       await axios.post(
-        "https://back-limbo-production.up.railway.app/racing",
+        `${baseUrl}racing`,
         formData
       );
       setModalMessage("Corrida criada com sucesso!");
