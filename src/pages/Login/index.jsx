@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import styles from "./login.module.css";
 import imagem_login from "../../assets/tela_login_imagem.png";
-import logo from "../../../public/assets/logo_formulaE_branca.png";
+import logo from "/assets/logo_formulaE_branca.png";
 import { Link, useNavigate } from "react-router-dom";
 import { baseUrl } from "../../service/api";
 import { toast } from "react-toastify";

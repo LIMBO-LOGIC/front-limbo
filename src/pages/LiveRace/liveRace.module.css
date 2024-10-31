@@ -177,7 +177,7 @@
 .registerPilot {
   padding: 4px 0px;
   height: 58px;
-  background-color: rebeccapurple;
+  background-color: var(--bg-blue);
 
   td {
     height: 100%;

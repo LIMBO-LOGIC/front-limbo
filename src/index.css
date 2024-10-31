@@ -36,6 +36,13 @@
   height: 100vh !important;
 }
 
+a{
+  --bs-btn-hover-bg: var(--bg-blue) !important;
+  --bs-btn-hover-border-color: var(--bg-blue) !important;
+  --bs-btn-bg: var(--bg-blue) !important;
+  --bs-btn-border-color: var(--bg-blue) !important;
+}
+
 p {
   margin: 0 !important;
 }

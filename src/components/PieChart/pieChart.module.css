@@ -1,0 +1,17 @@
+.chart {
+  width: 400px;
+  margin: 0 auto;
+  max-height: 400px;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .chart {
+    width: 100%;
+    margin: 0 auto;
+    max-height: 400px;
+    display: flex;
+    justify-content: center;
+  }
+}

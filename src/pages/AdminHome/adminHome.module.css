@@ -81,3 +81,26 @@
 .round {
     font-size: clamp(1rem, 0.4333rem + 0.8889vw, 1.5rem);
 }
+
+.bigNumbers{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	padding-top: 32px;
+    min-height: auto !important;
+    flex-direction: row !important;
+}
+
+.box{
+    height: max-content !important;
+    min-height: auto !important;
+}
+
+.charts{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem;
+    margin-top: 28px;
+    justify-content: center;
+    min-height: 100% !important;
+}
