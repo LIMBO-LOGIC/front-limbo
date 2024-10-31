@@ -1,26 +1,27 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { baseUrl } from "../../service/api";
-import { FaPen, FaTrashAlt } from "react-icons/fa";
+import { FaFlagCheckered, FaPen, FaTrashAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useContexts from "../../hooks/useContext";
+import styles from './adminListRaceModule.module.css'
+import AdminTitle from "../AdminTitle";
 
 const ListRaceModule = () => {
   const [races, setRaces] = useState([]);
   const [modalMessage, setModalMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { setIsLoadingAdmin } = useContexts();
-
 
   useEffect(() => {
     fetchRaces();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchRaces = async () => {
-    setIsLoadingAdmin(true)
+    setIsLoadingAdmin(true);
     try {
       const response = await axios.get(`${baseUrl}/racing`);
       console.log(response.data);
@@ -28,7 +29,7 @@ const ListRaceModule = () => {
     } catch (error) {
       console.error("Erro ao buscar corridas:", error);
     }
-    setIsLoadingAdmin(false)
+    setIsLoadingAdmin(false);
   };
 
   const handleDelete = async (id, race) => {
@@ -75,56 +76,66 @@ const ListRaceModule = () => {
   }
 
   return (
-    <div className="container-sm px-4">
-      <div className="mt-3 mb-3 d-flex align-items-center justify-content-between">
-        <h2 className="fs-7">Lista de Corridas</h2>
-        <Link to="/admin/createRace" className="btn btn-lg btn-primary">
-          Criar corrida
-        </Link>
-      </div>
-      <div className="table-responsive">
-        <table className="table caption-top">
-          <thead className="table-dark">
-            <tr>
-              <th scope="col" className="col">
-                Localização
-              </th>
-              <th scope="col" className="col">
-                Data/Hora
-              </th>
-              <th scope="col" className="col">
-                Rodada
-              </th>
-              <th scope="col" className="col" width="20%">
-                Ações
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {races.map((race) => (
-              <tr key={race.id_racing}>
-                <td>{race.circuit_location}</td>
-                <td>{formatarDataISO(race.race_date)}</td>
-                <td>{race.round}</td>
-                <td>
-                  <button
-                    className="btn btn-warning px-4 me-2 py-1"
-                    onClick={() => {navigate(`/admin/uptadeRace/${race.id_racing}`)}}
-                  >
-                    <FaPen size={18} />
-                  </button>
-                  <button
-                    className="btn btn-danger px-4 py-1"
-                    onClick={() => handleDelete(race.id_racing, race.circuit_location)}
-                  >
-                    <FaTrashAlt size={18} />
-                  </button>
-                </td>
+    <div className="p-4">
+      <AdminTitle text='Lista de Corridas' icon={<FaFlagCheckered size={22}/>}/>
+      <section className={`${styles.cardTable} pb-4 h-max card px-5`}>
+        <div className="mt-3 mb-3 d-flex align-items-center justify-content-end">
+          <Link to="/admin/createRace" style={{fontSize: '16px'}} className="btn btn-sm btn-primary btn-new-alter px-3 py-1 ms-auto">
+            Criar corrida
+          </Link>
+        </div>
+        <div className="table-responsive">
+          <table className="table caption-top">
+            <thead className="table-dark">
+              <tr>
+                <th scope="col" className="col">
+                  Localização
+                </th>
+                <th scope="col" className="col">
+                  Data/Hora
+                </th>
+                <th scope="col" className="col">
+                  Rodada
+                </th>
+                <th scope="col" className="col" width="20%">
+                  Ações
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {races.map((race) => (
+                <tr key={race.id_racing}>
+                  <td>{race.circuit_location}</td>
+                  <td>{formatarDataISO(race.race_date)}</td>
+                  <td>{race.round}</td>
+                  <td>
+                    <button
+                      className="btn btn-warning px-4 me-2 py-1"
+                      onClick={() => {
+                        navigate(`/admin/uptadeRace/${race.id_racing}`);
+                      }}
+                    >
+                      <FaPen size={18} />
+                    </button>
+                    <button
+                      className="btn btn-danger px-4 py-1"
+                      onClick={() =>
+                        handleDelete(race.id_racing, race.circuit_location)
+                      }
+                    >
+                      <FaTrashAlt size={18} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* <div className="mt-3 mb-3 d-flex align-items-center justify-content-between">
+        <h2 className="fs-7">Lista de Corridas</h2>
+      </div> */}
 
       {/* Modal de Mensagem */}
       <div
