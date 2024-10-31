@@ -5,6 +5,7 @@ import useContexts from "../../hooks/useContext";
 import { FaRegHeart } from "react-icons/fa";
 import { AiOutlineArrowDown } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
+import { BsFillHouseFill } from "react-icons/bs";
 
 export default function AdminHeader() {
   const navigate = useNavigate();
@@ -60,9 +61,7 @@ export default function AdminHeader() {
         />
         <div className={styles.userInfo}>
           <span className={styles.userGreeting}>Olá, {nameUser}!</span>
-          <span className={styles.userPoints}>
-            Admin 
-          </span>
+          <span className={styles.userPoints}>Admin</span>
         </div>
         {/* <AiOutlineArrowDown className={styles.arrow} onClick={toggleMenu} /> */}
         <AiOutlineArrowDown
@@ -78,11 +77,11 @@ export default function AdminHeader() {
         >
           <li>
             <Link
-              to={"/race/favorites"}
+              to={"/race"}
               className={`${styles.menuItem} dropdown-item`}
             >
-              <FaRegHeart size={18} />
-              Favoritos
+              <BsFillHouseFill size={18} />
+              Home
             </Link>
           </li>
           <li>
