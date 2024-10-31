@@ -98,14 +98,6 @@ export default function AdminCardRaceLucky({
     setIsModalOpen(false);
   };
 
-  const handleButtonClick = () => {
-    if (!status) {
-      handleShowModal(); // Mostra o modal se a corrida estiver indisponível
-    } else {
-      navigate(`./choice/${idRace}/${status ? isExist[0].id_racing_bet : 0}`);
-    }
-  };
-
   return (
     <div className={styles.cardRaceLuck}>
       <div className={styles.containerCard}>
@@ -155,7 +147,12 @@ export default function AdminCardRaceLucky({
       </div>
 
       <button
-        onClick={handleButtonClick}
+        onClick={() => {
+          const targetBetId = status ? isExist[0].id_racing_bet : 0;
+          const targetPath = `/admin/raceList/choice/${idRace}/${targetBetId}`;
+          console.log(`Navigating to: ${targetPath}`);
+          navigate(targetPath);
+        }}
         className={status ? styles.btnKicked : styles.btnKick}
       >
         {status
@@ -164,36 +161,6 @@ export default function AdminCardRaceLucky({
             : "Realizar Chute"
           : "Corrida indisponível"}
       </button>
-
-      {isModalOpen && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
-            <p>É impossível inserir o resultado, pois a corrida ainda não aconteceu.</p>
-            <button onClick={handleCloseModal}>Fechar</button>
-          </div>
-        </div>
-      )}
-
-      <style jsx>{`
-        .modalOverlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: rgba(0, 0, 0, 0.5);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .modalContent {
-          background: white;
-          padding: 20px;
-          border-radius: 8px;
-          text-align: center;
-        }
-      `}</style>
     </div>
   );
 }

@@ -9,7 +9,7 @@
   border-radius: 8px;
   border: 1px solid #adb5bd;
   box-shadow: 0px 0px 22.091px 3.535px rgba(0, 0, 0, 0.25);
-  background-color: var(--white-default);
+  background-color: var(--bg-blue); /* Azul de fundo */
 }
 
 .circuit {
@@ -26,12 +26,13 @@
   padding: 12px 0px;
   border-radius: 10px;
   transition: all 0.5s;
-  color: var(--white-default);
-  background-color: var(--bg-blue);
+  color: var(--bg-blue);
+  background-color: white;
 }
 
 .btnKick:hover {
-  background-color: #0020a4;
+  color: white;
+  background-color: rgb(0, 0, 43);
 }
 
 .btnDisabled {
@@ -42,9 +43,8 @@
   padding: 12px 0px;
   border-radius: 10px;
   transition: all 0.5s;
-  color: var(--white-default);
-  background: rgba(0, 0, 90, 0.78);
-  /* cursor: default !important; */
+  color: #fff; /* Branco para o texto */
+  background: rgba(0, 0, 255, 0.5); /* Azul claro com opacidade */
 }
 
 .btnKicked {
@@ -55,8 +55,8 @@
   padding: 12px 0px;
   border-radius: 10px;
   transition: all 0.5s;
-  color: var(--white-default);
-  background: rgba(0, 0, 100, 1);
+  color: #fff; /* Branco para o texto */
+  background: rgba(0, 0, 200, 1); /* Azul mais escuro */
 }
 
 .boxDate {
@@ -69,11 +69,13 @@
 
   .day {
     font-size: 40px;
+    color: #fff; /* Branco para o texto */
   }
 
   .month {
     text-align: center;
     font-size: 24px;
+    color: #fff; /* Branco para o texto */
   }
 }
 
@@ -91,7 +93,7 @@
   p {
     font-weight: 700;
     font-family: var(--font-montserrat);
-    color: var(--text-color);
+    color: #fff; /* Branco para o texto */
   }
 }
 
@@ -103,10 +105,12 @@
 
 .location {
   font-size: 20px;
+  color: #fff; /* Branco para o texto */
 }
 
 .round {
   font-size: 24px;
+  color: #fff; /* Branco para o texto */
 }
 
 .boxDate,
@@ -117,7 +121,12 @@
 .line {
   display: flex;
   width: 2px;
-  background: linear-gradient(180deg, #0ff 0%, #00f 50%, #0ff 100%);
+  background: linear-gradient(
+    180deg,
+    #00bfff 0%,
+    #fff 50%,
+    #00bfff 100%
+  ); /* Azul claro e branco */
 }
 
 .boxTags {
@@ -133,7 +142,7 @@
   font-weight: 600;
   border-radius: 4px;
   font-family: var(--font-inter);
-  color: var(--white-default);
+  color: #fff; /* Branco para o texto */
 }
 
 .flagCountry {
