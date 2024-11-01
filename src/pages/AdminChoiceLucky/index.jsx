@@ -15,20 +15,24 @@ export default function AdminChoiceLucky() {
   const [race, setRace] = useState("");
   const [pilots, setPilots] = useState([]);
   const [resultSaved, setResultSaved] = useState(false); // flag para indicar se o resultado foi salvo
+  const [userId, setUserId] = useState(null); // para armazenar o ID do usuário
 
   useEffect(() => {
+    // Carregar informações da corrida
     axios
-      .get(`${baseUrl}/racing/${idRace}`, {
+      .get(`${baseUrl}/racing-bets/${idRace}`, {
         headers: { accept: "application/json" },
       })
       .then((response) => {
         setRace(response.data);
         setResultSaved(response.data.resultSaved || false);
+        setUserId(response.data.user.id); // Armazenar o ID do usuário
       })
       .catch((error) => {
         console.log(error);
       });
 
+    // Carregar pilotos
     axios
       .get(`${urlAPIChat}race/pilots`, {
         headers: { accept: "application/json" },
@@ -41,6 +45,7 @@ export default function AdminChoiceLucky() {
     setIsLoading(true);
     const body = {
       racingId: idRace,
+      userId: userId, // Adicionando ID do usuário
       listPilots: JSON.stringify(pilots),
       resultSaved: true, // define que o resultado foi salvo
     };
