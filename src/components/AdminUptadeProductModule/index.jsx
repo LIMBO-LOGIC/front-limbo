@@ -133,6 +133,17 @@ const UptadeProductModule = () => {
         <div className="mb-3">
           <textarea
             className="form-control"
+            placeholder="Preço real"
+            value={formData.price}
+            onChange={(e) =>
+              setFormData({ ...formData, price: e.target.value })
+            }
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <textarea
+            className="form-control"
             placeholder="Detalhes"
             value={formData.details}
             onChange={(e) =>
