@@ -124,10 +124,10 @@ const Register = () => {
         fullname: user.displayName || "Nome Padrão",
         nickname: user.email.split("@")[0],
         email: user.email,
-        birthdate: "2006/12/03",
-        type_user: "user",
+        birthdate: "2006/12/03", // Ajuste conforme o campo necessário no backend
+        type_user: "user", // Adiciona o campo type_user com valor padrão
         profile_picture: user.photoURL || "URL da foto padrão",
-        firebase_token: token, // Adiciona o token ao backend
+        firebase_token: token, // Envia o token para o backend
       };
 
       await axios.post(`${baseUrl}/user/register`, body, {
@@ -140,7 +140,13 @@ const Register = () => {
       navigate("/login");
     } catch (error) {
       console.error("Erro ao registrar com Google:", error);
-      toast.error("Erro ao tentar fazer o cadastro com Google.");
+      if (error.response && error.response.data) {
+        toast.error(
+          `Erro ao tentar fazer o cadastro: ${error.response.data.error}`
+        );
+      } else {
+        toast.error("Erro ao tentar fazer o cadastro com Google.");
+      }
     } finally {
       setIsLoading(false);
     }
