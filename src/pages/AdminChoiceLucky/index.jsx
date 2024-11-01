@@ -20,7 +20,7 @@ export default function AdminChoiceLucky() {
   useEffect(() => {
     // Carregar informações da corrida
     axios
-      .get(`${baseUrl}/racing-bets/${idRace}`, {
+      .get(`${baseUrl}/racing/${idRace}`, {
         headers: { accept: "application/json" },
       })
       .then((response) => {
@@ -44,16 +44,19 @@ export default function AdminChoiceLucky() {
   const saveRacingBet = () => {
     setIsLoading(true);
     const body = {
-      racingId: idRace,
-      userId: userId, // Adicionando ID do usuário
-      listPilots: JSON.stringify(pilots),
-      resultSaved: true, // define que o resultado foi salvo
+      race_date: race.race_date,
+      country_flag: race.country_flag,
+      circuit_location: race.circuit_location,
+      circuit_image: race.circuit_image,
+      status: race.status,
+      round: race.round,
+      result_racing: JSON.stringify(pilots),
     };
 
-    console.log("Body da requisição:", body); // Log para inspecionar o conteúdo do body
+    console.log("Body da requisição:", race); // Log para inspecionar o conteúdo do body
 
     axios
-      .post(`${baseUrl}/racing-bets`, body)
+      .put(`${baseUrl}/racing/${idRace} `, body)
       .then((response) => {
         toast.success("Resultado salvo com sucesso!");
         setResultSaved(true); // atualiza o estado para indicar que o resultado foi salvo

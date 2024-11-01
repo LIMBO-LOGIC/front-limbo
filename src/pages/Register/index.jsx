@@ -1,16 +1,15 @@
-import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { signInWithPopup } from "firebase/auth";
 import { useState } from "react";
-import LoadingOverlay from "react-loading-overlay-ts";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import imagem_direita from "../../assets/tela_registro.svg";
-import { auth, provider } from "../../firebaseConfig";
-import { FaGoogle } from "react-icons/fa";
-import { baseUrl } from "../../service/api";
+import axios from "axios";
 import styles from "./register.module.css";
+import imagem_direita from "../../assets/tela_registro.svg";
 import UploadPhotoUser from "./UploadPhotoUser";
+import { Link, useNavigate } from "react-router-dom";
+import LoadingOverlay from "react-loading-overlay-ts";
+import { toast } from "react-toastify";
+import { baseUrl } from "../../service/api";
+import { auth, provider } from "../../firebaseConfig";
+import { signInWithPopup } from "firebase/auth";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -21,9 +20,6 @@ const Register = () => {
   const [dataNascimento, setDataNascimento] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  // eslint-disable-next-line no-unused-vars
-  const [googleUser, setGoogleUser] = useState(null); // Estado para armazenar dados do Google
-  const [senha, setSenha] = useState(""); // Senha que o usuário digitará no modal
 
   const handleImageChange = (file) => {
     const reader = new FileReader();
@@ -36,13 +32,7 @@ const Register = () => {
     event.preventDefault();
     setIsLoading(true);
 
-    if (!picture) {
-      setErrorMessage("Por favor, insira uma foto de perfil.");
-      setIsLoading(false);
-      return;
-    }
-
-    if (!nomeCompleto || !username || !email || !dataNascimento || !senha) {
+    if (!picture || !nomeCompleto || !username || !email || !dataNascimento) {
       setErrorMessage("Por favor, preencha todos os campos.");
       setIsLoading(false);
       return;
@@ -90,12 +80,10 @@ const Register = () => {
           nickname: username,
           email: email,
           birthdate: dataNascimento.replaceAll("-", "/"),
-          password: senha,
+          password: "",
           profile_picture: response.data.secure_url,
-          type_user: 'USER'
+          type_user: "user",
         };
-
-        console.log("Dados enviados para o servidor:", body);
 
         await axios.post(`${baseUrl}/user/register`, body, {
           headers: {
@@ -122,14 +110,29 @@ const Register = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
+      const token = await user.getIdToken();
 
-      console.log(result)
+      const body = {
+        fullname: user.displayName || "Nome Padrão",
+        nickname: user.email.split("@")[0],
+        email: user.email,
+        birthdate: "2006/12/03",
+        password: token, // Token como senha
+        profile_picture: user.photoURL || "URL da foto padrão",
+        type_user: "user",
+      };
 
-      setGoogleUser(user); // Armazena dados do usuário do Google
+      await axios.post(`${baseUrl}/user/register`, body, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      toast.success("Cadastro realizado com sucesso!");
+      navigate("/login");
     } catch (error) {
       console.error("Erro ao registrar com Google:", error);
       toast.error("Erro ao tentar fazer o cadastro com Google.");
-      setIsLoading(false);
     } finally {
       setIsLoading(false);
     }
@@ -206,18 +209,6 @@ const Register = () => {
               />
             </div>
 
-            <div className={styles.textfield}>
-              <input
-                required
-                type="password"
-                name="senha"
-                placeholder="Senha"
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
-                disabled={isLoading}
-              />
-            </div>
-
             <Link to="/login" className={styles.itemMenu}>
               <p className={styles.conta}>
                 Já tem conta? <span>Logue aqui</span>
@@ -239,8 +230,7 @@ const Register = () => {
               onClick={handleGoogleRegister}
               disabled={isLoading}
             >
-              <FaGoogle className={styles.icon} />
-              {isLoading ? "Carregando..." : "Google"}
+              Registrar com Google
             </button>
           </div>
         </div>

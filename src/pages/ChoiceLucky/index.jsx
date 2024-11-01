@@ -25,6 +25,12 @@ export default function ChoiceLucky() {
       })
       .then((response) => {
         setRace(response.data);
+
+        if (response.data.result_racing !== "") {
+          console.log("idRacingBet:", race); // Log do idRacingBet
+          const resultData = JSON.parse(response.data.result_racing);
+          setResultPilots(resultData); // Armazena os resultados na variável state
+        }
         setResultSaved(response.data.resultSaved || false); // Atualiza com o valor salvo
       })
       .catch((error) => console.log(error));
@@ -45,28 +51,6 @@ export default function ChoiceLucky() {
         setPilots(data);
       })
       .catch((error) => console.log(error));
-
-    // Carregar resultados
-    if (idRacingBet !== "0") {
-      console.log("idRacingBet:", idRacingBet); // Log do idRacingBet
-      axios
-        .get(`${baseUrl}/racing-bets/${idRacingBet}`, {
-          headers: { accept: "application/json" },
-        })
-        .then((response) => {
-          console.log("Resultado da requisição de resultados:", response.data); // Log da resposta
-          if (response.data.list_pilots) {
-            const resultData = JSON.parse(response.data.list_pilots);
-            console.log("Dados de resultados processados:", resultData); // Log dos dados processados
-            setResultPilots(resultData); // Armazena os resultados na variável state
-          } else {
-            console.log("list_pilots não está definido no response.data");
-          }
-        })
-        .catch((error) =>
-          console.log("Erro na requisição de resultados:", error)
-        );
-    }
   }, [idRace, idRacingBet]);
 
   const saveRacingBet = () => {
@@ -108,23 +92,25 @@ export default function ChoiceLucky() {
               </button>
             )}
           </div>
-          <Sortable isMove={!resultSaved} items={pilots} setItems={setPilots} />
+          <Sortable
+            isMove={!resultSaved && resultPilots.length === 0} // Desabilitar se houver resultados
+            items={pilots}
+            setItems={setPilots}
+          />
         </div>
 
-        <div className={styles.resultContainer}>
-          <div className={styles.titles}>
-            <h2>Resultado</h2>
-          </div>
-          {resultPilots.length === 0 ? (
-            <p>Nenhum resultado encontrado.</p>
-          ) : (
+        {resultPilots.length > 0 && (
+          <div className={styles.resultContainer}>
+            <div className={styles.titles}>
+              <h2>Resultado</h2>
+            </div>
             <Sortable
               isMove={false}
               items={resultPilots}
               setItems={setResultPilots}
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </section>
   );
