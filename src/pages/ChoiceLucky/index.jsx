@@ -92,7 +92,11 @@ export default function ChoiceLucky() {
               </button>
             )}
           </div>
-          <Sortable isMove={!resultSaved} items={pilots} setItems={setPilots} />
+          <Sortable
+            isMove={!resultSaved && resultPilots.length === 0} // Desabilitar se houver resultados
+            items={pilots}
+            setItems={setPilots}
+          />
         </div>
 
         {resultPilots.length > 0 && (
@@ -107,7 +111,6 @@ export default function ChoiceLucky() {
             />
           </div>
         )}
-        {resultPilots.length === 0 && <></>}
       </div>
     </section>
   );
