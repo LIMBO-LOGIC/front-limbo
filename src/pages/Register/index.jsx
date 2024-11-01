@@ -19,11 +19,11 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
-  const [senha, setSenha] = useState(""); // Senha que o usuário digitará no modal
+  const [senha, setSenha] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [showPasswordModal, setShowPasswordModal] = useState(false); // Estado do modal de senha
-  const [googleUser, setGoogleUser] = useState(null); // Estado para armazenar dados do Google
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [googleUser, setGoogleUser] = useState(null);
 
   const handleImageChange = (file) => {
     const reader = new FileReader();
@@ -92,6 +92,7 @@ const Register = () => {
           birthdate: dataNascimento.replaceAll("-", "/"),
           password: senha,
           profile_picture: response.data.secure_url,
+          type_user: "user", // Valor padrão do campo type_user
         };
 
         console.log("Dados enviados para o servidor:", body);
@@ -122,8 +123,8 @@ const Register = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      setGoogleUser(user); // Armazena dados do usuário do Google
-      setShowPasswordModal(true); // Mostra o modal para solicitar a senha
+      setGoogleUser(user);
+      setShowPasswordModal(true);
     } catch (error) {
       console.error("Erro ao registrar com Google:", error);
       toast.error("Erro ao tentar fazer o cadastro com Google.");
@@ -148,6 +149,7 @@ const Register = () => {
       birthdate: "2006/12/03",
       password: senha,
       profile_picture: googleUser.photoURL || "URL da foto padrão",
+      type_user: "user", // Valor padrão do campo type_user
     };
 
     try {
@@ -281,7 +283,6 @@ const Register = () => {
           <img src={imagem_direita} className={styles.image} alt="Animação" />
         </div>
 
-        {/* Modal de senha */}
         <Modal
           show={showPasswordModal}
           onHide={() => setShowPasswordModal(false)}
