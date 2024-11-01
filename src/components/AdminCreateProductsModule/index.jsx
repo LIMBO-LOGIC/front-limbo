@@ -12,7 +12,7 @@ const CreateProductModule = () => {
     active: true,
     image: "",
     details: "",
-    price: 0.0
+    price: 0.0,
   });
   const [productId, setProductId] = useState("");
   const [modalMessage, setModalMessage] = useState("");
@@ -24,9 +24,7 @@ const CreateProductModule = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get(
-        `${baseUrl}/products`
-      );
+      const response = await axios.get(`${baseUrl}/products`);
       setProducts(response.data);
     } catch (error) {
       console.error("Erro ao buscar produtos:", error);
@@ -36,10 +34,7 @@ const CreateProductModule = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(
-        `${baseUrl}/products`,
-        formData
-      );
+      await axios.post(`${baseUrl}/products`, formData);
       setModalMessage("Produto criado com sucesso!");
       fetchProducts();
       resetForm();
@@ -59,7 +54,7 @@ const CreateProductModule = () => {
       active: true,
       image: "",
       details: "",
-      price: 0.0
+      price: 0.0,
     });
     setProductId("");
   };
@@ -121,6 +116,17 @@ const CreateProductModule = () => {
             value={formData.details}
             onChange={(e) =>
               setFormData({ ...formData, details: e.target.value })
+            }
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <textarea
+            className="form-control"
+            placeholder="Preço real"
+            value={formData.price}
+            onChange={(e) =>
+              setFormData({ ...formData, price: e.target.value })
             }
             required
           />
