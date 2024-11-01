@@ -157,9 +157,9 @@ export default function AdminCardRaceLucky({
       >
         {status
           ? handleRaceText() === "finalizada"
-            ? "Ver resultado"
+            ? "INDISPONIVEL"
             : "Realizar Chute"
-          : "Corrida indisponível"}
+          : "Ver resultado"}
       </button>
     </div>
   );
