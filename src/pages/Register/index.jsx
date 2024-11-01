@@ -9,8 +9,6 @@ import { toast } from "react-toastify";
 import { baseUrl } from "../../service/api";
 import { auth, provider } from "../../firebaseConfig";
 import { signInWithPopup } from "firebase/auth";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Modal, Button } from "react-bootstrap";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -19,11 +17,8 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
-  const [senha, setSenha] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [showPasswordModal, setShowPasswordModal] = useState(false);
-  const [googleUser, setGoogleUser] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleImageChange = (file) => {
     const reader = new FileReader();
@@ -42,7 +37,7 @@ const Register = () => {
       return;
     }
 
-    if (!nomeCompleto || !username || !email || !dataNascimento || !senha) {
+    if (!nomeCompleto || !username || !email || !dataNascimento) {
       setErrorMessage("Por favor, preencha todos os campos.");
       setIsLoading(false);
       return;
@@ -90,9 +85,8 @@ const Register = () => {
           nickname: username,
           email: email,
           birthdate: dataNascimento.replaceAll("-", "/"),
-          password: senha,
+          type_user: "user", // Adiciona o campo type_user
           profile_picture: response.data.secure_url,
-          type_user: "user", // Valor padrão do campo type_user
         };
 
         console.log("Dados enviados para o servidor:", body);
@@ -123,36 +117,19 @@ const Register = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      setGoogleUser(user);
-      setShowPasswordModal(true);
-    } catch (error) {
-      console.error("Erro ao registrar com Google:", error);
-      toast.error("Erro ao tentar fazer o cadastro com Google.");
-      setIsLoading(false);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+      // Obtém o token de autenticação do Firebase
+      const token = await user.getIdToken();
 
-  const handleSubmitWithPassword = async () => {
-    if (!senha) {
-      toast.error("Por favor, insira uma senha.");
-      return;
-    }
+      const body = {
+        fullname: user.displayName || "Nome Padrão",
+        nickname: user.email.split("@")[0],
+        email: user.email,
+        birthdate: "2006/12/03",
+        type_user: "user",
+        profile_picture: user.photoURL || "URL da foto padrão",
+        firebase_token: token, // Adiciona o token ao backend
+      };
 
-    setIsLoading(true);
-
-    const body = {
-      fullname: googleUser.displayName || "Nome Padrão",
-      nickname: googleUser.email.split("@")[0],
-      email: googleUser.email,
-      birthdate: "2006/12/03",
-      password: senha,
-      profile_picture: googleUser.photoURL || "URL da foto padrão",
-      type_user: "user", // Valor padrão do campo type_user
-    };
-
-    try {
       await axios.post(`${baseUrl}/user/register`, body, {
         headers: {
           "Content-Type": "application/json",
@@ -163,10 +140,9 @@ const Register = () => {
       navigate("/login");
     } catch (error) {
       console.error("Erro ao registrar com Google:", error);
-      toast.error("Erro ao tentar fazer o cadastro.");
+      toast.error("Erro ao tentar fazer o cadastro com Google.");
     } finally {
       setIsLoading(false);
-      setShowPasswordModal(false);
     }
   };
 
@@ -241,18 +217,6 @@ const Register = () => {
               />
             </div>
 
-            <div className={styles.textfield}>
-              <input
-                required
-                type="password"
-                name="senha"
-                placeholder="Senha"
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
-                disabled={isLoading}
-              />
-            </div>
-
             <Link to="/login" className={styles.itemMenu}>
               <p className={styles.conta}>
                 Já tem conta? <span>Logue aqui</span>
@@ -282,35 +246,6 @@ const Register = () => {
         <div className={styles.right_login}>
           <img src={imagem_direita} className={styles.image} alt="Animação" />
         </div>
-
-        <Modal
-          show={showPasswordModal}
-          onHide={() => setShowPasswordModal(false)}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Insira sua senha</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <input
-              type="password"
-              placeholder="Digite sua senha"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
-              className="form-control"
-            />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={() => setShowPasswordModal(false)}
-            >
-              Cancelar
-            </Button>
-            <Button variant="primary" onClick={handleSubmitWithPassword}>
-              Confirmar
-            </Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     </LoadingOverlay>
   );
