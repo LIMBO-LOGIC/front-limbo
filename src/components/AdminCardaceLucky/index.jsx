@@ -11,6 +11,7 @@ AdminCardRaceLucky.propTypes = {
   round: PropTypes.number,
   circuitImg: PropTypes.string,
   isExist: PropTypes.array,
+  result: PropTypes.string,
 };
 
 export default function AdminCardRaceLucky({
@@ -21,6 +22,7 @@ export default function AdminCardRaceLucky({
   round,
   circuitImg,
   isExist,
+  result,
 }) {
   const navigate = useNavigate();
   const [dayMonth, setDayMonth] = useState([]);
@@ -136,14 +138,7 @@ export default function AdminCardRaceLucky({
         {handleRaceText() === "cancelada" ||
         (handleRaceText() === "finalizada" && !status) ? (
           ""
-        ) : (
-          <span
-            style={{ backgroundColor: status ? "#000360" : "#c91103" }}
-            className={styles.tag}
-          >
-            {status ? "Resultado Realizado" : "Resultado indisponível"}
-          </span>
-        )}
+        ) : ''}
       </div>
 
       <button
@@ -151,15 +146,21 @@ export default function AdminCardRaceLucky({
           const targetBetId = status ? isExist[0].id_racing_bet : 0;
           const targetPath = `/admin/raceList/choice/${idRace}/${targetBetId}`;
           console.log(`Navigating to: ${targetPath}`);
-          navigate(targetPath);
+          
+          result == "" && handleRaceText() === "finalizada" && navigate(targetPath)
         }}
-        className={status ? styles.btnKicked : styles.btnKick}
+        className={result == "" && handleRaceText() === "finalizada" ? styles.btnKick :styles.btnKicked}
       >
-        {status
+        {/* {status
           ? handleRaceText() === "finalizada"
             ? "INDISPONIVEL"
             : "Realizar Chute"
-          : "Ver resultado"}
+          : "Ver resultado"} */}
+
+        {handleRaceText() === "finalizada"
+          ? result == "" ? 'Insira o resultado' : 'Veja o resultado'
+          : 'Sem acesso'
+        }
       </button>
     </div>
   );

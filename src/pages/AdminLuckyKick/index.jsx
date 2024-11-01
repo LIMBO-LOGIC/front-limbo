@@ -5,6 +5,7 @@ import axios from "axios";
 import { baseUrl } from "../../service/api";
 import useContexts from "../../hooks/useContext";
 import AdminCardRaceLucky from "../../components/AdminCardaceLucky";
+import AdminTitle from "../../components/AdminTitle";
 
 export default function AdminLuckyKick() {
   const [races, setRaces] = useState([]);
@@ -55,7 +56,9 @@ export default function AdminLuckyKick() {
 
   return (
     <section>
-      <PageTitle text="Chute da sorte" />
+      <div className="px-4 pt-4">
+        <AdminTitle text="Chute da sorte" icon={""} />
+      </div>
       <div className={styles.containerCard}>
         {races.map((race, index) => (
           <AdminCardRaceLucky
@@ -69,6 +72,7 @@ export default function AdminLuckyKick() {
             isExist={racesUser.filter(
               (raceU) => raceU.racing.id_racing === race.id_racing
             )}
+            result={race.result_racing}
           />
         ))}
       </div>
