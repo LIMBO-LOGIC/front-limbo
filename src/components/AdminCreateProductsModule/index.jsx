@@ -12,6 +12,7 @@ const CreateProductModule = () => {
     active: true,
     image: "",
     details: "",
+    price: 0.0
   });
   const [productId, setProductId] = useState("");
   const [modalMessage, setModalMessage] = useState("");
@@ -58,6 +59,7 @@ const CreateProductModule = () => {
       active: true,
       image: "",
       details: "",
+      price: 0.0
     });
     setProductId("");
   };
