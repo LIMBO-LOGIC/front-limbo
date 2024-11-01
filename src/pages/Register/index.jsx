@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { baseUrl } from "../../service/api";
 import { auth, provider } from "../../firebaseConfig";
 import { signInWithPopup } from "firebase/auth";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -17,8 +18,8 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleImageChange = (file) => {
     const reader = new FileReader();
@@ -31,13 +32,7 @@ const Register = () => {
     event.preventDefault();
     setIsLoading(true);
 
-    if (!picture) {
-      setErrorMessage("Por favor, insira uma foto de perfil.");
-      setIsLoading(false);
-      return;
-    }
-
-    if (!nomeCompleto || !username || !email || !dataNascimento) {
+    if (!picture || !nomeCompleto || !username || !email || !dataNascimento) {
       setErrorMessage("Por favor, preencha todos os campos.");
       setIsLoading(false);
       return;
@@ -85,11 +80,10 @@ const Register = () => {
           nickname: username,
           email: email,
           birthdate: dataNascimento.replaceAll("-", "/"),
-          type_user: "user", // Adiciona o campo type_user
+          password: "",
           profile_picture: response.data.secure_url,
+          type_user: "user",
         };
-
-        console.log("Dados enviados para o servidor:", body);
 
         await axios.post(`${baseUrl}/user/register`, body, {
           headers: {
@@ -116,18 +110,16 @@ const Register = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-
-      // Obtém o token de autenticação do Firebase
       const token = await user.getIdToken();
 
       const body = {
         fullname: user.displayName || "Nome Padrão",
         nickname: user.email.split("@")[0],
         email: user.email,
-        birthdate: "2006/12/03", // Ajuste conforme o campo necessário no backend
-        type_user: "user", // Adiciona o campo type_user com valor padrão
+        birthdate: "2006/12/03",
+        password: token, // Token como senha
         profile_picture: user.photoURL || "URL da foto padrão",
-        firebase_token: token, // Envia o token para o backend
+        type_user: "user",
       };
 
       await axios.post(`${baseUrl}/user/register`, body, {
@@ -140,13 +132,7 @@ const Register = () => {
       navigate("/login");
     } catch (error) {
       console.error("Erro ao registrar com Google:", error);
-      if (error.response && error.response.data) {
-        toast.error(
-          `Erro ao tentar fazer o cadastro: ${error.response.data.error}`
-        );
-      } else {
-        toast.error("Erro ao tentar fazer o cadastro com Google.");
-      }
+      toast.error("Erro ao tentar fazer o cadastro com Google.");
     } finally {
       setIsLoading(false);
     }
