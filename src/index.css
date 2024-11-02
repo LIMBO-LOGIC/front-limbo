@@ -15,6 +15,7 @@
 }
 
 :root {
+  --card-point: #006BEE;
   --dark-gray: #d5d5d5;
   --text-icon-gray: #8a92a6;
   --menu-blue: #000cd8;

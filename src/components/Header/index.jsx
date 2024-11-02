@@ -93,9 +93,9 @@ export default function Header() {
         />
         <div className={styles.userInfo}>
           <span className={styles.userGreeting}>Olá, {nameUser}</span>
-          <span className={styles.userPoints}>
+          <Link to={`/race/sales-points`} className={styles.userPoints}>
             {dataUser != undefined && dataUser.current_points} pontos
-          </span>
+          </Link>
         </div>
         {/* <AiOutlineArrowDown className={styles.arrow} onClick={toggleMenu} /> */}
         <AiOutlineArrowDown

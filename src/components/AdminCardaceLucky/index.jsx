@@ -27,7 +27,6 @@ export default function AdminCardRaceLucky({
   const navigate = useNavigate();
   const [dayMonth, setDayMonth] = useState([]);
   const status = isExist.length > 0;
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const monthsAbbrev = [
@@ -90,14 +89,6 @@ export default function AdminCardRaceLucky({
     } else {
       return "agendada";
     }
-  };
-
-  const handleShowModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
   };
 
   return (

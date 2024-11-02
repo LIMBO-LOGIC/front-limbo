@@ -3,7 +3,12 @@ import styles from "./nav.module.css";
 import formulaEImage from "/assets/logo-formulaE.png";
 import { BiSolidCategory } from "react-icons/bi";
 import { PropTypes } from "prop-types";
-import { FaFlagCheckered, FaGamepad, FaShoppingBag, FaUsers } from "react-icons/fa";
+import {
+  FaFlagCheckered,
+  FaGamepad,
+  FaShoppingBag,
+  FaUsers,
+} from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { LiaMedalSolid } from "react-icons/lia";
 
@@ -42,12 +47,16 @@ ItemSubMenu.propTypes = {
 };
 
 export default function Nav() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <Sidebar className={styles.sidebar}>
       <div className={styles.boxImg}>
-        <img src={formulaEImage} onClick={() => navigate('/race')} alt="logo formula e" />
+        <img
+          src={formulaEImage}
+          onClick={() => navigate("/race")}
+          alt="logo formula e"
+        />
       </div>
       <Menu className={styles.navRace}>
         <ItemMenu>
@@ -74,22 +83,40 @@ export default function Nav() {
             </Link>
           </ItemSubMenu>
           <ItemSubMenu>
-            <Link to={'/race/live-race'} className={styles.linkItem}>
+            <Link to={"/race/live-race"} className={styles.linkItem}>
               <span>Corrida ao vivo</span>
             </Link>
           </ItemSubMenu>
           <ItemSubMenu>
-            <Link to={'/race/luck-kick'} className={styles.linkItem}>
+            <Link to={"/race/luck-kick"} className={styles.linkItem}>
               <span>Chute da sorte</span>
             </Link>
           </ItemSubMenu>
         </SubMenu>
-        <ItemMenu>
+
+        <SubMenu
+          defaultOpen={false}
+          label="Marketplace"
+          icon={<FaShoppingBag />}
+          className={styles.subMenu}
+        >
+           <ItemSubMenu>
+            <Link className={styles.linkItem} to="/race/sales-points">
+              <span>Compra de pontos</span>
+            </Link>
+          </ItemSubMenu>
+          <ItemSubMenu>
+            <Link className={styles.linkItem} to="/race/marketplace">
+              <span>Resgate de produtos</span>
+            </Link>
+          </ItemSubMenu>
+        </SubMenu>
+        {/* <ItemMenu>
           <Link to="/race/marketplace" className={styles.itemMenu}>
             <FaShoppingBag />
             <p>Marketplace</p>
           </Link>
-        </ItemMenu>
+        </ItemMenu> */}
         <ItemMenu>
           <Link to="/race/quiz" className={styles.itemMenu}>
             <FaGamepad />

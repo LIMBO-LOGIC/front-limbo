@@ -30,6 +30,7 @@ import UptadeRace from "../pages/AdminUptadeRace";
 import AdminLuckyKick from "../pages/AdminLuckyKick";
 import AdminHome from "../pages/AdminHome";
 import AdminChoiceLucky from "../pages/AdminChoiceLucky";
+import PurchasePoints from "../pages/PurchasePoints";
 
 const router = createBrowserRouter([
   {
@@ -159,6 +160,10 @@ const router = createBrowserRouter([
       {
         path: "favorites",
         element: <Favorite />,
+      },
+      {
+        path: "sales-points",
+        element: <PurchasePoints />,
       },
       {
         path: "*",
