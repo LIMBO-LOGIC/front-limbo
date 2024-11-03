@@ -8,15 +8,17 @@ import { baseUrl } from "../../service/api";
 import { toast } from "react-toastify";
 import useContexts from "../../hooks/useContext";
 import LoadingOverlay from "react-loading-overlay-ts";
-import { FiEye, FiEyeOff } from "react-icons/fi"; // Importando ícones
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import { auth, provider } from "../../firebaseConfig";
+import { signInWithPopup } from "firebase/auth";
 
 const Login = () => {
   const navigate = useNavigate();
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [isLoading, setIsLoading] = useState();
-  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/esconder senha
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { setDataUser } = useContexts();
 
   const handleLogin = async (event) => {
@@ -54,7 +56,7 @@ const Login = () => {
 
         setDataUser(json);
         localStorage.setItem("userStorage", JSON.stringify(json));
-        navigate(json.type_user == "USER" ? "/race" : "/admin");
+        navigate("/race"); // Redireciona sempre para a tela "race"
       })
       .catch((error) => {
         if (error.status === 401) {
@@ -69,6 +71,57 @@ const Login = () => {
       .finally(() => {
         setIsLoading(false);
       });
+  };
+
+  const handleGoogleLogin = async () => {
+    setIsLoading(true);
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const token = await user.getIdToken();
+
+      const body = {
+        nickname: user.email.split("@")[0],
+        password: token,
+      };
+
+      await axios
+        .post(`${baseUrl}/user/login`, body, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          if (window.innerWidth >= 768) {
+            toast.success("Login realizado com sucesso!");
+          }
+
+          const currentDate = new Date();
+          const formattedDate = currentDate.toISOString();
+
+          let json = response.data.user;
+          json.dateSalved = formattedDate;
+
+          setDataUser(json);
+          localStorage.setItem("userStorage", JSON.stringify(json));
+          navigate("/race"); // Redireciona para a tela "race"
+        })
+        .catch((error) => {
+          if (error.status === 401) {
+            toast.error("Usuário ou senha inválido!");
+          } else {
+            toast.error(
+              "Erro ao tentar fazer login. Tente novamente mais tarde."
+            );
+          }
+          console.error("Erro de login com Google:", error);
+        });
+    } catch (error) {
+      console.error("Erro ao tentar login com Google:", error);
+      toast.error("Erro ao tentar login com Google.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleKeyPress = (event) => {
@@ -119,7 +172,7 @@ const Login = () => {
                 disabled={isLoading}
               />
               <span
-                className={styles.eyeIcon} // Altere para usar a classe CSS definida
+                className={styles.eyeIcon}
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? <FiEyeOff /> : <FiEye />}
@@ -145,6 +198,14 @@ const Login = () => {
               disabled={isLoading}
             >
               {isLoading ? "Carregando..." : "Login"}
+            </button>
+
+            <button
+              className={styles.btnGoogle}
+              onClick={handleGoogleLogin}
+              disabled={isLoading}
+            >
+              Login com Google
             </button>
           </form>
         </div>
