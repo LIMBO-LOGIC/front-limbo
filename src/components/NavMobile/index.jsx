@@ -192,16 +192,23 @@ export default function NavMobile() {
                 </Link>
               </ItemSubMenu>
             </SubMenu>
-            <ItemMenu>
-              <Link
-                to="/race/marketplace"
-                className={styles.itemMenu}
-                onClick={() => setToggled(!toggled)}
-              >
-                <FaShoppingBag />
-                <p>Marketplace</p>
-              </Link>
-            </ItemMenu>
+            <SubMenu
+              defaultOpen={false}
+              label="Marketplace"
+              icon={<FaShoppingBag />}
+              className={styles.subMenu}
+            >
+              <ItemSubMenu>
+                <Link className={styles.linkItem} to="/race/sales-points">
+                  <span>Compra de pontos</span>
+                </Link>
+              </ItemSubMenu>
+              <ItemSubMenu>
+                <Link className={styles.linkItem} to="/race/marketplace">
+                  <span>Resgate de produtos</span>
+                </Link>
+              </ItemSubMenu>
+            </SubMenu>
             <ItemMenu>
               <Link
                 to="/race/quiz"
