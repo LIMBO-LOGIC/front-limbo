@@ -10,11 +10,11 @@ import { baseUrl } from "../../service/api";
 import { auth, provider } from "../../firebaseConfig";
 import { signInWithPopup } from "firebase/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
-import useContexts from "../../hooks/useContext"; // Importando o contexto
+import useContexts from "../../hooks/useContext";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { setDataUser } = useContexts(); // Acessando o setDataUser do contexto
+  const { setDataUser } = useContexts();
   const [picture, setPicture] = useState(null);
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [username, setUsername] = useState("");
@@ -119,12 +119,12 @@ const Register = () => {
         nickname: user.email.split("@")[0],
         email: user.email,
         birthdate: "2006/12/03",
-        password: token, // Token como senha
+        password: token,
         profile_picture: user.photoURL || "URL da foto padrão",
         type_user: "user",
       };
 
-      const response = await axios.post(`${baseUrl}/user/register`, body, {
+      await axios.post(`${baseUrl}/user/register`, body, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -132,14 +132,20 @@ const Register = () => {
 
       toast.success("Cadastro realizado com sucesso!");
 
-      // Salvando dados do usuário e redirecionando para a tela principal
-      const currentDate = new Date().toISOString();
-      const userData = response.data.user;
-      userData.dateSalved = currentDate;
+      const currentDate = new Date();
+      const formattedDate = currentDate.toISOString();
+      const userData = {
+        fullname: body.fullname,
+        nickname: body.nickname,
+        email: body.email,
+        dateSalved: formattedDate,
+        profile_picture: body.profile_picture,
+        type_user: "user",
+      };
+
       setDataUser(userData);
       localStorage.setItem("userStorage", JSON.stringify(userData));
-
-      navigate(userData.type_user === "USER" ? "/race" : "/admin");
+      navigate("/race");
     } catch (error) {
       console.error("Erro ao registrar com Google:", error);
       toast.error("Erro ao tentar fazer o cadastro com Google.");
