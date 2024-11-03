@@ -4,32 +4,27 @@ import { Menu, Sidebar, SubMenu } from "react-pro-sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import { IoMenu } from "react-icons/io5";
 import { FiShoppingBag } from "react-icons/fi";
+import { BsFillHouseFill } from "react-icons/bs";
+import { FaFlagCheckered } from "react-icons/fa";
+import { RiDiceLine } from "react-icons/ri";
 import styles from "./adminNavMobile.module.css";
 import formulaEImage from "/assets/logo_formulaE_branca.png";
 import useContexts from "../../hooks/useContext";
+import { FiLogOut } from "react-icons/fi";
 
-const ItemMenu = ({ children }) => (
+const ItemMenu = ({ children, to }) => (
   <li className="ps-menuitem-root css-1t8x7v1">
-    <div className="ps-menu-button" tabIndex="0">
-      <span className="ps-menu-label css-12w9als">{children}</span>
-    </div>
+    <Link to={to} className={styles.itemMenu}>
+      <div className="ps-menu-button" tabIndex="0">
+        <div className={styles.menuContent}>{children}</div>
+      </div>
+    </Link>
   </li>
 );
 
 ItemMenu.propTypes = {
-  children: PropTypes.node,
-};
-
-const ItemSubMenu = ({ children }) => (
-  <li className="ps-menuitem-root css-1t8x7v1 pt-sub">
-    <div className="ps-menu-button" tabIndex="0">
-      <span className="ps-menu-label css-12w9als">{children}</span>
-    </div>
-  </li>
-);
-
-ItemSubMenu.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
+  to: PropTypes.string.isRequired,
 };
 
 export default function AdminNavMobile() {
@@ -50,7 +45,7 @@ export default function AdminNavMobile() {
 
   const handleLogout = () => {
     localStorage.removeItem("userStorage");
-    navigate("/login");
+    navigate("/#");
   };
 
   return (
@@ -80,32 +75,26 @@ export default function AdminNavMobile() {
             }
             className={styles.userProfile}
           >
-            <SubMenu
-              label="Produtos"
-              icon={<FiShoppingBag />}
-              className={styles.subMenu}
-            >
-              <ItemSubMenu>
-                <Link className={styles.linkItem} to="/admin/allProduct">
-                  <span>Geral Produtos</span>
-                </Link>
-              </ItemSubMenu>
-              <ItemSubMenu>
-                <Link className={styles.linkItem} to="/admin/creatProduct">
-                  <span>Criar Produtos</span>
-                </Link>
-              </ItemSubMenu>
-              <ItemSubMenu>
-                <Link className={styles.linkItem} to="/admin/productList">
-                  <span>Lista Produtos</span>
-                </Link>
-              </ItemSubMenu>
-              <ItemSubMenu>
-                <Link className={styles.linkItem} to="/admin/uptadeProduct">
-                  <span>Atualizar Produtos</span>
-                </Link>
-              </ItemSubMenu>
-            </SubMenu>
+            <ItemMenu to="/admin/">
+              <BsFillHouseFill />
+              <p>Home</p>
+            </ItemMenu>
+            <ItemMenu to="/admin/raceList">
+              <FaFlagCheckered />
+              <p>Corridas</p>
+            </ItemMenu>
+            <ItemMenu to="/admin/productlist">
+              <FiShoppingBag />
+              <p>Produtos</p>
+            </ItemMenu>
+            <ItemMenu to="/admin/raceBet">
+              <RiDiceLine />
+              <p>Chute da sorte</p>
+            </ItemMenu>
+            <ItemMenu>
+              <FiLogOut size={18} />
+              <p onClick={handleLogout}>Logout</p>
+            </ItemMenu>
           </SubMenu>
         </Menu>
       </Sidebar>
