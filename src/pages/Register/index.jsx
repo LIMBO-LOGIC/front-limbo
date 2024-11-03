@@ -226,7 +226,7 @@ const Register = () => {
             </button>
 
             <button
-              className={styles.btn_google}
+              className={styles.btnGoogle}
               onClick={handleGoogleRegister}
               disabled={isLoading}
             >
