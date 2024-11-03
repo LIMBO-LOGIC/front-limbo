@@ -10,9 +10,11 @@ import { baseUrl } from "../../service/api";
 import { auth, provider } from "../../firebaseConfig";
 import { signInWithPopup } from "firebase/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
+import useContexts from "../../hooks/useContext"; // Importando o contexto
 
 const Register = () => {
   const navigate = useNavigate();
+  const { setDataUser } = useContexts(); // Acessando o setDataUser do contexto
   const [picture, setPicture] = useState(null);
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [username, setUsername] = useState("");
@@ -122,14 +124,22 @@ const Register = () => {
         type_user: "user",
       };
 
-      await axios.post(`${baseUrl}/user/register`, body, {
+      const response = await axios.post(`${baseUrl}/user/register`, body, {
         headers: {
           "Content-Type": "application/json",
         },
       });
 
       toast.success("Cadastro realizado com sucesso!");
-      navigate("/login");
+
+      // Salvando dados do usuário e redirecionando para a tela principal
+      const currentDate = new Date().toISOString();
+      const userData = response.data.user;
+      userData.dateSalved = currentDate;
+      setDataUser(userData);
+      localStorage.setItem("userStorage", JSON.stringify(userData));
+
+      navigate(userData.type_user === "USER" ? "/race" : "/admin");
     } catch (error) {
       console.error("Erro ao registrar com Google:", error);
       toast.error("Erro ao tentar fazer o cadastro com Google.");
