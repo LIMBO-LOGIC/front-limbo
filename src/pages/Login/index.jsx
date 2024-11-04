@@ -56,7 +56,7 @@ const Login = () => {
 
       setDataUser(json);
       localStorage.setItem("userStorage", JSON.stringify(json));
-      navigate("/race"); // Redireciona sempre para a tela "race"
+      navigate(json.type_user.toLowerCase() == "user" ? "/race" : "/admin");
     } catch (error) {
       if (error.response && error.response.status === 401) {
         toast.error("Usuário ou senha inválido!");
@@ -75,7 +75,6 @@ const Login = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-
       const body = {
         nickname: user.email.split("@")[0],
         password: result._tokenResponse.localId, // Enviando o token
@@ -93,7 +92,9 @@ const Login = () => {
         json.dateSalved = new Date().toISOString();
         setDataUser(json);
         localStorage.setItem("userStorage", JSON.stringify(json));
-        navigate("/race"); 
+        localStorage.setItem("teste", JSON.stringify(json));
+
+        navigate(json.type_user.toLowerCase() == "user" ? "/race" : "/admin");
       } else {
         toast.error("Erro ao tentar fazer login. Tente novamente mais tarde.");
       }
