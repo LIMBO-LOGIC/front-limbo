@@ -75,58 +75,46 @@ const Login = () => {
 
   const handleGoogleLogin = async () => {
     setIsLoading(true);
+    let token;
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      const token = await user.getIdToken();
+      token = await user.getIdToken();
+      console.log("result", result);
+      console.log("user", user);
 
       const body = {
         nickname: user.email.split("@")[0],
-        password: token,
+        password: token, // Enviando o token
       };
 
-      await axios
-        .post(`${baseUrl}/user/login`, body, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then((response) => {
-          if (window.innerWidth >= 768) {
-            toast.success("Login realizado com sucesso!");
-          }
+      const response = await axios.post(`${baseUrl}/user/login`, body, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-          const currentDate = new Date();
-          const formattedDate = currentDate.toISOString();
-
-          let json = response.data.user;
-          json.dateSalved = formattedDate;
-
-          setDataUser(json);
-          localStorage.setItem("userStorage", JSON.stringify(json));
-          navigate("/race"); // Redireciona para a tela "race"
-        })
-        .catch((error) => {
-          if (error.status === 401) {
-            toast.error("Usuário ou senha inválido!");
-          } else {
-            toast.error(
-              "Erro ao tentar fazer login. Tente novamente mais tarde."
-            );
-          }
-          console.error("Erro de login com Google:", error);
-        });
+      if (response.status === 200) {
+        toast.success("Login realizado com sucesso!");
+        const json = response.data.user;
+        json.dateSalved = new Date().toISOString();
+        setDataUser(json);
+        localStorage.setItem("userStorage", JSON.stringify(json));
+        // navigate("/race");
+      } else {
+        toast.error("Erro ao tentar fazer login. Tente novamente mais tarde.");
+      }
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        toast.error("Usuário ou senha inválido!");
+      } else {
+        toast.error("Erro ao tentar login com Google.");
+      }
       console.error("Erro ao tentar login com Google:", error);
-      toast.error("Erro ao tentar login com Google.");
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      handleLogin(event);
+      console.log("Token:", token);
+      console.log("Nickname:", body?.nickname);
     }
   };
 
