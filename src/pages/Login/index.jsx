@@ -37,50 +37,46 @@ const Login = () => {
       password: senha,
     };
 
-    await axios
-      .post(`${baseUrl}/user/login`, body, {
+    try {
+      const response = await axios.post(`${baseUrl}/user/login`, body, {
         headers: {
           "Content-Type": "application/json",
         },
-      })
-      .then((response) => {
-        if (window.innerWidth >= 768) {
-          toast.success("Login realizado com sucesso!");
-        }
-
-        const currentDate = new Date();
-        const formattedDate = currentDate.toISOString();
-
-        let json = response.data.user;
-        json.dateSalved = formattedDate;
-
-        setDataUser(json);
-        localStorage.setItem("userStorage", JSON.stringify(json));
-        navigate("/race"); // Redireciona sempre para a tela "race"
-      })
-      .catch((error) => {
-        if (error.status === 401) {
-          toast.error("Usuário ou senha inválido!");
-        } else {
-          toast.error(
-            "Erro ao tentar fazer login. Tente novamente mais tarde."
-          );
-        }
-        console.error("Erro de login:", error);
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
+
+      if (window.innerWidth >= 768) {
+        toast.success("Login realizado com sucesso!");
+      }
+
+      const currentDate = new Date();
+      const formattedDate = currentDate.toISOString();
+
+      const json = response.data.user;
+      json.dateSalved = formattedDate;
+
+      setDataUser(json);
+      localStorage.setItem("userStorage", JSON.stringify(json));
+      navigate("/race"); // Redireciona sempre para a tela "race"
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        toast.error("Usuário ou senha inválido!");
+      } else {
+        toast.error("Erro ao tentar fazer login. Tente novamente mais tarde.");
+      }
+      console.error("Erro de login:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleGoogleLogin = async () => {
     setIsLoading(true);
-    let token;
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      token = await user.result.user.getIdToken;
-      console.log("token result", result.user.getIdTokenResult); 
+
+      const token = await user.getIdToken(); // Aqui estava o erro
+      console.log("token result", token);
 
       const body = {
         nickname: user.email.split("@")[0],
@@ -99,7 +95,7 @@ const Login = () => {
         json.dateSalved = new Date().toISOString();
         setDataUser(json);
         localStorage.setItem("userStorage", JSON.stringify(json));
-        // navigate("/race");
+        navigate("/race"); // Redireciona sempre para a tela "race"
       } else {
         toast.error("Erro ao tentar fazer login. Tente novamente mais tarde.");
       }
@@ -112,15 +108,15 @@ const Login = () => {
       console.error("Erro ao tentar login com Google:", error);
     } finally {
       setIsLoading(false);
-      console.log("Token:", token);
-      console.log("Nickname:", body?.nickname);
     }
   };
+
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       handleLogin(event);
     }
   };
+
   return (
     <LoadingOverlay
       active={isLoading}
