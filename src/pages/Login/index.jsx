@@ -123,6 +123,8 @@ const Login = () => {
     } finally {
       setIsLoading(false); // Garante que o loading seja removido
     }
+    console.log("Token:", token); // Adicione um log para o token
+    console.log("Nickname:", body.nickname); // Adicione um log para o nickname
   };
 
   const handleKeyPress = (event) => {
