@@ -75,7 +75,7 @@ const Login = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      const token = await user.getIdToken(); // Corrigido para obter o token corretamente
+      const token = await user.getIdToken(); 
       console.log("token result", token);
 
       const body = {
