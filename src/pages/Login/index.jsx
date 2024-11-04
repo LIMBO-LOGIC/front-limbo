@@ -81,85 +81,38 @@ const Login = () => {
       const token = await user.getIdToken();
 
       const body = {
-        email: user.email,
+        nickname: user.email.split("@")[0],
         password: token,
       };
 
-      // Primeiro, verifique se o usuário já está cadastrado
       const response = await axios.post(`${baseUrl}/user/login`, body, {
         headers: {
           "Content-Type": "application/json",
         },
       });
 
-      if (response.data.exists) {
-        // Usuário já existe, prossiga com o login
-        const userData = {
-          fullname: response.data.fullname || user.displayName || "Nome Padrão",
-          nickname: response.data.nickname || user.email.split("@")[0],
-          email: user.email,
-          dateSaved: new Date().toISOString(),
-          profile_picture:
-            response.data.profile_picture ||
-            user.photoURL ||
-            "URL da foto padrão",
-          type_user: "user",
-        };
-
-        setDataUser(userData);
-        localStorage.setItem("userStorage", JSON.stringify(userData));
-        navigate("/race");
+      if (response.status === 200) {
         toast.success("Login realizado com sucesso!");
+
+        const currentDate = new Date();
+        const formattedDate = currentDate.toISOString();
+
+        let json = response.data.user;
+        json.dateSalved = formattedDate;
+
+        setDataUser(json);
+        localStorage.setItem("userStorage", JSON.stringify(json));
+        navigate("/race"); // Redireciona para a tela "race"
       } else {
-        // Verifique se o email ou nickname já estão em uso
-        try {
-          await axios.post(`${baseUrl}/user/check-existence`, {
-            email: user.email,
-            nickname: user.email.split("@")[0],
-          });
-
-          // Se não houver erro, então registre
-          const newBody = {
-            fullname: user.displayName || "Nome Padrão",
-            nickname: user.email.split("@")[0],
-            email: user.email,
-            birthdate: "2006/12/03", // Pode ser alterado conforme necessário
-            password: token,
-            profile_picture: user.photoURL || "URL da foto padrão",
-            type_user: "user",
-          };
-
-          await axios.post(`${baseUrl}/user/register`, newBody, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-
-          toast.success("Cadastro realizado com sucesso!");
-
-          const userData = {
-            fullname: newBody.fullname,
-            nickname: newBody.nickname,
-            email: newBody.email,
-            dateSaved: new Date().toISOString(),
-            profile_picture: newBody.profile_picture,
-            type_user: "user",
-          };
-
-          setDataUser(userData);
-          localStorage.setItem("userStorage", JSON.stringify(userData));
-          navigate("/race");
-        } catch (checkError) {
-          if (checkError.response && checkError.response.status === 409) {
-            toast.error("Email ou nickname já estão em uso.");
-          } else {
-            toast.error("Erro ao verificar existência do usuário.");
-          }
-        }
+        toast.error("Erro ao tentar fazer login. Tente novamente mais tarde.");
       }
     } catch (error) {
-      console.error("Erro ao autenticar com Google:", error);
-      toast.error("Erro ao tentar fazer login com Google.");
+      if (error.response && error.response.status === 401) {
+        toast.error("Usuário ou senha inválido!");
+      } else {
+        toast.error("Erro ao tentar login com Google.");
+      }
+      console.error("Erro ao tentar login com Google:", error);
     } finally {
       setIsLoading(false);
     }
