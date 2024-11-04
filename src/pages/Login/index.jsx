@@ -73,11 +73,12 @@ const Login = () => {
     setIsLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
+      const user = result.user;
 
 
       const body = {
         nickname: user.email.split("@")[0],
-        password: result._tokenResponse.localId, 
+        password: result._tokenResponse.localId, // Enviando o token
       };
 
       const response = await axios.post(`${baseUrl}/user/login`, body, {
@@ -92,7 +93,7 @@ const Login = () => {
         json.dateSalved = new Date().toISOString();
         setDataUser(json);
         localStorage.setItem("userStorage", JSON.stringify(json));
-        // navigate("/race"); 
+        navigate("/race"); 
       } else {
         toast.error("Erro ao tentar fazer login. Tente novamente mais tarde.");
       }

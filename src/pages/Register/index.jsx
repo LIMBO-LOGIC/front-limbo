@@ -110,7 +110,8 @@ const Register = () => {
     setIsLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
-      
+      const user = result.user;
+
       const body = {
         fullname: user.displayName || "Nome Padrão",
         nickname: user.email.split("@")[0],
@@ -142,7 +143,7 @@ const Register = () => {
 
       setDataUser(userData);
       localStorage.setItem("userStorage", JSON.stringify(userData));
-      // navigate("/race");
+      navigate("/race");
     } catch (error) {
       console.error("Erro ao registrar com Google:", error);
       toast.error("Erro ao tentar fazer o cadastro com Google.");
