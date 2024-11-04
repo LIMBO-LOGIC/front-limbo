@@ -75,11 +75,12 @@ const Login = () => {
 
   const handleGoogleLogin = async () => {
     setIsLoading(true);
+    let token; // Declare the token variable here
     try {
       // Inicia o login com o Google
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      const token = await user.getIdToken();
+      token = await user.getIdToken(); // Assign token here
 
       // Monta o corpo da requisição
       const body = {
@@ -122,9 +123,9 @@ const Login = () => {
       console.error("Erro ao tentar login com Google:", error);
     } finally {
       setIsLoading(false); // Garante que o loading seja removido
+      console.log("Token:", token); // Agora o token está definido aqui
+      console.log("Nickname:", body?.nickname); // Adicione um log para o nickname (usando optional chaining)
     }
-    console.log("Token:", token); // Adicione um log para o token
-    console.log("Nickname:", body.nickname); // Adicione um log para o nickname
   };
 
   const handleKeyPress = (event) => {
