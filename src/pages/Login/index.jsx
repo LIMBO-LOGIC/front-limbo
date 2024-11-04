@@ -76,21 +76,27 @@ const Login = () => {
   const handleGoogleLogin = async () => {
     setIsLoading(true);
     try {
+      // Inicia o login com o Google
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       const token = await user.getIdToken();
 
+      // Monta o corpo da requisição
       const body = {
-        nickname: user.email.split("@")[0],
-        password: token,
+        nickname: user.email.split("@")[0], // Extrai o nickname do email
+        password: token, // Usa o token do Google
       };
 
+      console.log("Body enviado para login:", body); // Debug
+
+      // Faz a requisição de login ao backend
       const response = await axios.post(`${baseUrl}/user/login`, body, {
         headers: {
           "Content-Type": "application/json",
         },
       });
 
+      // Verifica se a resposta foi bem-sucedida
       if (response.status === 200) {
         toast.success("Login realizado com sucesso!");
 
@@ -107,6 +113,7 @@ const Login = () => {
         toast.error("Erro ao tentar fazer login. Tente novamente mais tarde.");
       }
     } catch (error) {
+      // Tratamento de erro
       if (error.response && error.response.status === 401) {
         toast.error("Usuário ou senha inválido!");
       } else {
@@ -114,7 +121,7 @@ const Login = () => {
       }
       console.error("Erro ao tentar login com Google:", error);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Garante que o loading seja removido
     }
   };
 
