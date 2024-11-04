@@ -112,8 +112,13 @@ const Register = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       const token = await user.getIdToken();
-      console.log("result", result)
-      console.log("user", user)
+      console.log("result", result);
+      console.log("user", user);
+      console.log("token 1 func", result.user.getIdToken());
+      console.log("token 1 ", result.user.getIdToken);
+      console.log("token result func", result.user.getIdTokenResult());
+      console.log("token result", result.user.getIdTokenResult);
+      console.log("token", result._tokenResponse.localId);
 
       const body = {
         fullname: user.displayName || "Nome Padrão",
