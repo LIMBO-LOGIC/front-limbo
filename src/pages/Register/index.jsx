@@ -113,8 +113,8 @@ const Register = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       const token = await user.getIdToken();
-      console.log("result", result)
-      console.log("user", user)
+      // console.log("result", result)
+      // console.log("user", user)
      
       const body = {
         fullname: user.displayName || "Nome Padrão",

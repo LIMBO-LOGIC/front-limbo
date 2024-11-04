@@ -80,8 +80,8 @@ const Login = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       token = await user.getIdToken();
-      console.log("result", result);
-      console.log("user", user);
+      // console.log("result", result);
+      // console.log("user", user);
 
       const body = {
         nickname: user.email.split("@")[0],
