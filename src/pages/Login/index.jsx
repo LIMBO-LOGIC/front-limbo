@@ -73,7 +73,7 @@ const Login = () => {
       });
   };
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleRegister = async () => {
     setIsLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
@@ -81,44 +81,40 @@ const Login = () => {
       const token = await user.getIdToken();
 
       const body = {
+        fullname: user.displayName || "Nome Padrão",
         nickname: user.email.split("@")[0],
+        email: user.email,
+        birthdate: "2006/12/03",
         password: token,
+        profile_picture: user.photoURL || "URL da foto padrão",
+        type_user: "user",
       };
 
-      await axios
-        .post(`${baseUrl}/user/login`, body, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then((response) => {
-          if (window.innerWidth >= 768) {
-            toast.success("Login realizado com sucesso!");
-          }
+      await axios.post(`${baseUrl}/user/register`, body, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-          const currentDate = new Date();
-          const formattedDate = currentDate.toISOString();
+      toast.success("Cadastro realizado com sucesso!");
 
-          let json = response.data.user;
-          json.dateSalved = formattedDate;
+      const currentDate = new Date();
+      const formattedDate = currentDate.toISOString();
+      const userData = {
+        fullname: body.fullname,
+        nickname: body.nickname,
+        email: body.email,
+        dateSalved: formattedDate,
+        profile_picture: body.profile_picture,
+        type_user: "user",
+      };
 
-          setDataUser(json);
-          localStorage.setItem("userStorage", JSON.stringify(json));
-          navigate("/race"); // Redireciona para a tela "race"
-        })
-        .catch((error) => {
-          if (error.status === 401) {
-            toast.error("Usuário ou senha inválido!");
-          } else {
-            toast.error(
-              "Erro ao tentar fazer login. Tente novamente mais tarde."
-            );
-          }
-          console.error("Erro de login com Google:", error);
-        });
+      setDataUser(userData);
+      localStorage.setItem("userStorage", JSON.stringify(userData));
+      navigate("/race");
     } catch (error) {
-      console.error("Erro ao tentar login com Google:", error);
-      toast.error("Erro ao tentar login com Google.");
+      console.error("Erro ao registrar com Google:", error);
+      toast.error("Erro ao tentar fazer o cadastro com Google.");
     } finally {
       setIsLoading(false);
     }
