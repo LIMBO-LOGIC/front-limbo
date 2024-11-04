@@ -80,6 +80,8 @@ const Login = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       token = await user.getIdToken();
+      console.log("result", result);
+      console.log("user", user);
 
       const body = {
         nickname: user.email.split("@")[0],
@@ -98,7 +100,7 @@ const Login = () => {
         json.dateSalved = new Date().toISOString();
         setDataUser(json);
         localStorage.setItem("userStorage", JSON.stringify(json));
-        navigate("/race");
+        // navigate("/race");
       } else {
         toast.error("Erro ao tentar fazer login. Tente novamente mais tarde.");
       }
