@@ -23,6 +23,8 @@ const DraggableItem = ({ item, index, moveItem, isResult, resultPilots }) => {
     },
   });
 
+  const pilotId = item?.pilot?.id;
+
   return (
     <li
       className={styles.item}
@@ -41,7 +43,15 @@ const DraggableItem = ({ item, index, moveItem, isResult, resultPilots }) => {
       </div>
       <div
         className={styles.boxIcon}
-        style={{ color: isResult ? "gray" : item.pilot.id != resultPilots[item.position].id ? "red" : "green" }}
+        style={{
+          color: isResult
+            ? "gray"
+            : resultPilots.length === 0 
+            ? "gray" 
+            : pilotId !== resultPilots[item.position]?.id
+            ? "red"
+            : "green",
+        }}
       >
         <MdDragIndicator />
       </div>
@@ -89,7 +99,7 @@ SortableList.propTypes = {
   setItems: PropTypes.func.isRequired,
   isMove: PropTypes.bool,
   isResult: PropTypes.bool.isRequired,
-  resultPilots: PropTypes.array.isRequired, // Adiciona PropType
+  resultPilots: PropTypes.array.isRequired,
 };
 
 const Sortable = ({ items, setItems, isMove, isResult, resultPilots }) => {

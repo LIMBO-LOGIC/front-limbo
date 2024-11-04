@@ -24,7 +24,6 @@ export default function ChoiceLucky() {
       })
       .then((response) => {
         setRace(response.data);
-
         if (response.data.result_racing !== "") {
           const resultData = JSON.parse(response.data.result_racing);
           setResultPilots(resultData);
@@ -92,7 +91,7 @@ export default function ChoiceLucky() {
             items={pilots}
             setItems={setPilots}
             isResult={false}
-            resultPilots={resultPilots} 
+            resultPilots={resultPilots}
           />
         </div>
 
@@ -106,7 +105,7 @@ export default function ChoiceLucky() {
               items={resultPilots}
               setItems={setResultPilots}
               isResult={true}
-              resultPilots={resultPilots} 
+              resultPilots={resultPilots}
             />
           </div>
         )}

@@ -19,6 +19,7 @@ const Register = () => {
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState(""); // Correção aqui
   const [dataNascimento, setDataNascimento] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +35,14 @@ const Register = () => {
     event.preventDefault();
     setIsLoading(true);
 
-    if (!picture || !nomeCompleto || !username || !email || !dataNascimento) {
+    if (
+      !picture ||
+      !nomeCompleto ||
+      !username ||
+      !email ||
+      !dataNascimento ||
+      !password
+    ) {
       setErrorMessage("Por favor, preencha todos os campos.");
       setIsLoading(false);
       return;
@@ -82,7 +90,7 @@ const Register = () => {
           nickname: username,
           email: email,
           birthdate: dataNascimento.replaceAll("-", "/"),
-          password: "",
+          password: password, // Correção aqui
           profile_picture: response.data.secure_url,
           type_user: "user",
         };
@@ -106,6 +114,7 @@ const Register = () => {
         setIsLoading(false);
       });
   };
+
   const handleGoogleRegister = async () => {
     setIsLoading(true);
     try {
@@ -219,6 +228,18 @@ const Register = () => {
                 placeholder="Data de nascimento"
                 value={dataNascimento}
                 onChange={(e) => setDataNascimento(e.target.value)}
+                disabled={isLoading}
+              />
+            </div>
+
+            <div className={styles.textfield}>
+              <input
+                required
+                type="password"
+                name="password"
+                placeholder="Senha" // Alterado aqui
+                value={password} // Alterado aqui
+                onChange={(e) => setPassword(e.target.value)} // Alterado aqui
                 disabled={isLoading}
               />
             </div>
