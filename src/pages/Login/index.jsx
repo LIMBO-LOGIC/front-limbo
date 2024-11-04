@@ -73,7 +73,7 @@ const Login = () => {
       });
   };
 
-  const handleGoogleRegister = async () => {
+  const handleGoogleLogin = async () => {
     setIsLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
