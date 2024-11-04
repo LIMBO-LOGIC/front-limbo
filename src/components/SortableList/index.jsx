@@ -6,8 +6,7 @@ import { MdDragIndicator } from "react-icons/md";
 import { useParams } from "react-router-dom";
 
 const ItemType = "ITEM";
-
-const DraggableItem = ({ item, index, moveItem }) => {
+const DraggableItem = ({ item, index, moveItem, isResult, resultPilots }) => {
   const { idRacingBet } = useParams();
   const [, drag] = useDrag({
     type: ItemType,
@@ -25,10 +24,11 @@ const DraggableItem = ({ item, index, moveItem }) => {
   });
 
   return (
-    
     <li
       className={styles.item}
-      style={idRacingBet != 0 ? { background: "rgba(255, 255, 255, 0.1)" }: {}}
+      style={
+        idRacingBet !== "0" ? { background: "rgba(255, 255, 255, 0.1)" } : {}
+      }
       ref={(node) => drag(drop(node))}
     >
       <p className={styles.position}>{item.position + 1}º</p>
@@ -39,7 +39,10 @@ const DraggableItem = ({ item, index, moveItem }) => {
           {item.pilot.number_pilot} {item.pilot.name}
         </p>
       </div>
-      <div className={styles.boxIcon}>
+      <div
+        className={styles.boxIcon}
+        style={{ color: isResult ? "gray" : item.pilot.id != resultPilots[item.position].id ? "red" : "green" }}
+      >
         <MdDragIndicator />
       </div>
     </li>
@@ -53,9 +56,11 @@ DraggableItem.propTypes = {
   }).isRequired,
   index: PropTypes.number.isRequired,
   moveItem: PropTypes.func.isRequired,
+  isResult: PropTypes.bool.isRequired,
+  resultPilots: PropTypes.array.isRequired,
 };
 
-const SortableList = ({ items, setItems, isMove }) => {
+const SortableList = ({ items, setItems, isMove, isResult, resultPilots }) => {
   const moveItem = (fromIndex, toIndex) => {
     const updatedItems = [...items];
     const [movedItem] = updatedItems.splice(fromIndex, 1);
@@ -71,6 +76,8 @@ const SortableList = ({ items, setItems, isMove }) => {
           index={index}
           item={{ pilot: item, position: index }}
           moveItem={isMove ? moveItem : () => {}}
+          isResult={isResult}
+          resultPilots={resultPilots}
         />
       ))}
     </ul>
@@ -81,12 +88,20 @@ SortableList.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   setItems: PropTypes.func.isRequired,
   isMove: PropTypes.bool,
+  isResult: PropTypes.bool.isRequired,
+  resultPilots: PropTypes.array.isRequired, // Adiciona PropType
 };
 
-const Sortable = ({ items, setItems, isMove }) => {
+const Sortable = ({ items, setItems, isMove, isResult, resultPilots }) => {
   return (
     <DndProvider backend={HTML5Backend}>
-      <SortableList isMove={isMove} items={items} setItems={setItems} />
+      <SortableList
+        isMove={isMove}
+        items={items}
+        setItems={setItems}
+        isResult={isResult}
+        resultPilots={resultPilots}
+      />
     </DndProvider>
   );
 };
@@ -95,6 +110,8 @@ Sortable.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   setItems: PropTypes.func.isRequired,
   isMove: PropTypes.bool,
+  isResult: PropTypes.bool.isRequired,
+  resultPilots: PropTypes.array.isRequired,
 };
 
 export default Sortable;

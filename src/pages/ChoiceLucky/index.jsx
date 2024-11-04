@@ -14,11 +14,10 @@ export default function ChoiceLucky() {
   const { setIsLoading, dataUser } = useContexts();
   const [race, setRace] = useState("");
   const [pilots, setPilots] = useState([]);
-  const [resultPilots, setResultPilots] = useState([]); // Estado para armazenar os resultados
-  const [resultSaved, setResultSaved] = useState(false); // Flag para indicar se o resultado foi salvo
+  const [resultPilots, setResultPilots] = useState([]);
+  const [resultSaved, setResultSaved] = useState(false);
 
   useEffect(() => {
-    // Carregar informações da corrida
     axios
       .get(`${baseUrl}/racing/${idRace}`, {
         headers: { accept: "application/json" },
@@ -27,25 +26,23 @@ export default function ChoiceLucky() {
         setRace(response.data);
 
         if (response.data.result_racing !== "") {
-          console.log("idRacingBet:", race); // Log do idRacingBet
           const resultData = JSON.parse(response.data.result_racing);
-          setResultPilots(resultData); // Armazena os resultados na variável state
+          setResultPilots(resultData);
         }
-        setResultSaved(response.data.resultSaved || false); // Atualiza com o valor salvo
+        setResultSaved(response.data.resultSaved || false);
       })
       .catch((error) => console.log(error));
 
     const endpoint =
-      idRacingBet == 0
+      idRacingBet === "0"
         ? `${urlAPIChat}race/pilots`
         : `${baseUrl}/racing-bets/${idRacingBet}`;
 
-    // Carregar pilotos
     axios
       .get(endpoint, { headers: { accept: "application/json" } })
       .then((response) => {
         const data =
-          idRacingBet == 0
+          idRacingBet === "0"
             ? response.data.data
             : JSON.parse(response.data.list_pilots);
         setPilots(data);
@@ -60,8 +57,6 @@ export default function ChoiceLucky() {
       userId: dataUser.id,
       listPilots: JSON.stringify(pilots),
     };
-
-    console.log("Body da requisição:", body);
 
     axios
       .post(`${baseUrl}/racing-bets`, body)
@@ -93,9 +88,11 @@ export default function ChoiceLucky() {
             )}
           </div>
           <Sortable
-            isMove={!resultSaved && resultPilots.length === 0} // Desabilitar se houver resultados
+            isMove={!resultSaved && resultPilots.length === 0}
             items={pilots}
             setItems={setPilots}
+            isResult={false}
+            resultPilots={resultPilots} 
           />
         </div>
 
@@ -108,6 +105,8 @@ export default function ChoiceLucky() {
               isMove={false}
               items={resultPilots}
               setItems={setResultPilots}
+              isResult={true}
+              resultPilots={resultPilots} 
             />
           </div>
         )}
