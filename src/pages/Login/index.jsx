@@ -75,8 +75,14 @@ const Login = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      const token = await user.getIdToken(); 
-      console.log("token result", token);
+      const token = await user.getIdToken(); // Aqui estava o erro
+      console.log("result", result);
+      console.log("user", user);
+      console.log("token 1 func", result.user.getIdToken());
+      console.log("token 1 ", result.user.getIdToken);
+      console.log("token result func", result.user.getIdTokenResult());
+      console.log("token result", result.user.getIdTokenResult);
+      console.log("token", result._tokenResponse.localId);
 
       const body = {
         nickname: user.email.split("@")[0],
@@ -95,7 +101,7 @@ const Login = () => {
         json.dateSalved = new Date().toISOString();
         setDataUser(json);
         localStorage.setItem("userStorage", JSON.stringify(json));
-        navigate("/race"); // Redireciona sempre para a tela "race"
+        // navigate("/race"); 
       } else {
         toast.error("Erro ao tentar fazer login. Tente novamente mais tarde.");
       }
