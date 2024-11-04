@@ -82,7 +82,7 @@ const Login = () => {
 
       const body = {
         email: user.email,
-        password: token, // Utilize o token apenas para autenticação, se necessário
+        password: token,
       };
 
       // Primeiro, verifique se o usuário já está cadastrado
@@ -111,37 +111,51 @@ const Login = () => {
         navigate("/race");
         toast.success("Login realizado com sucesso!");
       } else {
-        // Se o usuário não existir, faça o registro
-        const newBody = {
-          fullname: user.displayName || "Nome Padrão",
-          nickname: user.email.split("@")[0],
-          email: user.email,
-          birthdate: "2006/12/03", // Pode ser alterado conforme necessário
-          password: token,
-          profile_picture: user.photoURL || "URL da foto padrão",
-          type_user: "user",
-        };
+        // Verifique se o email ou nickname já estão em uso
+        try {
+          await axios.post(`${baseUrl}/user/check-existence`, {
+            email: user.email,
+            nickname: user.email.split("@")[0],
+          });
 
-        await axios.post(`${baseUrl}/user/register`, newBody, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+          // Se não houver erro, então registre
+          const newBody = {
+            fullname: user.displayName || "Nome Padrão",
+            nickname: user.email.split("@")[0],
+            email: user.email,
+            birthdate: "2006/12/03", // Pode ser alterado conforme necessário
+            password: token,
+            profile_picture: user.photoURL || "URL da foto padrão",
+            type_user: "user",
+          };
 
-        toast.success("Cadastro realizado com sucesso!");
+          await axios.post(`${baseUrl}/user/register`, newBody, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
 
-        const userData = {
-          fullname: newBody.fullname,
-          nickname: newBody.nickname,
-          email: newBody.email,
-          dateSaved: new Date().toISOString(),
-          profile_picture: newBody.profile_picture,
-          type_user: "user",
-        };
+          toast.success("Cadastro realizado com sucesso!");
 
-        setDataUser(userData);
-        localStorage.setItem("userStorage", JSON.stringify(userData));
-        navigate("/race");
+          const userData = {
+            fullname: newBody.fullname,
+            nickname: newBody.nickname,
+            email: newBody.email,
+            dateSaved: new Date().toISOString(),
+            profile_picture: newBody.profile_picture,
+            type_user: "user",
+          };
+
+          setDataUser(userData);
+          localStorage.setItem("userStorage", JSON.stringify(userData));
+          navigate("/race");
+        } catch (checkError) {
+          if (checkError.response && checkError.response.status === 409) {
+            toast.error("Email ou nickname já estão em uso.");
+          } else {
+            toast.error("Erro ao verificar existência do usuário.");
+          }
+        }
       }
     } catch (error) {
       console.error("Erro ao autenticar com Google:", error);
