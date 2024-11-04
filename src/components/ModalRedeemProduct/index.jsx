@@ -267,7 +267,7 @@ function ModalRedeemProduct({ setIsShow, isShow, product }) {
                 <div className={styles.containerProduct}>
                   <img
                     src={successImg}
-                    alt={"Imagem de produto resgtado com sucesso"}
+                    alt={"Imagem de produto resgatado com sucesso"}
                   />
                 </div>
                 <h3 className="w-100 text-center">Produto Resgatado !</h3>

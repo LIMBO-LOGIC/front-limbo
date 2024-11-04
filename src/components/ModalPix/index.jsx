@@ -5,6 +5,9 @@ import { QRCodeSVG } from "qrcode.react";
 import { MdContentCopy } from "react-icons/md";
 import { toast } from "react-toastify";
 import styles from "./modalPix.module.css";
+import { baseUrl } from "../../service/api";
+import axios from "axios";
+import useContexts from "../../hooks/useContext";
 
 export default function ModalPix({
   isShow,
@@ -12,12 +15,94 @@ export default function ModalPix({
   imgQrCode,
   setIsShow,
   setPayment,
+  type,
+  dataUser,
+  orderData,
 }) {
+  const { setDataUser, setIsLoading } = useContexts();
+
   function copiarPix() {
     navigator.clipboard.writeText(qrCode).then(() => {
       toast.success("Código pix copiado!");
     });
   }
+
+  const handleSucess = () => {
+    setIsLoading(true);
+
+    if (type != "product") {
+      const body = {
+        allPoints: parseInt(dataUser.all_points) + parseInt(orderData.points),
+        currentPoints: parseInt(dataUser.current_points) + parseInt(orderData.points),
+      };
+      axios
+        .put(`${baseUrl}/user/${dataUser.id}/points`, body, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          const currentDate = new Date();
+          const formattedDate = currentDate.toISOString();
+
+          const json = response.data.updatedUser;
+          json.dateSalved = formattedDate;
+
+          setDataUser(json);
+          localStorage.setItem("userStorage", JSON.stringify(json));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      const dataBody = {
+        userId: dataUser.id,
+        productId: orderData.id,
+      };
+
+      axios
+        .post(`${baseUrl}/product-rescues`, dataBody, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then(() => {
+          const bodyPuut = {
+            allPoints: dataUser.all_points,
+            currentPoints:
+              Number(dataUser.current_points) - Number(orderData.change_points),
+          };
+          axios
+            .put(`${baseUrl}/user/${dataUser.id}/points`, bodyPuut, {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+            .then(() => {
+              axios
+                .get(`${baseUrl}/user/${dataUser.id}`)
+                .then((response) => {
+                  setDataUser(response.data);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+
+    setPayment(true);
+    setIsShow(false);
+  };
 
   return (
     <Modal
@@ -36,10 +121,7 @@ export default function ModalPix({
           <Button
             variant="primary"
             className="mt-4 px-5"
-            onClick={() => {
-              setPayment(true);
-              setIsShow(false);
-            }}
+            onClick={handleSucess}
           >
             Concluir
           </Button>

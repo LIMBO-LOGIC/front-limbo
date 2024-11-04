@@ -33,7 +33,7 @@ export default function CardMarketplace({
   const navigate = useNavigate();
   const path = useLocation();
   const [isFavoriteProduct, setIsFavoriteProduct] = useState(null);
-  const { dataUser, setIsLoading } = useContexts();
+  const { dataUser, setIsLoading, setOrderData } = useContexts();
   const [isShowModal, setIsShowModal] = useState(false);
 
   useEffect(() => {
@@ -81,10 +81,14 @@ export default function CardMarketplace({
     return <div>Produto não disponível</div>;
   }
 
+  function formatNumber(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
+
   function formatToPrice(value) {
-    const formattedValue = (value - 0.10).toFixed(2);
-    return formattedValue.replace('.', ',');
-}
+    const formattedValue = (value - 0.1).toFixed(2);
+    return formattedValue.replace(".", ",");
+  }
 
   return (
     <>
@@ -123,14 +127,31 @@ export default function CardMarketplace({
           </div>
           <p className={styles.description}>{product.details}</p>
           <div className={styles.points}>
-            <p>{product.change_points} pontos</p>
+            <p>{formatNumber(product.change_points)} pontos</p>
             {product.price != 0 && (
-              <p><strong>+</strong> R$ {formatToPrice(product.price)}</p>
+              <p>
+                <strong>+</strong> R$ {formatToPrice(product.price)}
+              </p>
             )}
           </div>
           {path.pathname != "/race/profile" && (
             <button
-              onClick={() => setIsShowModal(true)}
+              onClick={() => {
+                if (
+                  Number(dataUser.current_points) >=
+                  Number(product.change_points)
+                ) {
+                  let dataJson = {
+                    ...product,
+                    type: "product",
+                  };
+                  setOrderData(dataJson);
+                  localStorage.setItem("orderData", JSON.stringify(dataJson));
+                  navigate("/race/buy-product");
+                } else {
+                  setIsShowModal(true)
+                }
+              }}
               className={styles.btnRedeem}
             >
               Resgatar

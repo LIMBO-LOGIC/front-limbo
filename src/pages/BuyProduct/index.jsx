@@ -8,6 +8,8 @@ import axios from "axios";
 import ModalPix from "../../components/ModalPix";
 import imgQrCode from "/assets/qrcode.png";
 import CardProductPoint from "../../components/CardProductPoint";
+import CardProductMarketplace from "../../components/CardProductMarketplace";
+import ModalCongradulations from "../../components/ModalCongradulations";
 
 export default function BuyProduct() {
   const { orderData, dataUser } = useContexts();
@@ -15,7 +17,7 @@ export default function BuyProduct() {
   const [paymentMethod, setPaymentMethod] = useState("");
   const [errorPayment, setErrorPayment] = useState(false);
   const [frete, setFrete] = useState("--");
-  const [total, setTotal] = useState(orderData != null ? orderData.price : 0);
+  const [total, setTotal] = useState(null);
   const [errors, setErrors] = useState({});
   const [payment, setPayment] = useState(false);
   const [valoresFormulario, setValoresFormulario] = useState({
@@ -29,17 +31,18 @@ export default function BuyProduct() {
     municipio: "",
   });
 
-  const paymentFunc = () => {
-    payment == true ? alert("True") : console.log("False");
-  };
-
   useEffect(() => {
-    paymentFunc();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [payment]);
+    setTotal(
+      orderData != null
+        ? orderData?.type == "product"
+          ? orderData.price != 0 ? formatToPrice(orderData?.price) : orderData?.price
+          : orderData?.price
+        : 0
+    );
+  }, [setTotal, orderData]);
 
   const handleChangePagamento = (event) => {
-    setErrorPayment(false)
+    setErrorPayment(false);
     setPaymentMethod(event.target.id);
   };
 
@@ -56,6 +59,11 @@ export default function BuyProduct() {
   function formatToPrice(value) {
     const formattedValue = (value - 0.1).toFixed(2);
     return formattedValue.replace(".", ",");
+  }
+
+  function formatToPriceFloat(value) {
+    const formattedValue = (value - 0.1).toFixed(2);
+    return formattedValue;
   }
 
   const handleCEPChange = async (e) => {
@@ -75,9 +83,19 @@ export default function BuyProduct() {
           uf: uf,
         }));
         setFrete("7,90");
-        setTotal(
-          formatToPrice(parseFloat(orderData.price) + parseFloat("7.90"))
-        );
+
+        if (orderData?.type === "product") {
+          console.log(orderData.price);
+          console.log();
+          let price = orderData.price == 0 ? orderData.price : formatToPriceFloat(orderData.price)
+          setTotal(
+            (parseFloat(price) + 7.9).toFixed(2).replace(".", ",")
+          );
+        } else {
+          setTotal(
+            formatToPrice(parseFloat(orderData.price) + parseFloat("7.90"))
+          );
+        }
       }
     }
   };
@@ -115,7 +133,7 @@ export default function BuyProduct() {
       });
 
       setErrors(newErrors);
-      // Só prossegue se não houver erros
+
       if (Object.keys(newErrors).length === 0) {
         if (paymentMethod == "pix") {
           setShowPix(true);
@@ -140,10 +158,15 @@ export default function BuyProduct() {
             <div className={styles.title}>
               <h5>Produto</h5>
             </div>
-            <CardProductPoint
-              type={orderData != null && orderData.type}
-              product={orderData}
-            />
+
+            {orderData?.type === "product" ? (
+              <CardProductMarketplace product={orderData} />
+            ) : (
+              <CardProductPoint
+                type={orderData != null && orderData.type}
+                product={orderData}
+              />
+            )}
           </section>
 
           <section
@@ -414,6 +437,15 @@ export default function BuyProduct() {
         imgQrCode={imgQrCode}
         qrCode={`https://formulaelivehub.netlify.app/`}
         setPayment={setPayment}
+        type={orderData?.type}
+        dataUser={dataUser}
+        orderData={orderData}
+      />
+      <ModalCongradulations 
+        isShow={payment}
+        setIsShow={setPayment}
+        setPayment={setPayment}
+        type={orderData?.type}
       />
     </>
   );

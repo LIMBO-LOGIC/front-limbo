@@ -29,7 +29,7 @@
 .cardItens {
   display: flex;
   flex-direction: column;
-  padding: 0 2em;
+  padding: 0px 2em 8px 2em;
   height: fit-content !important;
   width: 100%;
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ContainerProduct from "../../components/ContainerProduct";
 import PageTitle from "../../components/PageTitle";
 import useContexts from "../../hooks/useContext";
@@ -11,12 +11,13 @@ import ModalRedeemProduct from "../../components/ModalRedeemProduct";
 
 export default function Product() {
   const { id } = useParams();
-  const { setIsLoading, dataUser } = useContexts();
+  const { setIsLoading, dataUser, setOrderData } = useContexts();
   const [product, setProduct] = useState(null);
   const [remainingProducts, setRemainingProducts] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [isFavoriteProduct, setIsFavoriteProduct] = useState(null);
   const [isShowModal, setIsShowModal] = useState(false);
+  const navigate = useNavigate()
 
   const capitalize = (text) => {
     return text
@@ -129,6 +130,10 @@ export default function Product() {
     }
   };
 
+  function formatNumber(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");;
+  }
+
   return (
     <>
       <PageTitle text={"Produtos"} />
@@ -153,7 +158,7 @@ export default function Product() {
             </p>
             <div className={styles.cardPrice}>
               <div className={styles.linePrince}>
-                <p>{product != null ? product.change_points : ""} pontos</p>
+                <p>{product != null ? formatNumber(product.change_points) : ""} pontos</p>
                 {isFavoriteProduct ? (
                   <FaHeart
                     onClick={(e) => {
@@ -170,7 +175,22 @@ export default function Product() {
                   />
                 )}
               </div>
-              <button onClick={() => setIsShowModal(true)} className={styles.resgatar}>Resgatar produto</button>
+              <button onClick={() => {
+                if (
+                  Number(dataUser.current_points) >=
+                  Number(product.change_points)
+                ) {
+                  let dataJson = {
+                    ...product,
+                    type: "product",
+                  };
+                  setOrderData(dataJson);
+                  localStorage.setItem("orderData", JSON.stringify(dataJson));
+                  navigate("/race/buy-product");
+                } else {
+                  setIsShowModal(true)
+                }
+              }} className={styles.resgatar}>Resgatar produto</button>
             </div>
           </div>
         </div>

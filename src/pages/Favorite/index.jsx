@@ -39,6 +39,7 @@ export default function Favorite() {
               name: product.name,
               description: product.description,
               details: product.details,
+              price: product.price,
               change_points: product.change_points,
               id_favorite_product: item.id,
               isFavorited: true
