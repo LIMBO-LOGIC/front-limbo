@@ -1,0 +1,7 @@
+.title{
+    width: 100%;
+    text-align: center;
+    color: white;
+    padding: 6px 0px;
+    background-color: var(--bg-blue);
+}

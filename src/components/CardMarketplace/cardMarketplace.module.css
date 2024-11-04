@@ -17,7 +17,6 @@
   cursor: pointer;
   height: 220px;
   align-items: center;
-
 }
 
 .imgProduct {
@@ -35,7 +34,7 @@
   background-color: var(--bg-blue);
   color: var(--white-default);
   padding: 18px 12px;
-  height: 244px;
+  height: 250px;
 
   p {
     font-size: 14px;
@@ -90,11 +89,10 @@
   }
 }
 .description {
-  height: 75px;
-  text-align: justify;
+  height: auto;
   display: -webkit-box;
-  line-clamp: 5;
-  -webkit-line-clamp: 5;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -103,19 +101,26 @@
 }
 .points {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 4px;
   padding-top: 12px;
   p {
-    font-size: 12px;
-    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  strong {
+    font-size: 16px;
   }
 }
 .btnRedeem {
   cursor: pointer;
-  font-size: 10px;
+  font-size: 12px;
   padding: 4px 10px;
-  border-radius: 22px;
+  border-radius: 4px;
   transition: all 0.5s;
   background-color: rgba(0, 108, 207, 1);
 }

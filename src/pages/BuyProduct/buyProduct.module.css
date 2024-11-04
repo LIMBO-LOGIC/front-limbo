@@ -1,0 +1,83 @@
+.containerBuy {
+  display: flex;
+  justify-content: space-between;
+  padding: 3em 0px;
+}
+
+.secProduct {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  width: 60%;
+}
+
+.order{
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1.5em;
+  height: fit-content !important;
+  width: 35%;
+}
+
+.titleOrder {
+  text-align: center;
+  padding: 0 1.5em;
+  padding-top: 1em;
+  border-bottom: 1px solid #dedede;
+}
+
+.cardItens {
+  display: flex;
+  flex-direction: column;
+  padding: 0 2em;
+  height: fit-content !important;
+  width: 100%;
+}
+
+.title {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  padding-top: 2em;
+}
+
+
+
+.infoResumo span {
+  min-height: 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1em;
+  padding: 0.8em 1.5em;
+  border-bottom: 1px solid #dedede;
+}
+
+.titlePaymentMethod{
+  border-bottom: 2px solid #dedede;
+}
+
+.infoResumo span p {
+  margin: 0;
+}
+
+.spanTotal p {
+  font-weight: 500;
+  font-size: 1.3em;
+}
+
+.paymentMethod{
+  gap: 1em;
+  padding-bottom: 1em;
+}
+
+.areaBtn{
+  margin-top: 1.5em;
+  padding: 0 1.5em;
+
+  button{
+    width: 100%;
+    background-color: var(--menu-blue) !important;
+    border-radius: 10px;
+  }
+}

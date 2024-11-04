@@ -13,6 +13,7 @@ export default function RaceProvider({ children }) {
   const [isMobileBig, setIsMobileBig] = useState(window.innerWidth <= 768);
   const [isMobileSmall, setIsMobileSmall] = useState(window.innerWidth <= 640);
   const [dataUser, setDataUser] = useState(JSON.parse(localStorage.getItem('userStorage')))
+  const [orderData, setOrderData] = useState(JSON.parse(localStorage.getItem('orderData')))
 
   useEffect(() => {
     const handleResize = () => {
@@ -29,7 +30,8 @@ export default function RaceProvider({ children }) {
     isMobileSmall,
     dataUser, setDataUser,
     isLoading, setIsLoading,
-    isLoadingAdmin, setIsLoadingAdmin
+    isLoadingAdmin, setIsLoadingAdmin,
+    orderData, setOrderData
   };
 
   return <RaceContext.Provider value={dataRace}>{children}</RaceContext.Provider>;

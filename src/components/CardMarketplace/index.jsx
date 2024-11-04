@@ -17,6 +17,7 @@ CardMarketplace.propTypes = {
     image: PropTypes.string.isRequired,
     change_points: PropTypes.string.isRequired,
     id_favorite_product: PropTypes.number,
+    price: PropTypes.number.isRequired,
   }).isRequired,
   setFavorites: PropTypes.func,
   isFavorited: PropTypes.bool,
@@ -80,6 +81,10 @@ export default function CardMarketplace({
     return <div>Produto não disponível</div>;
   }
 
+  function formatToPrice(value) {
+    const formattedValue = (value - 0.10).toFixed(2);
+    return formattedValue.replace('.', ',');
+}
 
   return (
     <>
@@ -119,15 +124,25 @@ export default function CardMarketplace({
           <p className={styles.description}>{product.details}</p>
           <div className={styles.points}>
             <p>{product.change_points} pontos</p>
-            {path.pathname != "/race/profile" && (
-              <span onClick={() => setIsShowModal(true)} className={styles.btnRedeem}>
-                Resgatar
-              </span>
+            {product.price != 0 && (
+              <p><strong>+</strong> R$ {formatToPrice(product.price)}</p>
             )}
           </div>
+          {path.pathname != "/race/profile" && (
+            <button
+              onClick={() => setIsShowModal(true)}
+              className={styles.btnRedeem}
+            >
+              Resgatar
+            </button>
+          )}
         </div>
       </div>
-      <ModalRedeemProduct setIsShow={setIsShowModal} isShow={isShowModal} product={product}/>
+      <ModalRedeemProduct
+        setIsShow={setIsShowModal}
+        isShow={isShowModal}
+        product={product}
+      />
     </>
   );
 }

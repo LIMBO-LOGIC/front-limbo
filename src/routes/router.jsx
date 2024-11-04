@@ -31,6 +31,7 @@ import AdminLuckyKick from "../pages/AdminLuckyKick";
 import AdminHome from "../pages/AdminHome";
 import AdminChoiceLucky from "../pages/AdminChoiceLucky";
 import PurchasePoints from "../pages/PurchasePoints";
+import BuyProduct from "../pages/BuyProduct";
 
 const router = createBrowserRouter([
   {
@@ -164,6 +165,10 @@ const router = createBrowserRouter([
       {
         path: "sales-points",
         element: <PurchasePoints />,
+      },
+      {
+        path: "buy-product",
+        element: <BuyProduct />,
       },
       {
         path: "*",
