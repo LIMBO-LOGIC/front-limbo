@@ -10,7 +10,7 @@ const SalesChart = () => {
     labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio"],
     datasets: [
       {
-        label: "Troca de Produtos",
+        label: "Resgate de Produtos",
         data: [120, 300, 190, 500, 800],
         backgroundColor: "rgba(75, 192, 192, 0.6)",
         borderColor: "rgba(75, 192, 192, 1)",
