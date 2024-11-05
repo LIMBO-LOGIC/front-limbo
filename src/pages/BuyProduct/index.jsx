@@ -158,7 +158,7 @@ export default function BuyProduct() {
             <div className={styles.title}>
               <h5>Produto</h5>
             </div>
-
+      
             {orderData?.type === "product" ? (
               <CardProductMarketplace product={orderData} />
             ) : (

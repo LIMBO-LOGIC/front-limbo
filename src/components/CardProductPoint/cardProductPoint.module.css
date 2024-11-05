@@ -12,8 +12,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 15%;
+  width: auto;
   height: 100%;
+  margin-right: 16px;
 }
 
 .boxImg img {

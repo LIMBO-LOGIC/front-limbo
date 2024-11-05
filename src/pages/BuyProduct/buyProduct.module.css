@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   padding: 3em 0px;
+  flex-wrap: wrap; /* Permite que os elementos se ajustem quando o espaço for reduzido */
 }
 
 .secProduct {
@@ -11,7 +12,7 @@
   width: 60%;
 }
 
-.order{
+.order {
   display: flex;
   flex-direction: column;
   padding-bottom: 1.5em;
@@ -41,8 +42,6 @@
   padding-top: 2em;
 }
 
-
-
 .infoResumo span {
   min-height: 55px;
   display: flex;
@@ -53,7 +52,7 @@
   border-bottom: 1px solid #dedede;
 }
 
-.titlePaymentMethod{
+.titlePaymentMethod {
   border-bottom: 2px solid #dedede;
 }
 
@@ -66,18 +65,125 @@
   font-size: 1.3em;
 }
 
-.paymentMethod{
+.paymentMethod {
   gap: 1em;
   padding-bottom: 1em;
 }
 
-.areaBtn{
+.areaBtn {
   margin-top: 1.5em;
   padding: 0 1.5em;
+}
 
-  button{
-    width: 100%;
-    background-color: var(--menu-blue) !important;
-    border-radius: 10px;
+.areaBtn button {
+  width: 100%;
+  background-color: var(--menu-blue) !important;
+  border-radius: 10px;
+}
+
+/* MEDIA QUERIES PARA RESPONSIVIDADE */
+
+@media (max-width: 1200px) {
+  .secProduct {
+    width: 50%; /* Reduz a largura dos produtos para 50% em telas menores */
+  }
+
+  .order {
+    width: 45%; /* Reduz a largura da área de pedidos para 45% */
+  }
+}
+
+@media (max-width: 992px) {
+  .secProduct {
+    width: 100%; /* Em telas médias (como tablets), ocupa 100% da largura */
+  }
+
+  .order {
+    width: 100%; /* A área do pedido também ocupa 100% da largura */
+    margin-top: 2em;
+  }
+
+  .containerBuy {
+    flex-direction: column; /* Em telas pequenas, coloca os itens em uma coluna */
+    padding: 2em 0;
+  }
+
+  .title {
+    flex-direction: column;
+    text-align: center; /* Alinha os títulos ao centro em telas pequenas */
+    padding-top: 1.5em;
+  }
+
+  .cardItens {
+    padding: 0 1em; /* Reduz o padding dos itens do cartão */
+  }
+
+  .areaBtn button {
+    width: auto; /* Ajusta o botão para tamanho automático em telas pequenas */
+  }
+}
+
+@media (max-width: 768px) {
+  .containerBuy {
+    padding: 1.5em 0;
+  }
+
+  .secProduct,
+  .order {
+    width: 100%; /* Ambos os elementos ocupam 100% da largura em telas menores */
+  }
+
+  .secProduct {
+    margin-bottom: 2em;
+  }
+
+  .order {
+    margin-top: 2em;
+  }
+
+  .cardItens {
+    padding: 0 1em 6px 1em;
+  }
+
+  .spanTotal p {
+    font-size: 1.2em; /* Ajuste o tamanho da fonte do total em telas pequenas */
+  }
+
+  .titleOrder {
+    padding: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .containerBuy {
+    padding: 1em 0;
+  }
+
+  .secProduct {
+    gap: 1.5em; /* Menos espaço entre os produtos */
+  }
+
+  .titleOrder {
+    padding: 1em;
+    font-size: 1.2em; /* Ajusta o título da ordem */
+  }
+
+  .title {
+    flex-direction: column;
+    align-items: center; /* Alinha os itens ao centro em telas pequenas */
+    padding-top: 1em;
+  }
+
+  .infoResumo span {
+    font-size: 1em; /* Ajusta o tamanho da fonte nas informações do resumo */
+    padding: 0.6em 1.2em;
+  }
+
+  .paymentMethod {
+    padding-bottom: 0.8em;
+  }
+
+  .areaBtn button {
+    font-size: 1em; /* Ajusta o tamanho do botão */
   }
 }
