@@ -1,130 +1,195 @@
 .home {
-    padding: 40px 36px;
-    padding-bottom: 120px;
+  padding: 40px 36px;
+  padding-bottom: 120px;
 }
 
 .nextRace {
-    display: flex;
-    width: 100%;
-    height: 212px;
+  display: flex;
+  width: 100%;
+  height: 212px;
+  flex-wrap: wrap;
 }
 
 .dataRace {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px 18px;
-    width: 100%;
-    color: var(--white-default);
-    font-family: var(--font-montserrat);
-    overflow: hidden; /* Para esconder o pseudo-elemento que vai ficar fora do container */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 18px;
+  width: 100%;
+  color: var(--white-default);
+  font-family: var(--font-montserrat);
+  overflow: hidden;
 }
 
 .dataRace::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url(../../../public/assets/banner_formulae.webp) center bottom no-repeat;
-    background-size: cover; /* Para cobrir todo o container */
-    filter: brightness(0.2);
-    z-index: 0; /* Para ficar atrás do conteúdo */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url(../../../public/assets/banner_formulae.webp) center bottom
+    no-repeat;
+  background-size: cover;
+  filter: brightness(0.2);
+  z-index: 0;
 }
 
 .dataRace > * {
-    position: relative; /* Para garantir que o conteúdo fique acima do pseudo-elemento */
-    z-index: 1;
+  position: relative;
+  z-index: 1;
 }
 
 .title {
-    font-size: clamp(1.25rem, 0.9667rem + 0.4444vw, 1.5rem);
-    font-weight: 600;
+  font-size: clamp(1.25rem, 0.9667rem + 0.4444vw, 1.5rem);
+  font-weight: 600;
 }
 
 .line {
-    height: 1px;
-    width: 100%;
-    background: linear-gradient(90deg, #0ff 0%, #00f 50%, #0ff 100%);
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, #0ff 0%, #00f 50%, #0ff 100%);
 }
 
 .racingCircuit {
-    width: auto;
-    height: 100%;
+  width: 100%;
+  height: auto;
 }
 
 .locationRace {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .raceText {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-weight: 700;
 }
 
 .countryFlag {
-    height: auto;
-    width: clamp(3.125rem, 1.7083rem + 2.2222vw, 4.375rem);
+  height: auto;
+  width: clamp(3.125rem, 1.7083rem + 2.2222vw, 4.375rem);
 }
 
 .location {
-    font-size: clamp(1.5rem, 0.65rem + 1.3333vw, 2.25rem);
+  font-size: clamp(1.5rem, 0.65rem + 1.3333vw, 2.25rem);
 }
 
 .round {
-    font-size: clamp(1rem, 0.4333rem + 0.8889vw, 1.5rem);
+  font-size: clamp(1rem, 0.4333rem + 0.8889vw, 1.5rem);
 }
 
-.teamSection{
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+.teamSection {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
-.raceSection{
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    margin-top: 12px;
+.raceSection {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 12px;
 }
 
 @media (max-width: 1020px) {
-    .nextRace {
-        height: 140px;
-    }
+  .nextRace {
+    height: 140px;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .dataRace {
+    padding: 16px;
+  }
 }
 
 @media (max-width: 860px) {
-    .nextRace {
-        display: grid;
-        grid-auto-flow: dense;
-    }
+  .nextRace {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
 
-    .racingCircuit {
-        order: 2;
-        width: 100%;
-        height: auto;
-    }
+  .racingCircuit {
+    width: 100%;
+    height: auto;
+  }
 
-    .dataRace {
-        order: 1;
-        gap: 80px;
-    }
+  .dataRace {
+    padding: 16px;
+    gap: 12px;
+  }
 
-    .teamSection{
-        margin-top: 350px;
-    }
+  .locationRace {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .countryFlag {
+    width: 3rem;
+  }
+
+  .teamSection {
+    margin-top: 30px;
+  }
+
+  .raceSection {
+    margin-top: 30px;
+  }
 }
 
 @media (max-width: 767px) {
-    .teamSection{
-        margin-top: clamp(18.75rem, -3.2544rem + 65.1982vw, 28rem);
-    }
+  .nextRace {
+    display: block;
+    height: auto;
+  }
+
+  .dataRace {
+    padding: 16px;
+  }
+
+  .teamSection {
+    margin-top: 40px;
+  }
+
+  .racingCircuit {
+    width: 100%;
+    height: auto;
+  }
+
+  .countryFlag {
+    width: 2.5rem;
+  }
+
+  .location {
+    font-size: clamp(1.2rem, 1.5vw, 1.8rem);
+  }
+
+  .round {
+    font-size: clamp(1rem, 0.8vw, 1.2rem);
+  }
+}
+
+@media (max-width: 500px) {
+  .title {
+    font-size: clamp(1.1rem, 1vw + 1.2rem, 1.4rem);
+  }
+
+  .location {
+    font-size: clamp(1.1rem, 1vw + 1.5rem, 2rem);
+  }
+
+  .round {
+    font-size: clamp(0.8rem, 1vw + 1.2rem, 1.1rem);
+  }
+
+  .teamSection {
+    gap: 20px;
+  }
 }
