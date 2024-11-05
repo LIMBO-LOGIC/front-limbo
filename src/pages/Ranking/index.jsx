@@ -16,7 +16,7 @@ export default function Ranking() {
     setIsLoading(true)
     const fetchRankingData = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/user/points`, {
+        const response = await axios.get(`${baseUrl}/users/points`, {
           headers: {
             accept: "application/json",
           },
