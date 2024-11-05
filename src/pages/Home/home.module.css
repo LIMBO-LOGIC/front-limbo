@@ -7,7 +7,7 @@
   display: flex;
   width: 100%;
   height: 212px;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 }
 
 .dataRace {
@@ -29,8 +29,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: url(../../../public/assets/banner_formulae.webp) center bottom
-    no-repeat;
+  background: url(../../../public/assets/banner_formulae.webp) center bottom no-repeat;
   background-size: cover;
   filter: brightness(0.2);
   z-index: 0;
@@ -53,8 +52,8 @@
 }
 
 .racingCircuit {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 100%;
 }
 
 .locationRace {
